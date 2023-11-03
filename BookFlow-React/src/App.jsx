@@ -1,10 +1,10 @@
 import './App.css'
-import DisplayHello from './Components/Hello-Comp'
+import LogIn from './Pages/Log-in'
 
 function App() {
   return (
     <div className="border border-black">
-      <DisplayHello />
+      <LogIn />
     </div>
   )
 }
