@@ -1,7 +1,7 @@
 function LogIn() {
   return (
     <div className="mainDiv flex justify-center h-screen w-screen items-center flex-col bg-black">
-      <div className="bgPic absolute h-screen w-screen bg-[url('./assets/book-bg.jpg')] bg-cover bg-center opacity-5" style={{pointerEvents: "none"}} />
+      <div className="bgPic absolute h-screen w-screen bg-[url('./assets/book-bg.jpg')] bg-cover bg-center opacity-10" style={{pointerEvents: "none"}} />
       <div className="navBar flex h-[4rem] w-[100%] justify-between">
         <div className="flex pl-[3rem] pt-[1rem] text-white">
           LOGO
