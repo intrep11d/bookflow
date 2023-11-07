@@ -7,7 +7,7 @@ function LogIn() {
       />
       <div className="navBar flex h-[4rem] w-[100%] justify-between">
         <div className="flex pl-[3rem] pt-[1rem] text-white">
-          LOGO
+          
           <h1 className="flex pl-4  text-white">BookFlow</h1>
         </div>
       </div>
