@@ -11,15 +11,18 @@ function LogIn() {
           <h1 className="flex pl-4  text-white">BookFlow</h1>
         </div>
       </div>
-
-      <div className="inputField flex flex-col mt-[15%] max-[900px]:mt-[40%] max-[600px]:mt-[50%]">
+      <form
+        method="POST"
+        action=""
+        className="inputField flex flex-col mt-[15%] max-[900px]:mt-[40%] max-[600px]:mt-[50%]"
+      >
         <input
-          className="userField bg-transparent text-[#D5C5AE] border-[0.15rem] border-[#D5C5AE] mb-5 rounded-[0.6rem] w-[22rem] h-[3rem] pl-2 placeholder-[#D5C5AE] outline-none"
+          className="userField bg-transparent text-[#D5C5AE] border-[0.15rem] max-[360px]:w-[19rem] border-[#D5C5AE] mb-5 rounded-[0.6rem] w-[22rem] h-[3rem] pl-2 placeholder-[#D5C5AE] outline-none"
           type="text"
           placeholder="Email/Username"
         />
         <input
-          className="passField bg-transparent text-[#D5C5AE] border-[0.15rem] border-[#D5C5AE] rounded-[0.6rem] w-[22rem] h-[3rem] pl-2 placeholder-[#D5C5AE] outline-none"
+          className="passField bg-transparent text-[#D5C5AE] border-[0.15rem] max-[360px]:w-[19rem]  border-[#D5C5AE] rounded-[0.6rem] w-[22rem] h-[3rem] pl-2 placeholder-[#D5C5AE] outline-none"
           type="text"
           placeholder="Password"
         />
@@ -41,14 +44,11 @@ function LogIn() {
         </div>
 
         <div className="flex justify-center mt-[2.5rem]">
-          <button
-            className="flex border-none w-[22rem] justify-center bg-[#755D41] text-[#D3CCC0] rounded-lg pt-[0.5rem] pb-[0.5rem] transition duration-75 hover:bg-[#D3CCC0] hover:text-[#755D41]"
-          >
+          <button className="flex border-none w-[22rem] max-[360px]:w-[15rem] justify-center bg-[#755D41] text-[#D3CCC0] rounded-lg pt-[0.5rem] pb-[0.5rem] transition duration-75 hover:bg-[#D3CCC0] hover:text-[#755D41]">
             Submit
           </button>
         </div>
-      </div>
-
+      </form>
       <div className="text-[#AC9F8C] regDiv flex mt-auto">
         <h1>Don't have an account?</h1>
         <a
