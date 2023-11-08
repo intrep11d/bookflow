@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom/cjs/react-router-dom";
+
 function signUpUser() {
   return (
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
@@ -43,7 +45,7 @@ function signUpUser() {
             />
 
             <button className="flex border mt-[3rem] border-[#D5C5AE] transition-[0.1s] hover:text-black hover:bg-[#D5C5AE] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[20.5rem]">
-              Next
+              <a href="http://localhost:5173/BookFlow-Password">Next</a>
             </button>
           </div>
         </form>

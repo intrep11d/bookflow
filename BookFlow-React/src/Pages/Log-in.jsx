@@ -53,7 +53,7 @@ function LogIn() {
         <h1>Don't have an account?</h1>
         <a
           className="text-[#755D41] pl-1 mb-[2rem] hover:underline hover:text-[#D5C5AE]"
-          href="http://localhost:5173/BookFlow-UserStaff"
+          href="http://localhost:5173/BookFlow-Signup"
         >
           Register here
         </a>

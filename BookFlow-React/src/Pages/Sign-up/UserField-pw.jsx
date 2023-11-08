@@ -30,9 +30,9 @@ function passwordField() {
           placeholder="Confirm password"
         />
 
-        <div className="flex justify-center">
+        <div className="flex w-[30%] justify-center">
             <input type="checkbox" name="" id="" />
-            <h1 className="flex text-[#D5C5AE] ml-[1rem]">I agree with 
+            <h1 className="flex text-[#D5C5AE] pl-[1rem]">I agree with 
                 <h1 className="text-[#755D41] pl-[0.5rem] pr-[0.5rem]">privacy</h1>
                 <h1>and</h1> 
                 <h1 className="text-[#755D41] pl-[0.5rem]">policy</h1>
@@ -46,7 +46,7 @@ function passwordField() {
 
       <div className="flex mt-[11%] justify-center">
         <h1 className="flex text-[#D5C5AE]">Already have an account?</h1>
-        <a className="flex text-[#755D41] pl-[0.5rem] hover:underline cursor-pointer">Log in</a>
+        <a href="http://localhost:5173/" className="flex text-[#755D41] pl-[0.5rem] hover:underline cursor-pointer">Log in</a>
       </div>
     </div>
   );
