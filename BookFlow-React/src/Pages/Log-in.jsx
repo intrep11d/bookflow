@@ -14,7 +14,7 @@ function LogIn() {
       <form
         method="POST"
         action=""
-        className="inputField flex flex-col mt-[15%] max-[900px]:mt-[40%] max-[600px]:mt-[50%]"
+        className="inputField flex flex-col mt-[15%] max-md:mt-[50%] max-lg:mt-[45%]"
       >
         <input
           className="userField bg-transparent text-[#D5C5AE] border-[0.15rem] max-[360px]:w-[19rem] border-[#D5C5AE] mb-5 rounded-[0.6rem] w-[22rem] h-[3rem] pl-2 placeholder-[#D5C5AE] outline-none"
@@ -49,11 +49,11 @@ function LogIn() {
           </button>
         </div>
       </form>
-      <div className="text-[#AC9F8C] regDiv flex mt-auto">
+      <div className="text-[#AC9F8C] regDiv flex mt-auto max-lg:mb-[5rem]">
         <h1>Don't have an account?</h1>
         <a
           className="text-[#755D41] pl-1 mb-[2rem] hover:underline hover:text-[#D5C5AE]"
-          href="http://localhost:5173/BookFlow-Signup"
+          href="/BookFlow-Signup"
         >
           Register here
         </a>

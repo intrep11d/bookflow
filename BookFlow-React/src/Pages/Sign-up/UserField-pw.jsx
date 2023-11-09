@@ -46,7 +46,7 @@ function passwordField() {
 
       <div className="flex mt-[11%] justify-center">
         <h1 className="flex text-[#D5C5AE]">Already have an account?</h1>
-        <a href="http://localhost:5173/" className="flex text-[#755D41] pl-[0.5rem] hover:underline cursor-pointer">Log in</a>
+        <a href="/" className="flex text-[#755D41] pl-[0.5rem] hover:underline cursor-pointer">Log in</a>
       </div>
     </div>
   );
