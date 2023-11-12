@@ -30,7 +30,7 @@ function passwordField() {
   return (
     <div className="Signup-main-div flex h-screen w-screen flex-col bg-black">
       <div
-        className="bgPic absolute h-screen w-screen bg-[url('./assets/book-bg.jpg')] bg-cover bg-center opacity-10"
+        className="bgPic absolute h-screen w-screen bg-[url('./assets/newbg.jpg')] bg-cover bg-center opacity-10"
         style={{ pointerEvents: "none" }}
       />
 

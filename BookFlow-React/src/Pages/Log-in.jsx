@@ -1,10 +1,6 @@
 function LogIn() {
   return (
     <div className="mainDiv flex justify-center h-screen w-screen items-center flex-col bg-black">
-      <div
-        className="bgPic absolute h-screen w-screen bg-[url('./assets/book-bg.jpg')] bg-cover bg-center opacity-10"
-        style={{ pointerEvents: "none" }}
-      />
       <div className="navBar flex h-[4rem] w-[100%] justify-between">
         <div className="flex pl-[3rem] pt-[1rem] text-white">
           
@@ -30,7 +26,7 @@ function LogIn() {
         <div className="remPass-main-div flex justify-around">
           <div className="checkBox-div flex">
             <input
-              className="checkBox-input bg-transparent border-[#AC9F8C] flex mt-3 rounded-lg mr-2"
+              className="checkBox-input border-[#AC9F8C] flex mt-3 rounded-lg mr-2"
               type="checkbox"
             />
             <h1 className="flex mt-3 text-[#AC9F8C]">Remember me</h1>
@@ -58,6 +54,10 @@ function LogIn() {
           Register here
         </a>
       </div>
+      <div
+        className="bgPic absolute h-screen w-screen bg-[url('./assets/newbg.jpg')] bg-cover bg-center opacity-10"
+        style={{ pointerEvents: "none" }}
+      />
     </div>
   );
 }

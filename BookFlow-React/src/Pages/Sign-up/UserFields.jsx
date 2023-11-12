@@ -3,7 +3,7 @@ function signUpUser() {
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
       <div className="navBar-div flex w-[100%] justify-between">
         <div
-          className="bgPic absolute h-screen w-screen bg-[url('./assets/book-bg.jpg')] bg-cover bg-center opacity-10"
+          className="bgPic absolute h-screen w-screen bg-[url('./assets/newbg.jpg')] bg-cover bg-center opacity-10"
           style={{ pointerEvents: "none" }}
         />
         <div className="flex text-white pl-[3rem] pt-[1rem]">Logo</div>
