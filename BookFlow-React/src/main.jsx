@@ -7,6 +7,7 @@ import LogIn from './Pages/Log-in.jsx'
 import passwordField from './Pages/Sign-up/UserField-pw.jsx'
 import signUpUser from './Pages/Sign-up/UserFields.jsx'
 import userHomePage from './Pages/User-instance/User-Landing.jsx'
+import bookCards from './Components/Book-Cards.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <div>
