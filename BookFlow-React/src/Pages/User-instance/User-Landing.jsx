@@ -1,3 +1,5 @@
+import BookCards from "../../Components/Book-Cards";
+
 function userHomePage() {
   return (
     <div className="userHomePage-div flex h-screen w-screen">
@@ -31,7 +33,7 @@ function userHomePage() {
 
         <div className="middleIcons flex mt-[5rem] flex-col items-center">
           <div className="flex absolute w-[4rem] justify-center h-[15rem]">
-            <div className="selectHover absolute  mt-[0.8rem] flex w-[3rem] h-[3rem] bg-[#755C40] rounded-lg hover:bg-opacity-20 bg-opacity-0 cursor-pointer z-10"/>
+            <div className="selectHover absolute  mt-[0.8rem] flex w-[3rem] h-[3rem] bg-[#755C40] rounded-lg hover:bg-opacity-20 bg-opacity-0 cursor-pointer z-10" />
             <div className="selectHover absolute  mt-[4.5rem] flex w-[3rem] h-[3rem] bg-[#755C40] rounded-lg hover:bg-opacity-20 bg-opacity-0 cursor-pointer z-10" />
             <div className="selectHover absolute  mt-[8rem] flex w-[3rem] h-[3rem] bg-[#755C40] rounded-lg hover:bg-opacity-20 bg-opacity-0 cursor-pointer z-10" />
             <div className="selectHover absolute  mt-[11.5rem] flex w-[3rem] h-[3rem] bg-[#755C40] rounded-lg hover:bg-opacity-20 bg-opacity-0 cursor-pointer z-10" />
@@ -183,8 +185,8 @@ function userHomePage() {
         </div>
       </div>
 
-      <div className="mainContent flex h-screen w-[95%]">
-        <div className="topNav flex w-screen h-[8%] border shadow-md">
+      <div className="mainContent flex h-screen w-[95%] flex-col">
+        <div className="topNav flex w-[100%] h-[8%] border shadow-md">
           <svg
             className="absolute ml-4 mt-[1.05rem]"
             width="2rem"
@@ -223,6 +225,19 @@ function userHomePage() {
             className="flex h-[45%] w-[35%] mt-[1rem] ml-[1rem] pl-[2.2rem] rounded-lg bg-[#999999] bg-opacity-20"
             placeholder="Search your favorite books, author, genre"
           />
+        </div>
+        <div className="bookReleases flex h-[100%] w-[100%]">
+          <div className="newReleases flex mt-[1.5%] ml-[2%] w-[100%] h-[40%] flex-col">
+            <h1 className="text-[2rem] font-bold font-[Nunito Extralight]">
+              New Releases
+            </h1>
+            <div className="bookCard-div flex">
+              <BookCards></BookCards>
+              <BookCards></BookCards>
+              <BookCards></BookCards>
+              <BookCards></BookCards>
+            </div>
+          </div>
         </div>
       </div>
     </div>
