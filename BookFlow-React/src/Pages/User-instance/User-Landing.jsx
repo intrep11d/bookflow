@@ -1,7 +1,4 @@
 import BookCards from "../../Components/Book-Cards";
-import BookCards3 from "../../Components/Book-Cards2";
-import BookCards2 from "../../Components/Book-Cards2 copy";
-import BookCards4 from "../../Components/Book-Cards4";
 
 function userHomePage() {
   return (
