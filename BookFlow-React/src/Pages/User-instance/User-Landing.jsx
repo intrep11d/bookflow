@@ -1,4 +1,7 @@
 import BookCards from "../../Components/Book-Cards";
+import BookCards3 from "../../Components/Book-Cards2";
+import BookCards2 from "../../Components/Book-Cards2 copy";
+import BookCards4 from "../../Components/Book-Cards4";
 
 function userHomePage() {
   return (
@@ -228,14 +231,82 @@ function userHomePage() {
         </div>
         <div className="bookReleases flex h-[100%] w-[100%]">
           <div className="newReleases flex mt-[1.5%] ml-[2%] w-[100%] h-[40%] flex-col">
-            <h1 className="text-[2rem] font-bold font-[Nunito Extralight]">
-              New Releases
-            </h1>
+            <div className="flex justify-between items-center pr-[5rem]">
+              <h1 className="text-[2rem] font-bold font-[Nunito Extralight]">
+                New Releases
+              </h1>
+
+              <div className="flex justify-center w-[10rem]">
+                <h1 className="flex leftArrow text-[1rem] font-[Nunito Extralight] mr-[0]">
+                  <svg
+                    width="0.9rem"
+                    height="0.9rem"
+                    viewBox="0 0 1024 1024"
+                    class="icon"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z"
+                      fill="#000000"
+                    />
+                  </svg>
+                </h1>
+                <div className="flex mr-[1rem] justify-center">
+                  <div className="dots flex justify-center">
+                    <svg
+                      width="1rem"
+                      height="1rem"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="12" cy="12" r="2" fill="#000000" />
+                    </svg>
+                    <svg
+                      width="1rem"
+                      height="1rem"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="12" cy="12" r="2" fill="#000000" />
+                    </svg>
+                    <svg
+                      width="1rem"
+                      height="1rem"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="12" cy="12" r="2" fill="#000000" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="rightArrow flex absolute ml-[5rem] text-[1rem] font-[Nunito Extralight] mr-[1rem]">
+                  <svg
+                    className="flex "
+                    width=".9rem"
+                    height=".9rem"
+                    viewBox="0 0 1024 1024"
+                    class="icon"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
+                      fill="#000000"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
             <div className="bookCard-div flex">
-              <BookCards></BookCards>
-              <BookCards></BookCards>
-              <BookCards></BookCards>
-              <BookCards></BookCards>
+              <BookCards />
+              <BookCards />
+              <BookCards />
+              <BookCards />
             </div>
           </div>
         </div>
