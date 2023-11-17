@@ -301,9 +301,6 @@ function userHomePage() {
 
             <div className="bookCard-div flex">
               <BookCards />
-              <BookCards />
-              <BookCards />
-              <BookCards />
             </div>
           </div>
         </div>
