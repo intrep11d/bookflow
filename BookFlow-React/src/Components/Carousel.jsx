@@ -1,9 +1,8 @@
 import atomichabitsImage from "./atomic-habits.jpg";
 import { useState } from "react";
 
-function BookCards() {
-  const [book1, setBook1] = useState("Atomic Habits");
-
+function CarouselFunc() 
+{
   const data = [
     {
       title: `Atomic Habits`,
@@ -28,7 +27,7 @@ function BookCards() {
         <div className="Carousel flex w-[19rem] mt-[1%] h-[12.5rem] mr-[1.5rem] border rounded-xl">
           <div className="imgParent flex">
             <div className="imgDiv flex w-[70%]">
-              <img src={data.img} alt="" />
+              <img src={data.img} alt="" /> 
             </div>
             <div className="flex flex-col">
               <div className="synopsisDiv flex w-[100%]">
@@ -45,4 +44,4 @@ function BookCards() {
   );
 }
 
-export default BookCards;
+export default CarouselFunc;

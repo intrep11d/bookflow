@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'screen-sm': '1440px'
+      },
       backgroundImage: {
         'login-bg': "url('./assets/login-bg.jpg')",
       }

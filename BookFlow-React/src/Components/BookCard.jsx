@@ -1,9 +1,18 @@
-import Carousel from "../../Components/Carousel";
+import { useState } from "react";
+import atomicImage from "./atomic-habits.jpg";
+import { FaStar } from "react-icons/fa";
+import BookRec from "./BookRecs";
+import subtleArt from "./subtleart.jpg";
+import moneyBook from "./money.jpg";
+import pencil from "./pencilbook.jpg";
+import laws from "./48laws.jpg";
 
-function userHomePage() {
+function bookCard(props) {
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
   return (
     <div className="userHomePage-div flex h-screen w-screen">
-      <div className="sideNav bg-[url('./assets/newbg.jpg')] text-white flex flex-col items-center h-screen w-[5%]">
+      <div className="sideNav bg-[url('./assets/newbg.jpg')] text-white flex flex-col items-center h-screen w-[4%]">
         <div className="profileIcon flex">
           <svg
             className="flex mt-[.3rem]"
@@ -185,10 +194,10 @@ function userHomePage() {
         </div>
       </div>
 
-      <div className="mainContent flex h-screen w-[95%] flex-col">
-        <div className="topNav flex w-[100%] h-[8%] border shadow-md">
+      <div className="mainContent flex h-[100%] w-[100%] flex-col">
+        <div className="topNav flex w-[100%] h-[8%] border-purple-600 shadow-[-1rem_0.2rem_1rem_-1px_rgba(0,0,0,0.3)]">
           <svg
-            className="absolute ml-4 mt-[1.05rem]"
+            className="absolute ml-[2.5rem] mt-[1.2rem]"
             width="2rem"
             height="1.5rem"
             viewBox="0 -0.5 25 25"
@@ -222,85 +231,113 @@ function userHomePage() {
           </svg>
           <input
             type="text"
-            className="flex h-[45%] w-[35%] mt-[1rem] ml-[1rem] pl-[2.2rem] rounded-lg bg-[#999999] bg-opacity-20"
+            className="flex h-[2rem] w-[30rem] mt-[1rem] ml-[2rem] pl-[2.8rem] rounded-[10rem] bg-[#755D41] bg-opacity-20"
             placeholder="Search your favorite books, author, genre"
           />
         </div>
-        <div className="bookReleases flex h-[100%] w-[100%]">
-          <div className="newReleases flex mt-[1.5%] ml-[2%] w-[100%] h-[40%] flex-col">
-            <div className="flex justify-between items-center pr-[5rem]">
-              <h1 className="text-[2rem] font-bold font-[Nunito Extralight]">
-                New Releases
-              </h1>
+        <div className="middleContent flex h-[100%] w-[100%] justify-evenly">
+          <div className="bookImage w-[35rem]  flex flex-col justify-center items-center ">
+            <svg
+              className="absolute flex mb-[5rem] z-10"
+              fill="#755D41"
+              width="80rem"
+              height="20rem"
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+              stroke="#755D41"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-              <div className="flex justify-center w-[10rem]">
-                <h1 className="flex leftArrow text-[1rem] font-[Nunito Extralight] mr-[0]">
-                  <svg
-                    width="0.9rem"
-                    height="0.9rem"
-                    viewBox="0 0 1024 1024"
-                    class="icon"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z"
-                      fill="#000000"
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <circle cx="16" cy="16" r="16" />{" "}
+              </g>
+            </svg>
+            <img
+              src={atomicImage}
+              alt=""
+              className="w-[15rem] h-[22rem] shadow-[-1rem_1rem_1rem_-1px_rgba(0,0,0,0.3)] z-20"
+            />
+            <button className="hover:cursor-pointer hover:text-[#392E05] hover:bg-[#B8A48E] rounded-[5rem] text-white h-[3rem] w-[14rem] mt-[3rem] bg-[#755D41]">
+              borrow
+            </button>
+          </div>
+          <div className="bookInfo flex w-[50%]  lg:pt-[5rem] flex-col">
+            <h1 className="title text-[3rem] font-bold">Atomic Habits</h1>{" "}
+            {/*props.title*/}
+            <div className="author flex ">
+              <p className="mr-[0.2rem]">by</p>
+              <p className="font-bold">James Clear</p> {/*props.title*/}
+            </div>
+            <p className="flex mt-[1.5rem] text-[1.5rem]">
+              {[...Array(5)].map((star, index) => {
+                const currentRating = index + 1;
+                return (
+                  <label>
+                    <input
+                      className="cursor-pointer hidden"
+                      type="radio"
+                      name="rating"
+                      value={currentRating}
+                      onClick={() => setRating(currentRating)}
                     />
-                  </svg>
-                </h1>
-                <div className="flex mr-[1rem] justify-center">
-                  <div className="dots flex justify-center">
-                    <svg
-                      width="1rem"
-                      height="1rem"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="12" cy="12" r="2" fill="#000000" />
-                    </svg>
-                    <svg
-                      width="1rem"
-                      height="1rem"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="12" cy="12" r="2" fill="#000000" />
-                    </svg>
-                    <svg
-                      width="1rem"
-                      height="1rem"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="12" cy="12" r="2" fill="#000000" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="rightArrow flex absolute ml-[5rem] text-[1rem] font-[Nunito Extralight] mr-[1rem]">
-                  <svg
-                    className="flex "
-                    width=".9rem"
-                    height=".9rem"
-                    viewBox="0 0 1024 1024"
-                    class="icon"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
-                      fill="#000000"
+                    <FaStar
+                      className="star cursor-pointer"
+                      size={20}
+                      color={
+                        currentRating <= (hover || rating)
+                          ? "#ffc110"
+                          : "#392E05"
+                      }
+                      onMouseEnter={() => setHover(currentRating)}
+                      onMouseLeave={() => setHover(null)}
                     />
-                  </svg>
-                </div>
+                  </label>
+                );
+              })}
+            </p>
+            <p className="synopsis mt-[2rem] lg:text-[1.2rem] text-[1rem] w-[80%]">
+              Atomic Habits by James Clear is a comprehensive, practical guide
+              on how to change your habits and get 1% better every day. Using a
+              framework called the Four Laws of Behavior Change, Atomic Habits
+              teaches readers a simple set of rules for creating good habits and
+              breaking bad ones.
+            </p>
+            <div className="extraInfo flex border-t border-[#392E05] border-opacity-40 mt-[2rem] w-[80%]">
+              <div className="flex flex-col mt-[2rem] text-[1.2rem]">
+                <h1 className="mb-[1rem] font-bold">Editors</h1>
+                <h1 className="mb-[1rem] font-bold">ISBN</h1>
+                <h1 className="mb-[1rem] font-bold">Language</h1>
+                <h1 className="mb-[1rem] font-bold">Pages</h1>
+              </div>
+
+              <div className="flex flex-col mt-[2rem] ml-[25%] text-[1.2rem]">
+                <h1 className="mb-[1rem]">James Clear</h1> {/*props.editors*/}
+                <h1 className="mb-[1rem]">978-0735211292</h1> {/*props.ISBN*/}
+                <h1 className="mb-[1rem]">English</h1> {/*props.Language*/}
+                <h1 className="mb-[1rem]">320</h1> {/*props.Pages*/}
               </div>
             </div>
-
-            <div className="Carousel-div flex">
-              <Carousel />
+          </div>
+          <div className="bookRecommend flex w-[24rem] bg-[#755D41] bg-opacity-20 shadow-[-0.3rem_0rem_1rem_-1px_rgba(0,0,0,0.3)]">
+          <div className="flex flex-col bookRecBar pt-[5%] w-[23rem] text-[1.2rem] h-[100%] overflow-y-auto" style={{ maxHeight: 'calc(100vh - 4rem)' }}>
+              <h1 className="ml-[2rem] text-[#000000] text-opacity-50 font-bold">
+                You may also like
+              </h1>
+              <BookRec image={subtleArt} title="The subtle art of not giving a fuck" author="Author 1" new={false} />
+              <BookRec image={moneyBook} title="The Pshychology of Money" author="Author 2" new={true} />
+              <BookRec image={pencil} title="Thinking Fast and Slow" author="Author 3" new={true}/>
+              <BookRec image={laws} title="Power book" author="Author 4" new={false}/>
+              <BookRec image={subtleArt} title="The subtle art of not giving a fuck" author="Author 1" new={true} />
+              <BookRec image={moneyBook} title="The Pshychology of Money" author="Author 2" new={false} />
+              <BookRec image={pencil} title="Thinking Fast and Slow" author="Author 3" new={true}/>
+              <BookRec image={laws} title="Power book" author="Author 4" new={false}/>
             </div>
           </div>
         </div>
@@ -309,4 +346,4 @@ function userHomePage() {
   );
 }
 
-export default userHomePage;
+export default bookCard;
