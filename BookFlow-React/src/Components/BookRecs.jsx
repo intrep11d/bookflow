@@ -11,7 +11,7 @@ function BookRec(props) {
         <img
           src={image}
           alt=""
-          className="w-[25%] h-[80%] shadow-[0.6em_0.7rem_0.7rem_-1px_rgba(0,0,0,0.3)]"
+          className="w-[25%] h-[80%] shadow-[0.6em_0.7rem_0.7rem_-1px_rgba(0,0,0,0.3)] hover:cursor-pointer"
         />
         <div className="flex font-bold flex-col ml-[1.1rem] h-[10rem] w-[9rem]">
           <h1 className="text-[#3D3D3D] text-[1rem] mt-[1rem]">{title}</h1>
