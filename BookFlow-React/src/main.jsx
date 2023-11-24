@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path='/BookFlow-Signup' component={signUpUser}></Route>
       <Route path='/BookFlow-Password' component={passwordField}></Route>
       <Route path='/BookFlow-userInstance' component={userHomePage}></Route>
-      <Route path='/BookFlow-Category' component={UserCategory}></Route>
+      <Route path='/BookFlow-userCategory' component={UserCategory}></Route>
     </Router>
   </div>
 )
