@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 function passwordField() {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [check, setCheck] =  useState(false);
+  const [check, setCheck] = useState(false);
   const history = useHistory();
 
   const handleCheck = () => {
     setCheck(true);
-  }
+  };
 
   const handleVisible = () => {
     setLoading(true); // Set loading to true when the button is clicked
@@ -59,14 +59,13 @@ function passwordField() {
         />
 
         <div className="flex w-[30%] justify-center">
-          <input type="checkbox" name="" id="" onClick={handleCheck} required/>
+          <input type="checkbox" name="" id="" onClick={handleCheck} required />
           <h1 className="flex text-[#D5C5AE] pl-[1rem]">
             I agree with
             <h1 className="text-[#755D41] pl-[0.5rem] pr-[0.5rem]">privacy</h1>
             <h1>and</h1>
             <h1 className="text-[#755D41] pl-[0.5rem]">policy</h1>
           </h1>
-
         </div>
 
         <button

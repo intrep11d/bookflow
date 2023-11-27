@@ -7,7 +7,7 @@ import LogIn from './Pages/Log-in.jsx'
 import passwordField from './Pages/Sign-up/UserField-pw.jsx'
 import signUpUser from './Pages/Sign-up/UserFields.jsx'
 import userHomePage from './Pages/User-instance/User-Landing.jsx'
-import UserCategory from './Pages/User-instance/User-Category.jsx'
+import UserCategory from './Pages/User-instance/User-Home.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <div>

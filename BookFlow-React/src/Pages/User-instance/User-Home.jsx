@@ -1,15 +1,43 @@
 import userImage from "./image.png";
+import BookPanel from "../../Components/BookPanel";
+import { useState } from "react";
+import { useEffect } from "react";
+import './User-Home-Style.css';
 
 function UserCategory() {
+  const [bookPanelCount, setBookPanelCount] = useState(null);
+
+  //  check the screen size and set the bookPanelCount
+  const handleWindowSize = () => {
+    const isSmallMonitor = window.innerWidth < 1920;
+    setBookPanelCount(isSmallMonitor ? 4 : 5);
+  };
+
+  // useEffect to add event listener and handle initial window size
+  useEffect(() => {
+    handleWindowSize(); // Set the initial bookPanelCount based on window size
+    window.addEventListener("resize", handleWindowSize); // Check for window resize
+    return () => {
+      window.removeEventListener("resize", handleWindowSize); // Cleanup the event listener
+    };
+  }, []); // Empty dependency array ensures this effect runs only once
+
+  // Create an array of BookPanel components based on bookPanelCount
+  const bookPanelsArray = Array.from(
+    { length: bookPanelCount || 0 },
+    (_, index) => <BookPanel key={index} />
+  );
+
   return (
+    <div className="overflow-x-hidden">
     <div className="userHomePage-div flex h-screen w-screen">
-      <div className="mainContent flex h-screen w-[100%] flex-col bg-[#F1E7DD]">
-        <div className="topNav flex w-[100%] h-[4rem] justify-between shadow-md bg-[url('./assets/newbg.jpg')] bg-opacity-80 pl-[1rem] pr-[1rem]">
+      <div className="mainContent flex h-[100%] w-[100%] flex-col">
+        <div className="topNav flex w-[100%] h-[4rem] justify-between shadow-xl bg-[url('./assets/newbg.jpg')] bg-opacity-80">
           <div className="flex items-center">
             <svg
               className="flex ml-[2rem] mt-[0rem]"
               width="4rem"
-              height="3.6rem"
+              height="2.5rem"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -32,11 +60,11 @@ function UserCategory() {
             </svg>
 
             <div className="flex text-[1.5rem]">
-              <h1 className="text-white">BookFlow</h1>
+              <h1 className="text-white font-bold">BookFlow</h1>
             </div>
           </div>
 
-          <div className="topContents ml-[3rem] flex items-center justify-evenly text-white w-[40rem] text-[1.3rem]">
+          <div className="topContents ml-[2rem] flex items-center justify-evenly text-white w-[40rem] text-[1.3rem]">
             <div className="flex">
               <h1>Home</h1>
             </div>
@@ -145,7 +173,7 @@ function UserCategory() {
               </svg>
             </div>
 
-            <div className="profileIconBorder flex w-[5.5rem] justify-center rounded-3xl h-[3rem] items-center bg-[#755D41]">
+            <div className="profileIconBorder flex w-[5.5rem] justify-center rounded-3xl h-[2.4rem] items-center bg-[#755D41]">
               <img
                 src={userImage}
                 className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl"
@@ -181,7 +209,36 @@ function UserCategory() {
             </div>
           </div>
         </div>
+
+        <div className="middleContentDiv flex flex-col h-[96vh] w-screen pr-[5rem] pl-[5rem] pt-[1.5rem]">
+          <div
+            className="bannerDiv h-[14rem] w-[100%] rounded-2xl bg-[url('./assets/stack-book.jpg')] bg-cover"
+            style={{ backgroundPosition: "50% 27%" }}
+          >
+            <div className="bannerGradient h-[100%] rounded-2xl w-[100%] bg-black bg-opacity-50"></div>
+
+            <div className="newRelease flex flex-col border-red-600 w-[100%] h-[15rem] mt-[2.5rem]">
+              <div className="flex justify-between w-[100%] items-center">
+                <h1 className="font-bold text-[1.5rem]">New Releases</h1>
+                <h1>View All</h1>
+              </div>
+
+              <div className="bookPanelDiv flex h-[100%] w-[100%] mt-[1rem] justify-between">
+                {bookPanelsArray.map((panel, index) => (
+                  <div key={index}>{panel}</div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bottomHalf flex border border-blue-700 w-[100%] h-[30rem]">
+              <div className="forYou grid border border-red-600 w-[60%] h-[20rem]">
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
     </div>
   );
 }
