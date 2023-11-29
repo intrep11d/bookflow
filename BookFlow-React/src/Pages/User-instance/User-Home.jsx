@@ -2,13 +2,32 @@ import userImage from "./image.png";
 import BookPanel from "../../Components/BookPanel";
 import BookRec from "../../Components/BookRecs";
 import moneyBook from "../../Components/money.jpg";
+import laws from "../../Components/48laws.jpg";
+import sArt from "../../Components/subtleart.jpg";
+import pencil from "../../Components/pencilbook.jpg"
 import { useState } from "react";
 import { useEffect } from "react";
 import "./User-Home-Style.css";
 
 function UserCategory() {
   const [bookPanelCount, setBookPanelCount] = useState(null);
+  const [authors, setAuthors] = useState(["Author 1", "Author 2", "Author 3"]); // Initial list of authors
+  const [color, setColor] = useState("none");
 
+  const handleAddAuthor = () => {
+    const newAuthor = prompt("Enter the name of the new author:");
+    if (newAuthor) {
+      setAuthors([...authors, newAuthor]);
+    }
+  };
+
+  const handleLikeAuthor = () => {
+    setColor("#650707");
+    if(color == "#650707") {
+      setColor("none");
+    }
+  };
+  
   //  check the screen size and set the bookPanelCount
   const handleWindowSize = () => {
     const isSmallMonitor = window.innerWidth < 1920;
@@ -38,19 +57,19 @@ function UserCategory() {
       new: false,
     },
     {
-      image: moneyBook,
+      image: laws,
+      title: "48 Laws of power",
+      author: "Author 2",
+      new: true,
+    },
+    {
+      image: sArt,
       title: "Another Book Title",
       author: "Author 2",
       new: true,
     },
     {
-      image: moneyBook,
-      title: "Another Book Title",
-      author: "Author 2",
-      new: true,
-    },
-    {
-      image: moneyBook,
+      image: pencil,
       title: "Another Book Title",
       author: "Author 2",
       new: true,
@@ -291,15 +310,194 @@ function UserCategory() {
                 </div>
                 <div className="topAuthors border-orange-600 w-[40rem] flex flex-col">
                   <div
-                    className="topAuthors flex flex-col border border-red-600 w-[100%]
-                   h-[28rem] rounded-xl"
+                    className="topAuthors pl-[3rem] pt-[0.5rem] bg-[#755D41] bg-opacity-[20%] flex flex-col border-red-600 w-[100%]
+                   h-[32rem] rounded-xl"
                   >
-                    <h1 className="text-[1.5rem] font-bold pl-[1rem] pt-[1rem]">
+                    <h1 className="text-[2rem] font-bold pt-[1rem]">
                       Top Authors
                     </h1>
 
-                    
-                    
+                    <div className="ml-[2rem] authors flex flex-col w-[55%] h-[100%]">
+                      <div className="text-[1.25rem] mt-[2rem] flex flex-col">
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem] hover:cursor-pointer"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            onClick={handleLikeAuthor}
+                            fill={color}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem] hover:cursor-pointer"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem]"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem]"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem]"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem]"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem]"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex mb-[1rem]">
+                          <p className="pr-[3rem] text-[#650707]">1</p>
+                          <h1>J.K. Rowling</h1>
+                          <svg
+                            className="relative top-1.5 ml-[5rem]"
+                            width="1.5rem"
+                            height="1.2rem"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

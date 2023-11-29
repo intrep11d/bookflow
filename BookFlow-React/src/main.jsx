@@ -7,7 +7,7 @@ import LogIn from './Pages/Log-in.jsx'
 import passwordField from './Pages/Sign-up/UserField-pw.jsx'
 import signUpUser from './Pages/Sign-up/UserFields.jsx'
 import userHomePage from './Pages/User-instance/User-Landing.jsx'
-import UserCategory from './Pages/User-instance/User-Home.jsx'
+import UserHome from './Pages/User-instance/User-Home.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <div>
@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path='/BookFlow-Signup' component={signUpUser}></Route>
       <Route path='/BookFlow-Password' component={passwordField}></Route>
       <Route path='/BookFlow-userInstance' component={userHomePage}></Route>
-      <Route path='/BookFlow-userCategory' component={UserCategory}></Route>
+      <Route path='/BookFlow-userHome' component={UserHome}></Route>
     </Router>
   </div>
 )

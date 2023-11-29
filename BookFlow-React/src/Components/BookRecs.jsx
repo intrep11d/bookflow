@@ -11,10 +11,10 @@ function BookRec(props) {
         <img
           src={image}
           alt=""
-          className="w-[6rem] h-[9.5rem] shadow-[0.6em_0.7rem_0.7rem_-1px_rgba(0,0,0,0.3)] hover:cursor-pointer"
+          className="w-[6rem] h-[8.6rem] shadow-[0.6em_0.7rem_0.7rem_-1px_rgba(0,0,0,0.3)] hover:cursor-pointer"
         />
         <div className="flex font-bold flex-col ml-[1.1rem] h-[10rem] w-[9rem]">
-          <h1 className="text-[#3D3D3D] text-[1rem] mt-[1rem]">{title}</h1>
+          <h1 className="text-[#3D3D3D] text-[1rem] mt-[1rem] font-bold">{title}</h1>
           <h1 className="text-[#828282] text-[0.695rem] mt-[0.5rem]">
             {author}
           </h1>
