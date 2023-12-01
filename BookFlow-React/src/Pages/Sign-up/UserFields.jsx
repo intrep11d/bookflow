@@ -1,4 +1,17 @@
+import React, { useState } from 'react';
+
 function signUpUser() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    address: '',
+    phoneNumber: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
       <div className="navBar-div flex w-[100%] justify-between">
@@ -13,12 +26,12 @@ function signUpUser() {
       <div className="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
         <form method="POST" action="" className="inputFields-div flex flex-col">
           <div className="name-div flex mb-[1.5rem]">
-            <input
+            <input name="firstName" value={formData.firstName} onChange={handleChange}
               className="flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
-              placeholder="First name"
-              type="text"
+              placeholder="First Name"
+              type="text" 
             />
-            <input
+            <input name="lastName" value={formData.lastName} onChange={handleChange}
               className="flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
               placeholder="Last name"
               type="text"
@@ -26,17 +39,17 @@ function signUpUser() {
           </div>
 
           <div className="others-div flex flex-col">
-            <input
+            <input name="username" value={formData.username} onChange={handleChange}
               className="flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
               placeholder="Username"
               type="text"
             />
-            <input
+            <input name="address" value={formData.address} onChange={handleChange}
               className="flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
               placeholder="Home Address"
               type="text"
             />
-            <input
+            <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}
               className="flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
               placeholder="Phone Number"
               type="text"

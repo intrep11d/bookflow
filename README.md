@@ -2,14 +2,19 @@
 This is the repository for our CIS 2104 Library Management Project named BookFlow.
 
 ## NECESSARY DEPENDENCIES
-
+```
 npm install
-npm install react-router-dom, if not working try npm install react-router-dom@5.2.0
+npm install react-router-dom
+```
+If not working try npm install react-router-dom@5.2.0
 
 ### SERVER-SIDE (BACKEND)
+```
 npm install express
 npm install cors
 npm install nodemon
+```
+### Conventions to follow
 
 # Using Git and GitHub
 
@@ -26,3 +31,18 @@ Look up on how to install Git on your computer and create a GitHub account. Use 
 
 ### CLI (Command Line Interface)
 The CLI is a powerful tool when using Git, although you can use GitHub Desktop, the CLI allows you to have more control and specification.
+
+## Getting started 
+First, go into the directory of your project/folder that you want to work with. In MacOS, you will utilize Terminal which already uses a Unix shell, for Windows you will need to install Git Bash, and navigate using shell commands such as:
+
+* mkdir (make directory)
+  - Creates a new folder
+
+* cd (change directory)
+  - Moves the console into the respective directory.
+
+That's all the bash commands for now.
+
+Assuming that you have installed Git and created a GitHub account. Let's begin!
+
+Use ```cd``` to move into your working directory (the directory or folder that you will work on). Then use ```git init``` to initialize an empty Git repository. You will only do ```git init``` once for a project.
