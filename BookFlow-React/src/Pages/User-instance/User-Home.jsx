@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import "./User-Home-Style.css";
 
-function UserCategory() {
+function UserHome() {
   const [bookPanelCount, setBookPanelCount] = useState(null);
   const [authors, setAuthors] = useState(["Author 1", "Author 2", "Author 3"]); // Initial list of authors
   const [color, setColor] = useState("none");
@@ -318,10 +318,10 @@ function UserCategory() {
                     </h1>
 
                     <div className="ml-[2rem] authors flex flex-col w-[55%] h-[100%]">
-                      <div className="text-[1.25rem] mt-[2rem] flex flex-col">
+                      <div className="authorDiv text-[1.25rem] mt-[2rem] flex h-[100%] flex-col">
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem] hover:cursor-pointer"
                             width="1.5rem"
@@ -344,7 +344,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem] hover:cursor-pointer"
                             width="1.5rem"
@@ -366,7 +366,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem]"
                             width="1.5rem"
@@ -388,7 +388,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem]"
                             width="1.5rem"
@@ -410,7 +410,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem]"
                             width="1.5rem"
@@ -432,7 +432,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem]"
                             width="1.5rem"
@@ -454,7 +454,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem]"
                             width="1.5rem"
@@ -476,7 +476,7 @@ function UserCategory() {
                         </div>
                         <div className="flex mb-[1rem]">
                           <p className="pr-[3rem] text-[#650707]">1</p>
-                          <h1>J.K. Rowling</h1>
+                          <h1 className="text-[90%]">J.K. Rowling</h1>
                           <svg
                             className="relative top-1.5 ml-[5rem]"
                             width="1.5rem"
@@ -509,4 +509,4 @@ function UserCategory() {
   );
 }
 
-export default UserCategory;
+export default UserHome;
