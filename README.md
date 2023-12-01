@@ -2,17 +2,17 @@
 This is the repository for our CIS 2104 Library Management Project named BookFlow.
 
 ## NECESSARY DEPENDENCIES
+No need to ```npm install [insert_dependency]``` since it reads from package.json.
 ```
+cd BookFlow-React
 npm install
-npm install react-router-dom
 ```
 If not working try npm install react-router-dom@5.2.0
 
 ### SERVER-SIDE (BACKEND)
 ```
-npm install express
-npm install cors
-npm install nodemon
+cd server
+npm install
 ```
 ### Conventions to follow
 
