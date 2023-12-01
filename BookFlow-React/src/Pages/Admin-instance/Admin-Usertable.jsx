@@ -17,7 +17,7 @@ function UserAdminTable() {
       Username: "yapyapiee",
       PhoneNumber: "0928643478",
       Email: "pia@whatever.com",
-      Status: "active",
+      Status:"active",
     },
     // Add more entries here as needed
     {
@@ -26,7 +26,7 @@ function UserAdminTable() {
       Username: "yapyapiee",
       PhoneNumber: "0928643478",
       Email: "pia@whatever.com",
-      Status: "active",
+      Status: "blocked",
     },
     {
       UserID: 1,
@@ -50,7 +50,7 @@ function UserAdminTable() {
       Username: "yapyapiee",
       PhoneNumber: "0928643478",
       Email: "pia@whatever.com",
-      Status: "active",
+      Status: "blocked",
     },
     {
       UserID: 1,
