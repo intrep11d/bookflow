@@ -9,7 +9,7 @@ function BookPanel(props) {
       <img
         src={atomBook}
         alt=""
-        className=" w-[9rem] h-[8rem] mt-[rem] rounded-xl shadow-[6px_6px_7px_2px_rgba(0,0,0,0.3)]"
+        className="w-[9rem] h-[8rem] mt-[rem] rounded-xl shadow-[6px_6px_7px_2px_rgba(0,0,0,0.3)]"
       />
       <div className="bookPanelInfo flex flex-col ml-[1rem]">
         <h1 className="text-[1rem]">Atomic Habits</h1>
