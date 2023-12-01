@@ -1,5 +1,6 @@
 # bookflow
 This is the repository for our CIS 2104 Library Management Project named BookFlow.
+Test
 
 ## NECESSARY DEPENDENCIES
 No need to ```npm install [insert_dependency]``` since it reads from package.json.
