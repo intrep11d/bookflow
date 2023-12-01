@@ -1,17 +1,46 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function signUpUser() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     address: '',
     phoneNumber: ''
   });
+  
+  const history = useHistory();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevents the default form submission behavior
+  
+    try {
+      const response = await fetch('http://localhost:3000/api/signup', { // Adjust with your server URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        // Handle success
+        console.log('Signup successful:', data);
+        // You might want to redirect the user or clear the form
+      } else {
+        // Handle errors
+        console.error('Signup failed:', data.message);
+      }
+    } catch (error) {
+      console.error('There was an error during signup:', error);
+    }
+  };
+  
   return (
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
       <div className="navBar-div flex w-[100%] justify-between">
@@ -23,8 +52,8 @@ function signUpUser() {
         <div className="flex text-white pr-[3rem] pt-[1rem]">Test</div>
       </div>
 
-      <div className="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
-        <form method="POST" action="" className="inputFields-div flex flex-col">
+      <div lassName="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
+        <form method="POST" onSubmit={handleSubmit} className="inputFields-div flex flex-col">
           <div className="name-div flex mb-[1.5rem]">
 
             <input name="firstName" value={formData.firstName} onChange={handleChange}
@@ -65,11 +94,11 @@ function signUpUser() {
               type="text"
               required
             />
-
-            <button className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
-              <a className="w-[100%]" href="/BookFlow-Password">
+            
+            <button type="submit" className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
+              {/* <a className="w-[100%]" href="/BookFlow-Password"> */}
                 Next
-              </a>
+              {/* </a> */}
             </button>
 
             <div className="flex mt-[13%] justify-center">
