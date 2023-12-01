@@ -7,3 +7,20 @@
       font-family: "Nunito", system-ui, sans-serif;
     }
   }
+  
+
+  /* For smaller devices like phones */
+@media screen and (max-width: 768px) {
+  /* Styles for smaller screens */
+
+}
+
+/* For tablets */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  /* Styles for tablets */
+}
+
+/* For larger screens */
+@media screen and (min-width: 1025px) {
+  /* Styles for larger screens */
+}

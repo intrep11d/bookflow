@@ -15,10 +15,10 @@ function signUpUser() {
   return (
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
       <div className="navBar-div flex w-[100%] justify-between">
-      <div
-        className="bgPic absolute h-screen w-screen bg-[url('./assets/book-bg.jpg')] bg-cover bg-center opacity-10"
-        style={{ pointerEvents: "none" }}
-      />
+        <div
+          className="bgPic absolute h-screen w-screen bg-[url('./assets/newbg.jpg')] bg-cover bg-center opacity-10"
+          style={{ pointerEvents: "none" }}
+        />
         <div className="flex text-white pl-[3rem] pt-[1rem]">Logo</div>
         <div className="flex text-white pr-[3rem] pt-[1rem]">Test</div>
       </div>
@@ -26,43 +26,61 @@ function signUpUser() {
       <div className="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
         <form method="POST" action="" className="inputFields-div flex flex-col">
           <div className="name-div flex mb-[1.5rem]">
+
             <input name="firstName" value={formData.firstName} onChange={handleChange}
-              className="flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
+              className="userFirstName flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
               placeholder="First Name"
               type="text" 
             />
             <input name="lastName" value={formData.lastName} onChange={handleChange}
-              className="flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
+              className="userLastName flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
+
               placeholder="Last name"
               type="text"
             />
           </div>
 
           <div className="others-div flex flex-col">
+
             <input name="username" value={formData.username} onChange={handleChange}
-              className="flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
+              className="userName flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
+
               placeholder="Username"
               type="text"
+              required
             />
+
             <input name="address" value={formData.address} onChange={handleChange}
-              className="flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
+              className="userHomeAd flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
+
               placeholder="Home Address"
               type="text"
+              required
             />
+
             <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}
-              className="flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
+              className="userPhoneNum flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
+
               placeholder="Phone Number"
               type="text"
+              required
             />
 
             <button className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
-              <a
-                className="w-[21.5rem]"
-                href="/BookFlow-Password"
-              >
+              <a className="w-[100%]" href="/BookFlow-Password">
                 Next
               </a>
             </button>
+
+            <div className="flex mt-[13%] justify-center">
+              <h1 className="flex text-[#D5C5AE]">Already have an account?</h1>
+              <a
+                href="/"
+                className="flex text-[#755D41] pl-[0.5rem] hover:underline cursor-pointer"
+              >
+                Log in
+              </a>
+            </div>
           </div>
         </form>
 
