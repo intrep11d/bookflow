@@ -9,13 +9,13 @@ function AdminEntry(props) {
       <h1 className="pl-[1%]">{Email}</h1>
       {Status === "active" && (
         <button className="text-white justify-center rounded-xl w-[7rem] bg-green-800">
-          {Status}
+            {Status}
         </button>
       )}
 
-      {Status === "blocked" && (
+{Status === "blocked" && (
         <button className="text-white justify-center rounded-xl w-[7rem] bg-red-950">
-          {Status}
+            {Status}
         </button>
       )}
     </div>
