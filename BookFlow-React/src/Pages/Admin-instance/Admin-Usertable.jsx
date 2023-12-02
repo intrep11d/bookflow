@@ -1,6 +1,8 @@
 import "./Admin-Usertable.css";
 import { useEffect, useState } from "react";
 import AdminEntry from "../../Components/Admin-Entry";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import AdminEntryProfile from "../../Components/Admin-Entry-Profile";
 
 function UserAdminTable() {
   const [userCount, setUserCount] = useState(0);
@@ -9,6 +11,25 @@ function UserAdminTable() {
   const [staffClick, setStaffClick] = useState(false);
   const [showResults, setShowResults] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
+  const [showProfile, setShowProfile] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [showUser, setShowUser] = useState(false);
+  const [showStaff, setShowStaff] = useState(false);
+
+  const handleShowUser = () => {
+    setShowUser(true);
+    setShowStaff(false);
+  };
+
+  const handleShowStaff = () => {
+    setShowStaff(true);
+    setShowUser(false);
+  };
+
+  const handleShowProfile = (entry) => {
+    showProfile === true ? setShowProfile(false) : setShowProfile(true);
+    setSelectedEntry(entry);
+  };
 
   const userEntries = [
     {
@@ -17,130 +38,81 @@ function UserAdminTable() {
       Username: "yapyapiee",
       PhoneNumber: "0928643478",
       Email: "pia@whatever.com",
-      Status:"active",
+      Status: "active",
+      Type: "User",
+      Home: "Sto nino",
+      Date: "02/12/2020",
+      Borrow: "10",
+      OverDue: "2",
+      Lost: "3",
+      FavAuth: "Michael Jordan",
+      Genre: "Horror"
     },
     // Add more entries here as needed
     {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
+      UserID: 2,
+      Name: "Jonaz Juan Sayson",
+      Username: "Skiboi",
       PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
+      Email: "Sky@whatever.com",
       Status: "blocked",
+      Type: "User",
+      Home: "Mezzo",
+      Date: "22/6/2022",
+      Borrow: "10",
+      OverDue: "2",
+      Lost: "3",
+      FavAuth: "Michael Jordan",
+      Genre: "Horror"
     },
     {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
+      UserID: 3,
+      Name: "Lawrence Tulodss",
+      Username: "Lawrzzz",
+      PhoneNumber: "0928643478",
+      Email: "Lawr@whatever.com",
+      Status: "active",
+      Type: "User",
+      Home: "Don Rita",
+      Date: "11s/10/2023",
+      Borrow: "10",
+      OverDue: "2",
+      Lost: "3",
+      FavAuth: "Michael Jordan",
+      Genre: "Horror"
+    },
+  ]; //SIMULATING BACKEND
+
+  const staffEntries = [
+    {
+      StaffID: 1,
+      Name: "Michael Jordan",
       Username: "yapyapiee",
       PhoneNumber: "0928643478",
       Email: "pia@whatever.com",
       Status: "active",
+      Type: "Staff"
     },
+    // Add more entries here as needed
     {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
+      StaffID: 2,
+      Name: "Kobe Bryant",
+      Username: "Skiboi",
       PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
+      Email: "Sky@whatever.com",
       Status: "blocked",
+      Type: "Staff"
     },
     {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
+      StaffID: 3,
+      Name: "Joshua Rafols",
+      Username: "Lawrzzz",
       PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
+      Email: "Lawr@whatever.com",
       Status: "active",
+      Type: "Staff"
     },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-    {
-      UserID: 1,
-      Name: "Pia Lorraine Tantay",
-      Username: "yapyapiee",
-      PhoneNumber: "0928643478",
-      Email: "pia@whatever.com",
-      Status: "active",
-    },
-  ];
+  ]; //SIMULATING BACKEND
 
   const handleUserClick = () => {
     setUserClick(true);
@@ -153,7 +125,7 @@ function UserAdminTable() {
   };
 
   return (
-    <div className="overflow-x-hidden overflow-y-hidden">
+    <div className="overflow-x-hidden">
       <div className="userHomePage-div flex h-screen w-screen">
         <div className="mainContent flex h-[100%] w-[100%] flex-col">
           <div className="topNav flex w-[100%] h-[4rem] justify-between shadow-xl bg-[url('./assets/newbg.jpg')] bg-opacity-80">
@@ -381,11 +353,14 @@ function UserAdminTable() {
                         ? "border-opacity-100"
                         : "border-opacity-0"
                     } `}
-                    onClick={handleUserClick}
+                    onClick={() => {
+                      handleUserClick();
+                      handleShowUser();
+                    }}
                   >
                     <h1 className="text-[1rem] font-bold">User</h1>
                     <h1 className="ml-[0.5rem] w-[2rem] h-[1.5rem] text-[1rem] bg-[#392E05] bg-opacity-20 rounded-lg">
-                      {userCount}
+                      {userEntries.length}
                     </h1>
                   </button>
 
@@ -395,11 +370,14 @@ function UserAdminTable() {
                         ? "border-opacity-100"
                         : "border-opacity-0"
                     }`}
-                    onClick={handleStaffClick}
+                    onClick={() => {
+                      handleStaffClick();
+                      handleShowStaff();
+                    }}
                   >
                     <h1 className="text-[1rem] font-bold">Staff</h1>
                     <h1 className="ml-[0.5rem] w-[2rem] bg-[#392E05] bg-opacity-20 rounded-lg">
-                      {staffCount}
+                      {staffEntries.length}
                     </h1>
                   </button>
                 </div>
@@ -416,19 +394,61 @@ function UserAdminTable() {
                   <h1>Status</h1>
                 </div>
 
-                <div className="border-blue-700 h-[100%] w-[100%] mt-[1rem] overflow-y-auto">
+                <div
+                  className="border-blue-700 h-[100%] w-[100%] mt-[1rem] overflow-y-auto hover:cursor-pointer"
+                  onClick={handleShowProfile}
+                >
                   {/* Rendering AdminEntry components dynamically using map */}
-                  {userEntries.map((entry, index) => (
-                    <AdminEntry
-                      key={index} // Add a unique key for each entry
-                      UserID={entry.UserID}
-                      Name={entry.Name}
-                      Username={entry.Username}
-                      PhoneNumber={entry.PhoneNumber}
-                      Email={entry.Email}
-                      Status={entry.Status}
-                    />
-                  ))}
+                  {showUser === true && (
+                    <>
+                      {userEntries.map((entry, index) => (
+                        <Link
+                          key={index} // Add a unique key for each entry
+                          to={{
+                            pathname: `/BookFlow-Admin-entryProfile-user${entry.UserID}`,
+                            state: { entryData: entry }, // Pass entry data as state
+                          }}
+                          className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"
+                        >
+                          <AdminEntry
+                            key={index} // Add a unique key for each entry
+                            UserID={entry.UserID}
+                            Name={entry.Name}
+                            Username={entry.Username}
+                            PhoneNumber={entry.PhoneNumber}
+                            Email={entry.Email}
+                            Status={entry.Status}
+                          />
+                        </Link>
+                      ))}
+                    </>
+                  )}
+
+                  {showStaff === true && (
+                    <>
+                      {staffEntries.map((entry, index) => (
+                        <Link
+                          key={index} // Add a unique key for each entry
+                          to={{
+                            pathname: `/BookFlow-Admin-entryProfile-staff${entry.StaffID}`,
+                            state: { entryData: entry }, // Pass entry data as state
+                          }}
+                          className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"
+                        >
+                          <AdminEntry
+                            key={index} // Add a unique key for each entry
+                            UserID={entry.StaffID}
+                            Name={entry.Name}
+                            Username={entry.Username}
+                            PhoneNumber={entry.PhoneNumber}
+                            Email={entry.Email}
+                            Status={entry.Status}
+                          />
+
+                        </Link>
+                      ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
