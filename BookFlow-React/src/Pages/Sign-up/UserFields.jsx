@@ -15,30 +15,10 @@ function signUpUser() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevents the default form submission behavior
-  
-    try {
-      const response = await fetch('http://localhost:3000/api/signup', { // Adjust with your server URL
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      const data = await response.json();
-      if (response.ok) {
-        // Handle success
-        console.log('Signup successful:', data);
-        // You might want to redirect the user or clear the form
-      } else {
-        // Handle errors
-        console.error('Signup failed:', data.message);
-      }
-    } catch (error) {
-      console.error('There was an error during signup:', error);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.setItem('basicInfo', JSON.stringify(formData)); // Store in local storage
+    history.push('/BookFlow-Password'); // Navigate to the password page
   };
   
   return (
@@ -52,7 +32,7 @@ function signUpUser() {
         <div className="flex text-white pr-[3rem] pt-[1rem]">Test</div>
       </div>
 
-      <div lassName="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
+      <div className="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
         <form method="POST" onSubmit={handleSubmit} className="inputFields-div flex flex-col">
           <div className="name-div flex mb-[1.5rem]">
 
