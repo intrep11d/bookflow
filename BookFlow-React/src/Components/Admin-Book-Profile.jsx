@@ -4,7 +4,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react";
 import AdminBookEntry from "./Admin-Book-Entry";
 
-const AdminEntryProfile = () => {
+const AdminBookProfile = () => {
   const location = useLocation();
   const { entryData } = location.state || {}; // Retrieve entry data from state
   const [showBorrow, setShowBorrow] = useState(false);
@@ -33,187 +33,14 @@ const AdminEntryProfile = () => {
     setShowBorrow(false);
   };
 
-  const borrowEntries = [
-    {
-      BorrowID: 1,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    // Add more entries here as needed
-    {
-      BorrowID: 2,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 3,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 4,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-  ]; //SIMULATING BACKEND
-
-  const favEntries = [
-    {
-      BorrowID: 1,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    // Add more entries here as needed
-    {
-      BorrowID: 2,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "returned",
-    },
-    {
-      BorrowID: 3,
-      Book: "Diary of Michael Jordan",
-      DateBorrow: "20/11/2022",
-      DateDue: "27/11/2022",
-      DateReturn: "27/11/2022",
-      Status: "borrowed",
-    },
-  ]; //SIMULATING BACKEND
-
   const handleShowProfile = (entry) => {
     showProfile === true ? setShowProfile(false) : setShowProfile(true);
     setSelectedEntry(entry);
   };
-  if (!entryData) {
-    // Handle the case if entryData is not available
-    return <div>No data available</div>;
-  }
 
   // Use entryData to display the details in your component
   return (
     <div>
-      {entryData.Type === "User" && (
         <div className="overflow-x-hidden">
           <div className="userHomePage-div flex h-screen w-screen">
             <div className="mainContent flex h-[140%] w-[100%] flex-col">
@@ -384,12 +211,12 @@ const AdminEntryProfile = () => {
                         </svg>
                       </div>
                       <div className="text-[1rem] font-bold">
-                        {entryData.Name}
+                        Test
                       </div>
                       <div className="mt-2">
                         <select className="text-[1rem] pl-[1.5rem] rounded-xl border-gray-300 bg-[#392E05] bg-opacity-10 w-[7rem] flex justify-center">
                           <option className="text-[1rem]" value="option1">
-                            Unblock
+                            test1
                           </option>
                           <option value="option2">Blocked</option>
                         </select>
@@ -399,46 +226,46 @@ const AdminEntryProfile = () => {
                       <h1 className="text-[1.5rem] font-bold">Information</h1>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Username</h1>
-                        <h1 className="font-bold">{entryData.Username}</h1>
+                        <h1 className="font-bold">test</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Email</h1>
-                        <h1 className="font-bold">{entryData.Email}</h1>
+                        <h1 className="font-bold">Email</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Phone Number</h1>
-                        <h1 className="font-bold">{entryData.PhoneNumber}</h1>
+                        <h1 className="font-bold">PhoneNumber</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Home Address</h1>
-                        <h1 className="font-bold">{entryData.Home}</h1>
+                        <h1 className="font-bold">Home</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Joined</h1>
-                        <h1 className="font-bold">{entryData.Date}</h1>
+                        <h1 className="font-bold">Date</h1>
                       </div>
                     </div>
                     <div className="data w-[40%] pl-[3rem] pr-[3rem]">
                       <h1 className="text-[1.5rem] font-bold">Data</h1>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Books Borrowed</h1>
-                        <h1 className="font-bold">{entryData.Borrow}</h1>
+                        <h1 className="font-bold">Borrow</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Overdue Books</h1>
-                        <h1 className="font-bold">{entryData.OverDue}</h1>
+                        <h1 className="font-bold">OverDue</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Books Lost</h1>
-                        <h1 className="font-bold">{entryData.Lost}</h1>
+                        <h1 className="font-bold">Lost</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Favorite Author</h1>
-                        <h1 className="font-bold">{entryData.FavAuth}</h1>
+                        <h1 className="font-bold">FavAuth</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
                         <h1>Favorite</h1>
-                        <h1 className="font-bold">{entryData.Genre}</h1>
+                        <h1 className="font-bold">Genre</h1>
                       </div>
                     </div>
                   </div>
@@ -590,7 +417,7 @@ const AdminEntryProfile = () => {
                       >
                         <h1 className="text-[1rem] font-bold">Favorites</h1>
                         <h1 className="ml-[0.5rem] w-[2rem] bg-[#392E05] bg-opacity-20 rounded-lg">
-                          {favEntries.length}
+                          length
                         </h1>
                       </button>
                     </div>
@@ -647,9 +474,8 @@ const AdminEntryProfile = () => {
             </div>
           </div>
         </div>
-      )}
     </div>
   );
 };
 
-export default AdminEntryProfile;
+export default AdminBookProfile;

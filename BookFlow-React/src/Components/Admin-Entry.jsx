@@ -1,24 +1,49 @@
 function AdminEntry(props) {
-  const { UserID, Name, Username, PhoneNumber, Email, Status } = props;
+  const { UserID, Name, Username, PhoneNumber, Email, Status, Type } = props;
+
   return (
-    <div className="adminEntry justify-around mb-[1rem] flex w-[100%] items-center border-red-600 h-[2rem]">
-      <h1 className="pl-[3.5%] pr-[1%]">{UserID}</h1>
-      <h1 className="pl-[3%] pr-[0.5%]">{Name}</h1>
-      <h1 className="pl-[2%] pr-[4%]">{Username}</h1>
-      <h1 className="pl-[2%] pr-[2%]">{PhoneNumber}</h1>
-      <h1 className="pl-[1%]">{Email}</h1>
-      {Status === "active" && (
-        <button className="text-white justify-center rounded-xl w-[7rem] bg-green-800">
-            {Status}
-        </button>
+    <div className="relative">
+    {Type === "User" && (
+        <tr className="hover:cursor-pointer h-[3rem] flex items-center w-[100%] justify-around pl-[2rem] pr-[2rem]">
+        <>
+          <td className="justify-center absolute mr-[78%]">{UserID}</td>
+          <td className="justify-center absolute mr-[50%]">{Name}</td>
+          <td className="justify-center absolute mr-[16%]">{Username}</td>
+          <td className="justify-center absolute mr-[-16%]">{PhoneNumber}</td>
+          <td className="justify-center absolute mr-[-47%]">{Email}</td>
+          <td className="justify-center absolute mr-[-75%]">
+            {Status === "verified" && (
+              <button className="text-white justify-center rounded-xl w-[7rem] bg-green-800">
+                {Status}
+              </button>
+            )}
+
+            {Status === "blocked" && (
+              <button className="text-white justify-center rounded-xl w-[7rem] bg-red-950">
+                {Status}
+              </button>
+            )}
+
+            {Status === "unverified" && (
+              <button className="text-white justify-center rounded-xl w-[7rem] bg-yellow-500">
+                {Status}
+              </button>
+            )}
+          </td>
+        </>
+        </tr>
       )}
 
-{Status === "blocked" && (
-        <button className="text-white justify-center rounded-xl w-[7rem] bg-red-950">
-            {Status}
-        </button>
+      {Type === "Staff" && (
+        <tr className="h-[3rem] flex items-center w-[100%] justify-around pl-[2rem] pr-[2rem]">
+          <td className="justify-center absolute mr-[77%]">{UserID}</td>
+          <td className="justify-center absolute mr-[50%]">{Name}</td>
+          <td className="justify-center absolute mr-[16%]">{Username}</td>
+          <td className="justify-center absolute mr-[-30%]">{PhoneNumber}</td>
+          <td className="justify-center absolute mr-[-75%]">{Email}</td>
+          </tr>
       )}
-    </div>
+      </div>
   );
 }
 

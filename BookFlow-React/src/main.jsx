@@ -12,6 +12,9 @@ import UserCategory from "./Pages/User-instance/User-Category.jsx";
 import UserAdminTable from "./Pages/Admin-instance/Admin-Usertable.jsx";
 import AdminEntryProfile from "./Components/Admin-Entry-Profile.jsx";
 import BookCard from "./Components/BookCard.jsx";
+import AdminBookTable from "./Pages/Admin-instance/Admin-Bookstable.jsx";
+import BookEntry from "./Components/Book-Entry.jsx";
+import AdminBookProfile from "./Components/Admin-Book-Profile.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <div>
@@ -30,6 +33,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route
         path="/BookFlow-Admin-entryProfile-:userID"
         component={AdminEntryProfile}
+      ></Route>
+      <Route
+        path="/BookFlow-Admin-bookProfile-:bookID"
+        component={BookEntry}
+      ></Route>
+      
+      <Route
+        path="/BookFlow-Admin-bookTable"
+        component={AdminBookTable}
+      ></Route>
+
+      <Route
+        path="/BookFlow-Admin-bookProfile-:CopyID"
+        component={AdminBookProfile}
       ></Route>
     </Router>
   </div>
