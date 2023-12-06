@@ -2,12 +2,14 @@ import "./Admin-Usertable.css";
 import { useState } from "react";
 import BookEntry from "../../Components/Book-Entry";
 import BookCopies from "../../Components/Book-Copies";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserAdminTable() {
   const [clickAll, setClickAll] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [bookClick, setBookClick] = useState(false);
   const [clickedEntry, setClickedEntry] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   //ALL
   const handleShowAll = () => {
@@ -27,8 +29,11 @@ function UserAdminTable() {
   };
 
   const handleEntryClick = (entry) => {
-    setClickedEntry([entry]); // Update clickedEntry state with the details of the clicked entry
-    setBookClick(true); // Show the bookCopyDiv form
+    // Navigate to BookProfile component and pass entry data as state
+    history.push({
+      pathname: `/BookFlow-Admin-bookProfile-${entry.BookID}`, // Adjust the pathname as needed
+      state: { entryData: entry }, // Pass entry data as state
+    });
   };
 
   const allEntries = [
@@ -89,42 +94,9 @@ function UserAdminTable() {
     },
   ]; //SIMULATING BACKEND
 
-  const michaelJordanEntry = allEntries.find(
-    (entry) => entry.Title === "Michael Jordan Biography"
+  const filteredEntries = allEntries.filter((entry) =>
+    entry.Title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const michaelJordanCopies = [
-    {
-      CopyID: michaelJordanEntry.Title + " " + 1,
-      Author: michaelJordanEntry.Author,
-      ISBN: michaelJordanEntry.ISBN,
-      Status: "borrowed",
-    },
-    {
-      CopyID: michaelJordanEntry.Title + " " + 1,
-      Author: michaelJordanEntry.Author,
-      ISBN: michaelJordanEntry.ISBN,
-      Status: "available",
-    },
-    {
-      CopyID: michaelJordanEntry.Title + " " + 1,
-      Author: michaelJordanEntry.Author,
-      ISBN: michaelJordanEntry.ISBN,
-      Status: "lost",
-    },
-    {
-      CopyID: michaelJordanEntry.Title + " " + 1,
-      Author: michaelJordanEntry.Author,
-      ISBN: michaelJordanEntry.ISBN,
-      Status: "unavailable",
-    },
-    {
-      CopyID: michaelJordanEntry.Title + " " + 1,
-      Author: michaelJordanEntry.Author,
-      ISBN: michaelJordanEntry.ISBN,
-      Status: "unavailable",
-    },
-  ];
 
   return (
     <div className="overflow-x-hidden ">
@@ -259,6 +231,8 @@ function UserAdminTable() {
                   id=""
                   className="border border-[#392E05] w-[32%] h-[2.3rem] placeholder:text-[#000000] placeholder:text-opacity-50 rounded-md pl-[2.5rem] bg-opacity-20 bg-[#392E05]"
                   placeholder="Search User ID, Username, Name and etc..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
 
                 <svg
@@ -324,7 +298,7 @@ function UserAdminTable() {
                     </h1>
                   </button>
                 </div>
-                <h1>{`Showing ${allEntries.length} out of ${allEntries.length} results`}</h1>
+                <h1>{`Showing ${filteredEntries.length} out of ${allEntries.length} results`}</h1>
               </div>
 
               <div className="tableContent relative flex flex-col border-red-600 h-[95%] w-[100%] overflow-x-auto overflow-y-auto">
@@ -354,12 +328,19 @@ function UserAdminTable() {
 
                   <tbody className="border-blue-700 h-[100%] w-[100%] mt-[1rem] overflow-y-auto">
                     {/* Rendering AdminEntry components dynamically using map */}
-                    {showAll === true && (
-                      <>
-                        {allEntries.map((entry, index) => (
-                          <div
-                            className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded hover:cursor-pointer"
-                            onClick={() => handleEntryClick(entry)}
+
+                    <>
+                      {filteredEntries.map((entry, index) => (
+                        <div
+                          className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded hover:cursor-pointer"
+                          onClick={() => handleEntryClick(entry)}
+                        >
+                          <Link
+                            to={{
+                              pathname: `/BookFlow-Admin-bookProfile:${entry.BookID}`, // Assuming BookID is unique for each book
+                              state: { bookDetails: entry }, // Pass book details as state to the BookProfile component
+                            }}
+                            className="w-full h-full"
                           >
                             <BookEntry
                               key={index} // Add a unique key for each entry
@@ -371,10 +352,10 @@ function UserAdminTable() {
                               Status={entry.Status}
                               Copies={entry.Copies}
                             />
-                          </div>
-                        ))}
-                      </>
-                    )}
+                          </Link>
+                        </div>
+                      ))}
+                    </>
                   </tbody>
                 </table>
               </div>
@@ -382,7 +363,7 @@ function UserAdminTable() {
           </div>
         </div>
       </div>
-      {bookClick && clickedEntry && (
+      {/* {bookClick && clickedEntry && (
         <div
           action="POST"
           className="bookCopyDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
@@ -483,6 +464,14 @@ function UserAdminTable() {
                   key={index}
                   className="hover:bg-[#392E05] cursor-pointer hover:bg-opacity-40 items-center rounded-xl"
                 >
+                  <Link
+                    key={index} // Add a unique key for each entry
+                    to={{
+                      pathname: `/BookFlow-Admin-bookProfile-${entry.CopyID}`,
+                      state: { entryData: entry }, // Pass entry data as state
+                    }}
+                    className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"
+                  ></Link>
                   <BookCopies
                     key={index}
                     CopyID={entry.CopyID}
@@ -495,7 +484,7 @@ function UserAdminTable() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

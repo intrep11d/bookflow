@@ -15,6 +15,7 @@ import BookCard from "./Components/BookCard.jsx";
 import AdminBookTable from "./Pages/Admin-instance/Admin-Bookstable.jsx";
 import BookEntry from "./Components/Book-Entry.jsx";
 import AdminBookProfile from "./Components/Admin-Book-Profile.jsx";
+import BookCopies from "./Components/Book-Copies.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <div>
@@ -26,28 +27,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/BookFlow-userHome" component={UserHome}></Route>
       <Route path="/BookFlow-userCategory" component={UserCategory}></Route>
       <Route path="/BookFlow-bookCard" component={BookCard}></Route>
-      <Route
-        path="/BookFlow-Admin-userTable"
-        component={UserAdminTable}
-      ></Route>
-      <Route
-        path="/BookFlow-Admin-entryProfile-:userID"
-        component={AdminEntryProfile}
-      ></Route>
-      <Route
-        path="/BookFlow-Admin-bookProfile-:bookID"
-        component={BookEntry}
-      ></Route>
-      
-      <Route
-        path="/BookFlow-Admin-bookTable"
-        component={AdminBookTable}
-      ></Route>
-
-      <Route
-        path="/BookFlow-Admin-bookProfile-:CopyID"
-        component={AdminBookProfile}
-      ></Route>
+      <Route path="/BookFlow-Admin-userTable" component={UserAdminTable}></Route>
+      <Route path="/BookFlow-Admin-entryProfile-:userID" component={AdminEntryProfile}></Route>
+      <Route path="/BookFlow-Admin-bookProfile:bookID" component={AdminBookProfile}></Route>
+      <Route path="/BookFlow-Admin-bookTable" component={AdminBookTable} ></Route>
     </Router>
   </div>
 );

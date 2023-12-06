@@ -437,7 +437,7 @@ const AdminEntryProfile = () => {
                         <h1 className="font-bold">{entryData.FavAuth}</h1>
                       </div>
                       <div className="flex w-[100%] justify-between pt-[1rem]">
-                        <h1>Favorite</h1>
+                        <h1>Favorite Genre</h1>
                         <h1 className="font-bold">{entryData.Genre}</h1>
                       </div>
                     </div>
@@ -502,58 +502,6 @@ const AdminEntryProfile = () => {
                   </div>
 
                   <div className="exportDiv flex items-center w-[8rem]">
-                    <button className=" bg-[#392E05] bg-opacity-20 border items-center flex rounded-md justify-evenly border-[#392E05] w-[100%] h-[100%]">
-                      <svg
-                        fill="#392E05"
-                        width="1.2rem"
-                        height="1.2rem"
-                        viewBox="0 0 24 24"
-                        id="export-left-2"
-                        data-name="Flat Line"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="icon flat-line"
-                      >
-                        <polyline
-                          id="primary"
-                          points="3 9 3 3 9 3"
-                          style={{
-                            fill: "none",
-                            stroke: "rgb(0, 0, 0)",
-                            strokeLinecap: "round",
-                            strokeLinejoin: "round",
-                            strokeWidth: 2,
-                          }}
-                        ></polyline>
-                        <line
-                          id="primary-2"
-                          data-name="primary"
-                          x1="3"
-                          y1="3"
-                          x2="13"
-                          y2="13"
-                          style={{
-                            fill: "none",
-                            stroke: "rgb(0, 0, 0)",
-                            strokeLinecap: "round",
-                            strokeLinejoin: "round",
-                            strokeWidth: 2,
-                          }}
-                        ></line>
-                        <path
-                          id="primary-3"
-                          data-name="primary"
-                          d="M13,3h7a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V13"
-                          style={{
-                            fill: "none",
-                            stroke: "rgb(0, 0, 0)",
-                            strokeLinecap: "round",
-                            strokeLinejoin: "round",
-                            strokeWidth: 2,
-                          }}
-                        ></path>
-                      </svg>
-                      <h1>Export</h1>
-                    </button>
                   </div>
                 </div>
 

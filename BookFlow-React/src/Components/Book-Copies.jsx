@@ -1,8 +1,9 @@
 import { useState } from "react";
 import AdminBookProfile from "./Admin-Book-Profile";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function BookCopies(props) {
-  const { CopyID, Status, Author, ISBN } = props;
+  const { CopyID, Status, Author, ISBN, index } = props;
   const [copyClick, setCopyClick] = useState(false);
 
   const handleClick = () => {
@@ -41,13 +42,14 @@ function BookCopies(props) {
 
       {copyClick === true && (
         <Link
-          key={index} // Add a unique key for each entry
           to={{
-            pathname: `/BookFlow-Admin-bookProfile-${entry.CopyID}`,
-            state: { entryData: entry }, // Pass entry data as state
+            pathname: `/BookFlow-Admin-bookProfile-${CopyID}`, // Use CopyID or any unique identifier
+            state: { bookData: props }, // Pass book data to the new page
           }}
           className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"
-        ></Link>
+        >
+          View Details
+        </Link>
       )}
     </div>
   );
