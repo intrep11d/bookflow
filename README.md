@@ -15,6 +15,8 @@ If not working try npm install react-router-dom@5.2.0
 cd server
 npm install
 ```
+For the Nodemailer to work, make sure to create an .env that contains the variables EMAIL_ADDRESS & EMAIL_PASSWORD. EMAIL_ADDRESS should contain your email or the email that will send the verificaition emails and EMAIL_PASSWORD needs an app password to your account. If you're using gmail read the link https://support.google.com/accounts/answer/185833.
+
 ### Conventions to follow
 
 # Using Git and GitHub
