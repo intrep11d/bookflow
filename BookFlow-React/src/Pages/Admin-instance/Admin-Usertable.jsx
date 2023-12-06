@@ -15,6 +15,7 @@ function UserAdminTable() {
   const [showUser, setShowUser] = useState(false);
   const [showStaff, setShowStaff] = useState(false);
   const [add, setAddStaff] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleShowUser = () => {
     setShowUser(true);
@@ -119,6 +120,14 @@ function UserAdminTable() {
     },
   ]; //SIMULATING BACKEND
 
+  const filteredEntries = userEntries.filter((entry) =>
+    entry.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredEntriesStaff = staffEntries.filter((entry) =>
+    entry.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const handleUserClick = () => {
     setUserClick(true);
     setStaffClick(false);
@@ -167,44 +176,19 @@ function UserAdminTable() {
 
             <div className="topContents ml-[-4rem] flex items-center justify-center text-white w-[40rem] text-[1.3rem]">
               <div className="flex items-center">
-                <a href="/BookFlow-Admin-userTable" className="mr-[2.5rem] border-white w-[7rem]
-                h-[3rem] items-center justify-center flex bg-[#dac98d] bg-opacity-20 rounded-xl">
+                <a
+                  href="/BookFlow-Admin-userTable"
+                  className="mr-[2.5rem] border-white w-[7rem]
+                h-[3rem] items-center justify-center flex bg-[#dac98d] bg-opacity-20 rounded-xl"
+                >
                   Accounts
                 </a>
-                <a href="/BookFlow-Admin-bookTable" className="mr-[2.5rem] w-[7rem] items-center h-[3rem] flex justify-center hover:bg-[#dac98d] hover:bg-opacity-20 rounded-xl">
+                <a
+                  href="/BookFlow-Admin-bookTable"
+                  className="mr-[2.5rem] w-[7rem] items-center h-[3rem] flex justify-center hover:bg-[#dac98d] hover:bg-opacity-20 rounded-xl"
+                >
                   Books
                 </a>
-              </div>
-              <div className="flex">
-                <h1>More</h1>
-                <div className="profileArrow flex ">
-                  <svg
-                    width="2rem"
-                    height="2rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M7 10L12 15L17 10"
-                        stroke="#ffffff"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />{" "}
-                    </g>
-                  </svg>
-                </div>
               </div>
             </div>
 
@@ -255,6 +239,7 @@ function UserAdminTable() {
                   id=""
                   className="border border-[#392E05] w-[32%] h-[2.3rem] placeholder:text-[#000000] placeholder:text-opacity-50 rounded-md pl-[2.5rem] bg-opacity-20 bg-[#392E05]"
                   placeholder="Search User ID, Username, Name and etc..."
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
 
                 <svg
@@ -369,7 +354,13 @@ function UserAdminTable() {
                     </h1>
                   </button>
                 </div>
-                <h1>{`Showing ${showResults} out of ${totalResults} results`}</h1>
+                {userClick === true && (
+                  <h1>{`Showing ${filteredEntries.length} out of ${userEntries.length} results`}</h1>
+                )}
+
+                {staffClick === true && (
+                  <h1>{`Showing ${filteredEntriesStaff.length} out of ${userEntries.length} results`}</h1>
+                )}
               </div>
 
               <div className="tableContent relative flex flex-col border-red-600 h-[95%] w-[100%] overflow-x-auto overflow-y-auto">
@@ -419,7 +410,7 @@ function UserAdminTable() {
                     {/* Rendering AdminEntry components dynamically using map */}
                     {showUser === true && (
                       <>
-                        {userEntries.map((entry, index) => (
+                        {filteredEntries.map((entry, index) => (
                           <Link
                             key={index} // Add a unique key for each entry
                             to={{
@@ -445,7 +436,7 @@ function UserAdminTable() {
 
                     {showStaff === true && (
                       <>
-                        {staffEntries.map((entry, index) => (
+                        {filteredEntriesStaff.map((entry, index) => (
                           <AdminEntry
                             key={index} // Add a unique key for each entry
                             UserID={entry.StaffID}
