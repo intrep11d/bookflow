@@ -1,0 +1,7 @@
+# ignore .env file
+.env
+
+# other files and folders to ignore
+node_modules/
+dist/
+build/

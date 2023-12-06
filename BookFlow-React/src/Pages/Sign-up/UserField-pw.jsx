@@ -2,13 +2,64 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function passwordField() {
-  const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [check, setCheck] = useState(false);
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  });
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [isChecked, setIsChecked] = useState(false); // State to track checkbox status
+  const basicInfo = JSON.parse(localStorage.getItem('basicInfo')); // Retrieve basic info
+  const firstName = basicInfo ? basicInfo.firstName : '';
 
   const handleCheck = () => {
-    setCheck(true);
+    setIsChecked(!isChecked); // Toggle the checkbox state
+  };
+
+  const handleCredentialsChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleCredentialsSubmit = async (event) => {
+    event.preventDefault();
+
+    // Confirm that passwords match (if using password confirmation)
+    if (credentials.password !== credentials.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+   
+    const completeData = { ...basicInfo, ...credentials };
+
+    setLoading(true); // Show loading indication
+
+    try {
+      const response = await fetch('http://localhost:3000/api/users/signup', { // Adjust with your server URL
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(completeData),
+      });
+
+      setLoading(false); // Hide loading indication
+
+      if (response.ok) {
+        // Handle success
+        setVisible(true); // Show confirmation pop-up or redirect
+        // You can redirect to login page or home page after a delay
+        setTimeout(() => {
+          history.push('/'); // Redirect to login page
+        }, 3000);
+      } else {
+        // Handle errors
+        const data = await response.json();
+        alert(data.message); // Show error message
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error('There was an error during signup:', error);
+    }
   };
 
   const handleVisible = () => {
@@ -26,7 +77,7 @@ function passwordField() {
   const cancelVisible = () => {
     history.push("/"); // Redirect to the login page
   };
-
+  // console.log(basicInfo);
   return (
     <div className="Signup-main-div flex h-screen w-screen flex-col bg-black">
       <div
@@ -42,21 +93,35 @@ function passwordField() {
       </div>
 
       <div className="userEmail flex flex-col items-center pt-[12%] max-[912px]:pt-[50%] max-[548]:pt-[10%]">
+        <form onSubmit={handleCredentialsSubmit} className="userEmail flex flex-col items-center pt-[12%]">
         <input
-          type="text"
+          name="email"
           className="flex w-[20.5rem] mr-[1rem] p-[0.5rem]  placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
+          type="email"
+          value={credentials.email}
+          onChange={handleCredentialsChange}
           placeholder="Email"
+          required
         />
-        <input
-          type="password"
+         <input
+          name="password"
           className="userPass flex w-[20.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
+          type="password"
+          value={credentials.password}
+          onChange={handleCredentialsChange}
           placeholder="Password"
+          required
         />
         <input
-          type="password"
+          name="confirmPassword"
           className="userConfirm flex w-[20.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
+          type="password"
+          value={credentials.confirmPassword}
+          onChange={handleCredentialsChange}
           placeholder="Confirm password"
+          required
         />
+        
 
         <div className="flex w-[30%] justify-center">
           <input type="checkbox" name="" id="" onClick={handleCheck} required />
@@ -69,11 +134,13 @@ function passwordField() {
         </div>
 
         <button
+          type="submit"
           className="flex border mt-[1.5rem] border-[#D5C5AE] transition-[0.1s] hover:text-black hover:bg-[#D5C5AE] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[20.5rem]"
           onClick={handleVisible}
         >
           Verify Email Address
         </button>
+        </form>
       </div>
 
       <div className="flex mt-[13%] justify-center">
@@ -86,7 +153,7 @@ function passwordField() {
         </a>
       </div>
 
-      {loading && (
+      {loading  && (
         <div className="absolute top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-70">
           <svg
             className="animate-spin"
@@ -148,8 +215,8 @@ function passwordField() {
               </h1>
               <center>
                 <p className="flex w-[70%] mt-[3%] text-[100%]">
-                  Hey Sky, you’re almost ready to start enjoying BookFlow. We’ve
-                  sent an email to sky@gmail.com to confirm the validity of your
+                  Hey {firstName}, you’re almost ready to start enjoying BookFlow. We’ve
+                  sent an email to {email} to confirm the validity of your
                   email address.
                 </p>
               </center>

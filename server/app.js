@@ -11,6 +11,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use('/api', userRoutes);
 app.use('/api/users', userRoutes); // Prefix all user routes
 // Correct the path for your book routes if necessary
 app.use('/books', bookRoutes);

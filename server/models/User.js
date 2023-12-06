@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     username: { type: DataTypes.STRING, unique: true, allowNull: false },
     passwordHash: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
-    role: { type: DataTypes.ENUM('Patron', 'Staff', 'Admin'), allowNull: false }
+    role: { type: DataTypes.ENUM('Patron', 'Staff', 'Admin'), allowNull: false },
+    emailVerificationToken: { type: DataTypes.STRING, },
+    isEmailVerified: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   });
 
   User.associate = function(models) {

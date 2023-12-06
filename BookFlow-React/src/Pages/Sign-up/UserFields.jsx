@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function signUpUser() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     address: '',
     phoneNumber: ''
   });
+  
+  const history = useHistory();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.setItem('basicInfo', JSON.stringify(formData)); // Store in local storage
+    history.push('/BookFlow-Password'); // Navigate to the password page
+  };
+  
   return (
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
       <div className="navBar-div flex w-[100%] justify-between">
@@ -24,7 +33,7 @@ function signUpUser() {
       </div>
 
       <div className="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
-        <form method="POST" action="" className="inputFields-div flex flex-col">
+        <form method="POST" onSubmit={handleSubmit} className="inputFields-div flex flex-col">
           <div className="name-div flex mb-[1.5rem]">
 
             <input name="firstName" value={formData.firstName} onChange={handleChange}
@@ -65,11 +74,11 @@ function signUpUser() {
               type="text"
               required
             />
-
-            <button className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
-              <a className="w-[100%]" href="/BookFlow-Password">
+            
+            <button type="submit" className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
+              {/* <a className="w-[100%]" href="/BookFlow-Password"> */}
                 Next
-              </a>
+              {/* </a> */}
             </button>
 
             <div className="flex mt-[13%] justify-center">
