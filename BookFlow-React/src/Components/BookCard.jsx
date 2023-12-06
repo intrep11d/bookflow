@@ -12,7 +12,7 @@ function bookCard(props) {
   const [hover, setHover] = useState(null);
   return (
     <div className="userHomePage-div flex h-screen w-screen">
-      <div className="sideNav bg-[url('./assets/newbg.jpg')] text-white flex flex-col items-center h-screen w-[4%]">
+      {/* <div className="sideNav bg-[url('./assets/newbg.jpg')] text-white flex flex-col items-center h-screen w-[4%]">
         <div className="profileIcon flex">
           <svg
             className="flex mt-[.3rem]"
@@ -192,7 +192,7 @@ function bookCard(props) {
             </g>
           </svg>
         </div>
-      </div>
+      </div> */}
 
       <div className="mainContent flex h-[100%] w-[100%] flex-col">
         <div className="topNav flex w-[100%] h-[8%] border-purple-600 shadow-[-1rem_0.2rem_1rem_-1px_rgba(0,0,0,0.3)] ">
@@ -327,64 +327,7 @@ function bookCard(props) {
               </div>
             </div>
           </div>
-          <div className="bookRecommend flex w-[24rem] bg-[#755D41] bg-opacity-20 shadow-[-0.3rem_0.3rem_1rem_-1px_rgba(0,0,0,0.3)]">
-            <div
-              className="flex flex-col bookRecBar pt-[5%] w-[23rem] text-[1.2rem] h-[100%] overflow-y-auto"
-              style={{ maxHeight: "calc(100vh - 4rem)" }}
-            >
-              <h1 className="ml-[2rem] text-[#000000] text-opacity-50 font-bold">
-                You may also like
-              </h1>
-              <BookRec
-                image={subtleArt}
-                title="The subtle art of not giving a fuck"
-                author="Author 1"
-                new={true}
-              />
-              <BookRec
-                image={moneyBook}
-                title="The Pshychology of Money"
-                author="Author 2"
-                new={true}
-              />
-              <BookRec
-                image={pencil}
-                title="Thinking Fast and Slow"
-                author="Author 3"
-                new={true}
-              />
-              <BookRec
-                image={laws}
-                title="Power book"
-                author="Author 4"
-                new={false}
-              />
-              <BookRec
-                image={subtleArt}
-                title="The subtle art of not giving a fuck"
-                author="Author 1"
-                new={true}
-              />
-              <BookRec
-                image={moneyBook}
-                title="The Pshychology of Money"
-                author="Author 2"
-                new={false}
-              />
-              <BookRec
-                image={pencil}
-                title="Thinking Fast and Slow"
-                author="Author 3"
-                new={true}
-              />
-              <BookRec
-                image={laws}
-                title="Power book"
-                author="Author 4"
-                new={false}
-              />
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>
