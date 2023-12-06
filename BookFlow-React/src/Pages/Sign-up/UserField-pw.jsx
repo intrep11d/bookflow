@@ -10,6 +10,8 @@ function passwordField() {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false); // State to track checkbox status
+  const basicInfo = JSON.parse(localStorage.getItem('basicInfo')); // Retrieve basic info
+  const firstName = basicInfo ? basicInfo.firstName : '';
 
   const handleCheck = () => {
     setIsChecked(!isChecked); // Toggle the checkbox state
@@ -28,7 +30,7 @@ function passwordField() {
       return;
     }
 
-    const basicInfo = JSON.parse(localStorage.getItem('basicInfo')); // Retrieve basic info
+   
     const completeData = { ...basicInfo, ...credentials };
 
     setLoading(true); // Show loading indication
@@ -47,7 +49,7 @@ function passwordField() {
         setVisible(true); // Show confirmation pop-up or redirect
         // You can redirect to login page or home page after a delay
         setTimeout(() => {
-          history.push('/login'); // Redirect to login page
+          history.push('/'); // Redirect to login page
         }, 3000);
       } else {
         // Handle errors
@@ -75,7 +77,7 @@ function passwordField() {
   const cancelVisible = () => {
     history.push("/"); // Redirect to the login page
   };
-
+  // console.log(basicInfo);
   return (
     <div className="Signup-main-div flex h-screen w-screen flex-col bg-black">
       <div
@@ -213,8 +215,8 @@ function passwordField() {
               </h1>
               <center>
                 <p className="flex w-[70%] mt-[3%] text-[100%]">
-                  Hey Sky, you’re almost ready to start enjoying BookFlow. We’ve
-                  sent an email to sky@gmail.com to confirm the validity of your
+                  Hey {firstName}, you’re almost ready to start enjoying BookFlow. We’ve
+                  sent an email to {email} to confirm the validity of your
                   email address.
                 </p>
               </center>
