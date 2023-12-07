@@ -25,7 +25,7 @@ function AdminEntry(props) {
             )}
 
             {Status === "unverified" && (
-              <button className="text-white justify-center rounded-xl w-[7rem] bg-yellow-500">
+              <button className="text-white justify-center rounded-xl w-[7rem] bg-yellow-700">
                 {Status}
               </button>
             )}
