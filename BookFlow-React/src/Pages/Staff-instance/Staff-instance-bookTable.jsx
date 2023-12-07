@@ -4,6 +4,7 @@ import BookCopies from "../../Components/Book-Copies";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import BorrowBook from "../../Components/Borrow-Book";
 import SearchBar from "../../Components/SearchBar";
+import Select from "react-select";
 
 function StaffBookTable() {
   const [clickAll, setClickAll] = useState(true);
@@ -12,6 +13,8 @@ function StaffBookTable() {
   const [clickAdd, setClickAdd] = useState(false);
   const [clickAddGenre, setClickAddGenre] = useState(false);
   const [clickAddAuth, setClickAddAuth] = useState(false);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   //ALL
   const handleBorrowClick = () => {
@@ -21,6 +24,22 @@ function StaffBookTable() {
 
   const handleAddBookClose = () => {
     setHandleCloseBook(false);
+  };
+
+  const handleAddGenre = () => {
+    setClickAddGenre(true);
+  };
+
+  const handleCloseAddGenre = () => {
+    setClickAddGenre(false);
+  };
+
+  const handleAddAuthor = () => {
+    setClickAddAuth(true);
+  };
+
+  const handleCloseAddAuthor = () => {
+    setClickAddAuth(false);
   };
 
   const handleAddBook = () => {
@@ -36,7 +55,49 @@ function StaffBookTable() {
     setClickBorrow(false);
   };
 
-  const handleAddGenre = () => {setClickAddGenre(true)}
+  const authorOptions = [
+    { value: "author1", label: "Author 1" },
+    { value: "author3", label: "Author 3" },
+    // Add more authors as needed
+  ];
+
+  const genreOption = [
+    {
+      value: "Horror",
+      lable: "Scary",
+    },
+    {
+      value: "Romance",
+      label: "Love",
+    },
+  ];
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(57, 46, 5, 0.2)",
+      borderColor: "#392E05",
+      width: "21rem", // Set width as needed
+      borderRadius: "0.8rem",
+    }),
+
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: "rgba(57, 46, 5, 0.2)",
+    }),
+  };
+
+  const handleAuthorSelect = (selectedOptions) => {
+    setSelectedAuthors(selectedOptions);
+  };
+
+  const handleGenreSelect = (selectedOptions) => {
+    setSelectedGenres(selectedOptions);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   const allEntries = [
     {
@@ -228,6 +289,8 @@ function StaffBookTable() {
     });
   };
 
+  console.log(clickAddGenre);
+
   return (
     <div className="overflow-x-hidden ">
       <div className="userHomePage-div flex h-screen w-screen">
@@ -321,7 +384,8 @@ function StaffBookTable() {
                 BookID={borrowEntries.BorrowID}
               ></SearchBar>
 
-              <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40">
+              <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
+              onClick={handleAddAuthor}>
                 <svg
                   width="1rem"
                   height="1rem"
@@ -338,12 +402,13 @@ function StaffBookTable() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <h1 className="ml-[0.5rem]" onClick={handleAddGenre}>
-                  Add Author
-                </h1>
+                <h1 className="ml-[0.5rem]">Add Author</h1>
               </div>
 
-              <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40">
+              <div
+                className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
+                onClick={handleAddGenre}
+              >
                 <svg
                   width="1rem"
                   height="1rem"
@@ -360,9 +425,7 @@ function StaffBookTable() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <h1 className="ml-[0.5rem]" onClick={handleAddBook}>
-                  Add Genre
-                </h1>
+                <h1 className="ml-[0.5rem]">Add Genre</h1>
               </div>
 
               <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40">
@@ -399,7 +462,6 @@ function StaffBookTable() {
                     } `}
                     onClick={() => {
                       handleAllClick();
-                      handleShowAll();
                     }}
                   >
                     <h1 className="text-[1rem] ">All</h1>
@@ -416,7 +478,6 @@ function StaffBookTable() {
                     } `}
                     onClick={() => {
                       handleBorrowClick();
-                      handleShowBorrow();
                     }}
                   >
                     <h1 className="text-[1rem]">Borrowed</h1>
@@ -484,7 +545,6 @@ function StaffBookTable() {
 
                   <tbody className="border-blue-700 h-[100%] w-[100%] mt-[1rem] overflow-y-auto">
                     {/* Rendering AdminEntry components dynamically using map */}
-
                     <>
                       {clickAll === true &&
                         filteredEntries.map((entry, index) => (
@@ -537,18 +597,21 @@ function StaffBookTable() {
           </div>
         </div>
       </div>
+
       {clickAdd === true && (
         <form
+          onSubmit={handleSubmit}
           action="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
-          <div className="inputForm flex flex-col border p-[1.5rem] bg-white rounded-lg w-[50%] h-[70%]">
+          <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[45rem] h-[38.5rem]">
             <div className="topNav flex pb-[0.5rem] items-center justify-between border-[#392E05] w-[100%]">
               <h1 className="text-[1.4rem] text-[#392E05]">Add Book</h1>
               <svg
                 width="1.5rem"
                 height="1.5rem"
                 viewBox="0 0 24 24"
+                s
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="cursor-pointer"
@@ -585,15 +648,34 @@ function StaffBookTable() {
                   placeholder="Title"
                   className="border outline-none mt-[1rem] placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
-                <input
-                  type="text"
-                  placeholder="Author(s)"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
 
-                <div className="flex w-[100%] items-center mt-[1rem] h-[15%] border-black">
+                <div className="flex flex-col w-[100%] justify-between items-center">
+                  <Select
+                    placeholder="Select Author(s)"
+                    isMulti
+                    options={authorOptions}
+                    classNamePrefix="select"
+                    value={selectedAuthors}
+                    onChange={handleAuthorSelect}
+                    styles={customStyles}
+                    className="mt-[1rem]"
+                  />
+
+                  <Select
+                    placeholder="Select Genre(s)"
+                    isMulti
+                    options={genreOption}
+                    classNamePrefix="select"
+                    value={selectedGenres}
+                    onChange={handleGenreSelect}
+                    styles={customStyles}
+                    className="mt-[1rem]"
+                  />
+                </div>
+
+                <div className="flex w-[100%] items-center h-[15%] border-black">
                   <p className="w-[10rem] justify-center flex items-center">
-                    Publication Date:{" "}
+                    Publication Date:
                   </p>
                   <input
                     type="date"
@@ -604,8 +686,8 @@ function StaffBookTable() {
                 <input
                   type="text"
                   required
-                  placeholder="International Standard Book Number (ISBN)"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                  placeholder="ISBN"
+                  className="border mt-[0rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
                 <input
                   type="text"
@@ -653,9 +735,9 @@ function StaffBookTable() {
                   </div>
                 </div>
 
-                <input
-                  placeholder="Synopsis"
-                  className="pb-[6rem] border-[#392E05] outline-none synopsis bg-[#392E05] bg-opacity-20 border w-[100%] h-[30%] pl-[1rem] rounded-xl mt-[2rem]"
+                <textarea
+                  placeholder="Synopsis..."
+                  className="pb-[6rem] border-[#392E05] outline-none synopsis placeholder-[#392E05] bg-[#392E05] bg-opacity-20 border w-[100%] h-[13rem] pl-[1rem] pt-[0.5rem] rounded-xl mt-[2rem] overflow-wrap-break-word resize-none"
                 />
               </div>
             </div>
@@ -675,20 +757,22 @@ function StaffBookTable() {
 
       {clickAddGenre === true && (
         <form
+          onSubmit={handleSubmit}
           action="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
-          <div className="inputForm flex flex-col border p-[1.5rem] bg-white rounded-lg w-[50%] h-[70%]">
-            <div className="topNav flex pb-[0.5rem] items-center justify-between border-[#392E05] w-[100%]">
-              <h1 className="text-[1.4rem] text-[#392E05]">Add Book</h1>
+          <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[30rem] h-[15rem]">
+            <div className="border-b border-[#392E05] w-[100%] flex items-center justify-between">
+              <h1 className="text-[1.2rem] pb-[0.5rem]">Add Genre</h1>
               <svg
                 width="1.5rem"
                 height="1.5rem"
                 viewBox="0 0 24 24"
+                s
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="cursor-pointer"
-                onClick={handleCloseAdd}
+                onClick={handleCloseAddGenre}
               >
                 <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
@@ -713,96 +797,25 @@ function StaffBookTable() {
                 </g>
               </svg>
             </div>
-
-            <div className="border flex border-l-0 border-r-0 justify-between h-[100%] border-t-[#392E05] border-b-[#392E05] w-[100%]">
-              <div className="otherInput flex flex-col w-[50%] items-center mt-[0rem]">
-                <input
-                  type="text"
-                  placeholder="Title"
-                  className="border outline-none mt-[1rem] placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-                <input
-                  type="text"
-                  placeholder="Author(s)"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-
-                <div className="flex w-[100%] items-center mt-[1rem] h-[15%] border-black">
-                  <p className="w-[10rem] justify-center flex items-center">
-                    Publication Date:{" "}
-                  </p>
-                  <input
-                    type="date"
-                    placeholder="Publication"
-                    className="border outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[70%] pl-[1rem] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20"
-                  />
-                </div>
-                <input
-                  type="text"
-                  required
-                  placeholder="International Standard Book Number (ISBN)"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-                <input
-                  type="text"
-                  placeholder="Edition"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-                <input
-                  type="text"
-                  placeholder="Format"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Number of Copies"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-              </div>
-
-              <div className="border-black w-[45%] h-[100%] pt-[1rem] flex items-center flex-col">
-                <div className="draghere flex flex-col items-center justify-center border bg-[#392E05] bg-opacity-20 rounded-xl border-[#392E05] w-[100%] h-[40%]">
-                  <svg
-                    width="5rem"
-                    height="5rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className=""
-                  >
-                    <path
-                      d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
-                      stroke="#000000"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <p>Upload file</p>
-                  <div className="">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="items-center flex w-[100%] none"
-                    />
-                  </div>
-                </div>
-
-                <input
-                  placeholder="Synopsis"
-                  className="pb-[6rem] border-[#392E05] outline-none synopsis bg-[#392E05] bg-opacity-20 border w-[100%] h-[30%] pl-[1rem] rounded-xl mt-[2rem]"
-                />
-              </div>
-            </div>
-
-            <div className="buttonsDiv w-[100%] h-[10%] justify-end items-center flex">
+            <input
+              type="text"
+              placeholder="Genre"
+              className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+            />
+            <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
+              <button
+                type="submit"
+                className="w-[10rem] mr-[1rem] text-[#392E05] bg-[#392E05] bg-opacity-20 border-[#392E05] border h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleAddBookClose}
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
                 className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
                 onClick={handleAddBookClose}
               >
-                <h1>Confirm</h1>
+                Add
               </button>
             </div>
           </div>
@@ -811,20 +824,22 @@ function StaffBookTable() {
 
       {clickAddAuth === true && (
         <form
+          onSubmit={handleSubmit}
           action="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
-          <div className="inputForm flex flex-col border p-[1.5rem] bg-white rounded-lg w-[50%] h-[70%]">
-            <div className="topNav flex pb-[0.5rem] items-center justify-between border-[#392E05] w-[100%]">
-              <h1 className="text-[1.4rem] text-[#392E05]">Add Book</h1>
+          <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[30rem] h-[15rem]">
+            <div className="border-b border-[#392E05] w-[100%] flex items-center justify-between">
+              <h1 className="text-[1.2rem] pb-[0.5rem]">Add Author</h1>
               <svg
                 width="1.5rem"
                 height="1.5rem"
                 viewBox="0 0 24 24"
+                s
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="cursor-pointer"
-                onClick={handleCloseAdd}
+                onClick={handleCloseAddAuthor}
               >
                 <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
@@ -849,96 +864,25 @@ function StaffBookTable() {
                 </g>
               </svg>
             </div>
-
-            <div className="border flex border-l-0 border-r-0 justify-between h-[100%] border-t-[#392E05] border-b-[#392E05] w-[100%]">
-              <div className="otherInput flex flex-col w-[50%] items-center mt-[0rem]">
-                <input
-                  type="text"
-                  placeholder="Title"
-                  className="border outline-none mt-[1rem] placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-                <input
-                  type="text"
-                  placeholder="Author(s)"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-
-                <div className="flex w-[100%] items-center mt-[1rem] h-[15%] border-black">
-                  <p className="w-[10rem] justify-center flex items-center">
-                    Publication Date:{" "}
-                  </p>
-                  <input
-                    type="date"
-                    placeholder="Publication"
-                    className="border outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[70%] pl-[1rem] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20"
-                  />
-                </div>
-                <input
-                  type="text"
-                  required
-                  placeholder="International Standard Book Number (ISBN)"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-                <input
-                  type="text"
-                  placeholder="Edition"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-                <input
-                  type="text"
-                  placeholder="Format"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Number of Copies"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
-              </div>
-
-              <div className="border-black w-[45%] h-[100%] pt-[1rem] flex items-center flex-col">
-                <div className="draghere flex flex-col items-center justify-center border bg-[#392E05] bg-opacity-20 rounded-xl border-[#392E05] w-[100%] h-[40%]">
-                  <svg
-                    width="5rem"
-                    height="5rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className=""
-                  >
-                    <path
-                      d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
-                      stroke="#000000"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <p>Upload file</p>
-                  <div className="">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="items-center flex w-[100%] none"
-                    />
-                  </div>
-                </div>
-
-                <input
-                  placeholder="Synopsis"
-                  className="pb-[6rem] border-[#392E05] outline-none synopsis bg-[#392E05] bg-opacity-20 border w-[100%] h-[30%] pl-[1rem] rounded-xl mt-[2rem]"
-                />
-              </div>
-            </div>
-
-            <div className="buttonsDiv w-[100%] h-[10%] justify-end items-center flex">
+            <input
+              type="text"
+              placeholder="Author"
+              className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+            />
+            <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
+              <button
+                type="submit"
+                className="w-[10rem] mr-[1rem] text-[#392E05] bg-[#392E05] bg-opacity-20 border-[#392E05] border h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleCloseAddAuthor}
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
                 className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleAddBookClose}
+                onClick={handleCloseAddAuthor}
               >
-                <h1>Confirm</h1>
+                Add
               </button>
             </div>
           </div>
