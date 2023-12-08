@@ -5,6 +5,8 @@ const cors = require('cors');
 const bookRoutes = require('./routes/bookRoutes');
 const db = require('./models'); // This imports the 'db' object from './models/index.js'
 const userRoutes = require('./routes/userRoutes'); // Routes for user actions
+const adminRoutes = require('./routes/adminRoutes'); // Routes for admin actions
+const staffRoutes = require('./routes/staffRoutes'); // Routes for staff actions
 
 const app = express();
 const port = 3000;
@@ -12,8 +14,10 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json()); // Middleware for parsing JSON 
+app.use('/api', adminRoutes);
 app.use('/api', userRoutes);
 app.use('/api/users', userRoutes); // Prefix all user routes
+app.use('/api/staff', staffRoutes);
 // Correct the path for your book routes if necessary
 app.use('/books', bookRoutes);
 

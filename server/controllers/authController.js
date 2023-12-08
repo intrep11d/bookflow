@@ -30,6 +30,7 @@ const authController = {
         const payload = {
           id: user.id,
           email: user.email,
+          role: user.role
           // You can add more user details here if needed
         };
         
@@ -44,7 +45,8 @@ const authController = {
             if (err) throw err;
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: 'Bearer ' + token,
+              role: user.role // Send back the user's role
             });
           }
         );

@@ -27,15 +27,22 @@ function LogIn() {
         rememberMe: rememberMe}),
       });
 
-      const data = await response.json();
+     
       if (response.ok) {
         // Assuming the backend sends a JWT token on successful login
+        const data = await response.json();
         localStorage.setItem('token', data.token); // Store the token
-        history.push('/BookFlow-userCategory'); // Redirect to the dashboard or home page
+        
+        if (data.role === 'Admin') {
+          history.push('/BookFlow-Admin-userTable');
       } else {
-        // Handle errors, such as invalid credentials
-        setError(data.message || 'Login failed');
+          history.push('/BookFlow-userCategory'); // Redirect to the dashboard or home page
       }
+  } else {
+      // Handle errors
+      // Handle errors, such as invalid credentials
+      setError(data.message || 'Login failed');
+  }
     } catch (error) {
       console.error('Login request failed', error);
       setError('Login request failed');
