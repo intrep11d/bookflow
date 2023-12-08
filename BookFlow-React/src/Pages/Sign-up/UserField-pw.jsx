@@ -13,17 +13,44 @@ function passwordField() {
   const basicInfo = JSON.parse(localStorage.getItem('basicInfo')); // Retrieve basic info
   const firstName = basicInfo ? basicInfo.firstName : '';
 
+  // Validation function
+  const validateCredentials = () => {
+    const { email, password, confirmPassword } = credentials;
+    let newErrors = {};
+    // Simple email regex, you can use a more complex one
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 6) { // Example rule: password length
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    return newErrors;
+  };
+
   const handleCheck = () => {
     setIsChecked(!isChecked); // Toggle the checkbox state
   };
 
   const handleCredentialsChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: null });
+    }
   };
 
   const handleCredentialsSubmit = async (event) => {
     event.preventDefault();
 
+    const formErrors = validateCredentials();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
     // Confirm that passwords match (if using password confirmation)
     if (credentials.password !== credentials.confirmPassword) {
       alert("Passwords do not match!");
@@ -60,6 +87,7 @@ function passwordField() {
       setLoading(false);
       console.error('There was an error during signup:', error);
     }
+    setErrors({});
   };
 
   const handleVisible = () => {
@@ -103,6 +131,7 @@ function passwordField() {
           placeholder="Email"
           required
         />
+        {errors.email && <div className="error-message">{errors.email}</div>}
          <input
           name="password"
           className="userPass flex w-[20.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
@@ -112,6 +141,7 @@ function passwordField() {
           placeholder="Password"
           required
         />
+        {errors.password && <div className="error-message">{errors.password}</div>}
         <input
           name="confirmPassword"
           className="userConfirm flex w-[20.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
@@ -121,7 +151,7 @@ function passwordField() {
           placeholder="Confirm password"
           required
         />
-        
+        {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
 
         <div className="flex w-[30%] justify-center">
           <input type="checkbox" name="" id="" onClick={handleCheck} required />
