@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
       userId: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false },
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
-      dateOfBirth: DataTypes.DATEONLY,
       address: DataTypes.STRING,
       phoneNumber: DataTypes.STRING
     });

@@ -134,9 +134,43 @@ function UserAdminTable() {
     setSelectedGenres(selectedOptions);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmitAuthor = async (event) => {
+  event.preventDefault();
+  const payload = {
+    author: authorName
   };
+
+  // Send the data to your backend
+  try {
+    const response = await fetch('/api/authors', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    console.log('Author added successfully:', data);
+    setAuthorName(''); // Reset the form field
+  } catch (error) {
+    console.error('Error adding author:', error);
+  }
+};
+
+const handleSubmitGenre = async (event) => {
+  event.preventDefault();
+  // Logic to submit genre data
+};
+
+const handleSubmitBook = async (event) => {
+  event.preventDefault();
+  // Logic to submit book data
+};
+
 
   const handleEntryClick = (entry) => {
     // Navigate to BookProfile component and pass entry data as state
@@ -572,6 +606,7 @@ function UserAdminTable() {
               <div className="otherInput flex flex-col w-[50%] items-center mt-[0rem]">
                 <input
                   type="text"
+                  name="title"
                   placeholder="Title"
                   className="border outline-none mt-[1rem] placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
@@ -752,7 +787,7 @@ function UserAdminTable() {
       {clickAddAuth === true && (
         <form
           onSubmit={handleSubmit}
-          action="POST"
+          method="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
           <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[30rem] h-[15rem]">
@@ -793,6 +828,9 @@ function UserAdminTable() {
             </div>
             <input
               type="text"
+              name="author"
+              value={authorName}
+              onChange={handAuthorNameChange}
               placeholder="Author"
               className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
             />
@@ -807,7 +845,7 @@ function UserAdminTable() {
               <button
                 type="submit"
                 className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleCloseAddAuthor}
+                onClick={handleCloseAddAuthor} on
               >
                 Add
               </button>
