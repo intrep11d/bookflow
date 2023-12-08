@@ -291,6 +291,7 @@ function StaffBookTable() {
     });
   };
 
+
   return (
     <div className="overflow-x-hidden ">
       <div className="userHomePage-div flex h-screen w-screen">
@@ -346,36 +347,32 @@ function StaffBookTable() {
                   className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl"
                 />
                 <div className="profileArrow flex ">
-                <Link to={`/`}>
-                  <div className="profileArrow flex ">
-                    <svg
-                      width="2rem"
-                      height="2rem"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                  <svg
+                    width="2rem"
+                    height="2rem"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-                      <g
-                        id="SVGRepo_tracerCarrier"
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <path
+                        d="M7 10L12 15L17 10"
+                        stroke="#ffffff"
+                        stroke-width="1.5"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                      />
-
-                      <g id="SVGRepo_iconCarrier">
-                        {" "}
-                        <path
-                          d="M7 10L12 15L17 10"
-                          stroke="#ffffff"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />{" "}
-                      </g>
-                    </svg>
-                  </div>
-                </Link>
+                      />{" "}
+                    </g>
+                  </svg>
                 </div>
               </div>
             </div>
