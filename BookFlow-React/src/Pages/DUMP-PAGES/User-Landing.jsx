@@ -1,4 +1,3 @@
-import Carousel from "../../Components/Carousel";
 
 function userHomePage() {
   return (

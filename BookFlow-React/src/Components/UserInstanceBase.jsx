@@ -2,7 +2,6 @@ import userImage from "./image.png";
 import "./User-Home-Style.css";
 
 function UserCategory() {
-
   return (
     <div className="overflow-x-hidden">
       <div className="userHomePage-div flex h-screen w-screen">
@@ -185,9 +184,7 @@ function UserCategory() {
             </div>
           </div>
 
-          <div className="middleContentDiv flex flex-col h-[96vh] w-screen pr-[5rem] pl-[5rem] pt-[1.5rem]">
-            
-          </div>
+          <div className="middleContentDiv flex flex-col h-[96vh] w-screen pr-[5rem] pl-[5rem] pt-[1.5rem]"></div>
         </div>
       </div>
     </div>

@@ -1,7 +1,75 @@
-import userImage from "./image.png";
-import "./User-Home-Style.css";
+import SearchBar from "../../Components/SearchBar";
+import BookRec from "../../Components/BookRecs";
+import { useState } from "react";
 
 function UserCategory() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+
+  const searchOptions = ["Horor", "Romance", "Comedy"];
+  
+  const allEntries = [
+    {
+      BookID: 1,
+      Title: "Michael Jordan Biography",
+      Author: "Michael Jordan",
+      Genre: "Biography",
+      ISBN: "892347162",
+      Status: "available",
+      Copies: 3,
+    },
+    // Add more entries here as needed
+    {
+      BookID: 2,
+      Title: "Marvel vs Capcom",
+      Author: "yapyapiee",
+      Genre: "Action",
+      ISBN: "234985323",
+      Status: "available",
+      Copies: 2,
+    },
+    {
+      BookID: 3,
+      Title: "Lawrence Tulodicakes",
+      Author: "Lawrence Tulod",
+      Genre: "Culinary",
+      ISBN: "574839290",
+      Status: "not available",
+      Copies: 5,
+    },
+    {
+      BookID: 3,
+      Title: "Lawrence Tulodicakes",
+      Author: "Lawrence Tulod",
+      Genre: "Culinary",
+      ISBN: "574839290",
+      Status: "not available",
+      Copies: 5,
+    },
+    {
+      BookID: 3,
+      Title: "Lawrence Tulodicakes",
+      Author: "Lawrence Tulod",
+      Genre: "Culinary",
+      ISBN: "574839290",
+      Status: "not available",
+      Copies: 5,
+    },
+    {
+      BookID: 3,
+      Title: "Lawrence Tulodicakes",
+      Author: "Lawrence Tulod",
+      Genre: "Culinary",
+      ISBN: "574839290",
+      Status: "not available",
+      Copies: 5,
+    },
+  ]; //SIMULATING BACKEND
+
+
+  const filteredEntries = allEntries.filter((entry) =>
+  entry.Title.toLowerCase().includes(searchQuery.toLowerCase())
+);
 
   return (
     <div className="overflow-x-hidden">
@@ -38,47 +106,6 @@ function UserCategory() {
                 <h1 className="text-white font-bold">BookFlow</h1>
               </div>
             </div>
-
-            <div className="topContents ml-[2rem] flex items-center justify-evenly text-white w-[40rem] text-[1.3rem]">
-              <div className="flex">
-                <h1>Home</h1>
-              </div>
-              <div className="flex">
-                <h1>Category</h1>
-              </div>
-              <div className="flex">
-                <h1>More</h1>
-                <div className="profileArrow flex ">
-                  <svg
-                    width="2rem"
-                    height="2rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M7 10L12 15L17 10"
-                        stroke="#ffffff"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />{" "}
-                    </g>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
             <div className="topRightContents flex w-auto items-center mr-[1.5rem]">
               <div className="bellSearch flex">
                 <svg
@@ -149,10 +176,7 @@ function UserCategory() {
               </div>
 
               <div className="profileIconBorder flex w-[5.5rem] justify-center rounded-3xl h-[2.4rem] items-center bg-[#755D41]">
-                <img
-                  src={userImage}
-                  className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl"
-                />
+                <img className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl" />
                 <div className="profileArrow flex ">
                   <svg
                     width="2rem"
@@ -185,8 +209,23 @@ function UserCategory() {
             </div>
           </div>
 
-          <div className="middleContentDiv flex flex-col h-[96vh] w-screen pr-[5rem] pl-[5rem] pt-[1.5rem]">
-            
+          <div className="middleContentDiv flex flex-col h-[96vh] w-screen pr-[3rem] pl-[3rem] pt-[1.5rem]">
+            <div className="SearchBar">
+              <SearchBar
+                options={searchOptions}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <div className="mainContent flex">
+              {filteredEntries.map((entry, index) => (
+                <BookRec
+                  key={index}
+                  author={entry.Author}
+                  title={entry.Title}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
