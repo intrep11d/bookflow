@@ -8,7 +8,7 @@ function signUpUser() {
     address: '',
     phoneNumber: ''
   });
-  
+  const [errors, setErrors] = useState({}); // Initialize errors state
   const history = useHistory();
 
   const validateInput = (name, value) => {
@@ -19,7 +19,8 @@ function signUpUser() {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target; // Get name and value from the event target
+    setFormData({ ...formData, [name]: value });
     const error = validateInput(name, value);
     setErrors({ ...errors, [name]: error });
   };
@@ -96,7 +97,7 @@ function signUpUser() {
               type="text"
               required
             />
-            {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>}
+            {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>} 
             
             <button type="submit" className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
               {/* <a className="w-[100%]" href="/BookFlow-Password"> */}
