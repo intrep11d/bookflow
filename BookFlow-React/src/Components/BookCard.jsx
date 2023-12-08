@@ -1,11 +1,5 @@
 import { useState } from "react";
-import atomicImage from "./atomic-habits.jpg";
 import { FaStar } from "react-icons/fa";
-import BookRec from "./BookRecs";
-import subtleArt from "./subtleart.jpg";
-import moneyBook from "./money.jpg";
-import pencil from "./pencilbook.jpg";
-import laws from "./48laws.jpg";
 
 function bookCard(props) {
   const [rating, setRating] = useState(null);

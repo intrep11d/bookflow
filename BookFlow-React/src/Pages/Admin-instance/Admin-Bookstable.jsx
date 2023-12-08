@@ -5,6 +5,7 @@ import BookCopies from "../../Components/Book-Copies";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import SearchBar from "../../Components/SearchBar";
 import Select from "react-select";
+import BorrowBook from "../../Components/Borrow-Book";
 
 function UserAdminTable() {
   const [clickAll, setClickAll] = useState(false);
@@ -17,20 +18,18 @@ function UserAdminTable() {
   const [clickAddAuth, setClickAddAuth] = useState(false);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const [clickBorrow, setClickBorrow] = useState(false);
 
   //ALL
   const handleShowAll = () => {
-    setShowAll(true);
+    setShowAll(false);
+    setClickBorrow(false);
   };
-
-  const authorOptions = [];
-  const genreOption = [];
 
   const handleAddGenre = () => {
     setClickAddGenre(true);
   };
 
-  
   const handleAddBookClose = () => {
     setHandleCloseBook(false);
   };
@@ -61,11 +60,56 @@ function UserAdminTable() {
 
   const handleAllClick = () => {
     setClickAll(true);
+    setClickBorrow(false);
   };
 
   const handleBookClick = () => {
     setBookClick(true);
   };
+
+  const handleBorrowClick = () => {
+    setClickBorrow(true);
+    setClickAll(false);
+  };
+
+  const borrowEntries = [
+    {
+      BorrowID: 1,
+      Book: "Michael Jordan Biography",
+      Name: "Nigel Shillingord",
+      Home: "#32 Mezzo Hotel",
+      DateBorrow: "02-12-2023",
+      DateDue: "09-1-2024",
+    },
+    {
+      BorrowID: 2,
+      Book: "Ily i love $ but ily2",
+      Name: "Nigel Shillingord",
+      Home: "#32 Mezzo Hotel",
+      DateBorrow: "02-12-2023",
+      DateDue: "09-1-2024",
+    },
+    {
+      BorrowID: 3,
+      Book: "w0nt u d0 me 1ik3 dAt!",
+      Name: "Nigel Shillingord",
+      Home: "#32 Mezzo Hotel",
+      DateBorrow: "02-12-2023",
+      DateDue: "09-1-2024",
+    },
+    {
+      BorrowID: 4,
+      Book: "my bAd sh0rty!",
+      Name: "Nigel Shillingord",
+      Home: "#32 Mezzo Hotel",
+      DateBorrow: "02-12-2023",
+      DateDue: "09-1-2024",
+    },
+  ]; //SIMULATING BACKEND
+
+  const filteredEntriesBorrow = borrowEntries.filter((entry) =>
+    entry.Book.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const customStyles = {
     control: (provided) => ({
@@ -90,11 +134,9 @@ function UserAdminTable() {
     setSelectedGenres(selectedOptions);
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-
 
   const handleEntryClick = (entry) => {
     // Navigate to BookProfile component and pass entry data as state
@@ -103,6 +145,9 @@ function UserAdminTable() {
       state: { entryData: entry }, // Pass entry data as state
     });
   };
+
+  const authorOptions = [];
+  const genreOption = [];
 
   const allEntries = [
     {
@@ -226,7 +271,6 @@ function UserAdminTable() {
                 <img
                   src="#"
                   className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl"
-                  
                 />
                 <Link to={`/`}>
                   <div className="profileArrow flex ">
@@ -263,33 +307,33 @@ function UserAdminTable() {
           </div>
 
           <div className="middleContentDiv border-blue-700 p-[2rem] flex flex-col h-[85%] w-screen">
-          <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
+            <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
               <SearchBar
                 onChange={(e) => setSearchQuery(e.target.value)}
               ></SearchBar>
-                        <div
-              className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
-              onClick={handleAddAuthor}
-            >
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="ml-[0.5rem] mr-[0.5rem]"
+              <div
+                className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
+                onClick={handleAddAuthor}
               >
-                <path
-                  d="M4 12H20M12 4V20"
-                  stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <h1 className="ml-[0.5rem]">Add Author</h1>
-            </div>
-            <div
+                <svg
+                  width="1rem"
+                  height="1rem"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-[0.5rem] mr-[0.5rem]"
+                >
+                  <path
+                    d="M4 12H20M12 4V20"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <h1 className="ml-[0.5rem]">Add Author</h1>
+              </div>
+              <div
                 className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
                 onClick={handleAddGenre}
               >
@@ -336,7 +380,7 @@ function UserAdminTable() {
             </div>
             <div className="tableDiv bg-[#392E05] p-[2rem] bg-opacity-20 rounded-t-xl mt-[1.5rem] w-[100%] h-[100%] border-black">
               <div className="tableTab flex w-[100%] border-b items-center border-[#392E05] h-[2rem] border-opacity-40 justify-between">
-                <div className="flex w-[20rem] border-black items-center h-[100%]">
+              <div className="flex w-[35rem] border-black items-center h-[100%]">
                   <button
                     className={`allButton flex border-b w-[30%] justify-center h-[104%] items-center border-[#392E05] ${
                       clickAll === true
@@ -345,40 +389,84 @@ function UserAdminTable() {
                     } `}
                     onClick={() => {
                       handleAllClick();
-                      handleShowAll();
                     }}
                   >
-                    <h1 className="text-[1rem] font-bold">All</h1>
+                    <h1 className="text-[1rem]">All</h1>
                     <h1 className="ml-[0.5rem] w-[1.5rem] h-[1.5rem] text-[1rem] bg-[#392E05] bg-opacity-20 rounded-lg">
                       {allEntries.length}
                     </h1>
                   </button>
+
+                  <button
+                    className={`allButton flex border-b w-[25%] justify-center h-[104%] items-center border-[#392E05] ${
+                      clickBorrow === true
+                        ? "border-opacity-100"
+                        : "border-opacity-0"
+                    } `}
+                    onClick={() => {
+                      handleBorrowClick();
+                    }}
+                  >
+                    <h1 className="text-[1rem]">Borrowed</h1>
+                    <h1 className="ml-[0.5rem] w-[1.5rem] h-[1.5rem] text-[1rem] bg-[#392E05] bg-opacity-20 rounded-lg">
+                      {borrowEntries.length}
+                    </h1>
+                  </button>
                 </div>
-                <h1>{`Showing ${filteredEntries.length} out of ${allEntries.length} results`}</h1>
+                {clickAll === true && (
+                  <h1>{`Showing ${filteredEntries.length} out of ${allEntries.length} results`}</h1>
+                )}
+
+                {clickBorrow === true && (
+                  <h1>{`Showing ${filteredEntriesBorrow.length} out of ${borrowEntries.length} results`}</h1>
+                )}
               </div>
 
               <div className="tableContent relative flex flex-col border-red-600 h-[95%] w-[100%] overflow-x-auto overflow-y-auto">
                 <table className="flex flex-col w-[100%] border-red-600 overflow-x-auto">
                   <thead className="flex w-[100%]">
                     <tr className="text-[1rem] mt-[2rem] flex bg-[#392E05] bg-opacity-20 h-[2.5rem] justify-evenly items-center w-[100%] border-[#392E05] rounded-md border">
-                      <>
-                        <th className="absolute mr-[77.5%]">Book ID</th>
-                        <th className="absolute mr-[50%] justify-center">
-                          Title
-                        </th>
-                        <th className="absolute mr-[16%] justify-center">
-                          Author
-                        </th>
-                        <th className="absolute mr-[-16%] justify-center">
-                          Genre
-                        </th>
-                        <th className="absolute mr-[-47%] justify-center">
-                          ISBN
-                        </th>
-                        <th className="absolute mr-[-75%] justify-center">
-                          Status
-                        </th>
-                      </>
+                      {clickAll === true && (
+                        <>
+                          <th className="absolute mr-[77.5%]">Book ID</th>
+                          <th className="absolute mr-[50%] justify-center">
+                            Title
+                          </th>
+                          <th className="absolute mr-[16%] justify-center">
+                            Author
+                          </th>
+                          <th className="absolute mr-[-16%] justify-center">
+                            Genre
+                          </th>
+                          <th className="absolute mr-[-47%] justify-center">
+                            ISBN
+                          </th>
+                          <th className="absolute mr-[-80%] justify-center">
+                            Status
+                          </th>
+                        </>
+                      )}
+
+                      {clickBorrow === true && (
+                        <>
+                          <th className="absolute mr-[80%]">Borrow ID</th>
+                          <th className="absolute mr-[55%] justify-center">
+                            Book
+                          </th>
+                          <th className="absolute mr-[20%] justify-center">
+                            Borrower
+                          </th>
+                          <th className="absolute mr-[-10%] justify-center">
+                            Date Borrowed
+                          </th>
+                          <th className="absolute mr-[-38%] justify-center">
+                            Due Date
+                          </th>
+                          <th className="absolute mr-[-71%] justify-center">
+                            Status
+                          </th>
+                        </>
+                      )}
                     </tr>
                   </thead>
 
@@ -386,31 +474,49 @@ function UserAdminTable() {
                     {/* Rendering AdminEntry components dynamically using map */}
 
                     <>
-                      {filteredEntries.map((entry, index) => (
-                        <div
-                          className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded hover:cursor-pointer"
-                          onClick={() => handleEntryClick(entry)}
-                        >
-                          <Link
-                            to={{
-                              pathname: `/BookFlow-Admin-bookProfile:${entry.BookID}`, // Assuming BookID is unique for each book
-                              state: { bookDetails: entry }, // Pass book details as state to the BookProfile component
-                            }}
-                            className="w-full h-full"
+                      {clickAll === true &&
+                        filteredEntries.map((entry, index) => (
+                          <div
+                            className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded hover:cursor-pointer"
+                            onClick={() => handleEntryClick(entry)}
                           >
-                            <BookEntry
+                            <Link
+                              to={{
+                                pathname: `/BookFlow-Admin-bookProfile:${entry.BookID}`, // Assuming BookID is unique for each book
+                                state: { bookDetails: entry }, // Pass book details as state to the BookProfile component
+                              }}
+                              className="w-full h-full"
+                            >
+                              <BookEntry
+                                key={index} // Add a unique key for each entry
+                                BookID={entry.BookID}
+                                Title={entry.Title}
+                                Author={entry.Author}
+                                Genre={entry.Genre}
+                                ISBN={entry.ISBN}
+                                Status={entry.Status}
+                                Copies={entry.Copies}
+                              />
+                            </Link>
+                          </div>
+                        ))}
+                      
+                      {clickBorrow === true &&
+                        filteredEntriesBorrow.map((entry, index) => (
+                          <div
+                            onClick={() => handleEntryClickStaff(entry)}
+                            className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"
+                          >
+                            <BorrowBook
                               key={index} // Add a unique key for each entry
-                              BookID={entry.BookID}
-                              Title={entry.Title}
-                              Author={entry.Author}
-                              Genre={entry.Genre}
-                              ISBN={entry.ISBN}
-                              Status={entry.Status}
-                              Copies={entry.Copies}
+                              BorrowID={entry.BorrowID}
+                              Book={entry.Book}
+                              Name={entry.Name}
+                              DateBorrow={entry.DateBorrow}
+                              DateDue={entry.DateDue}
                             />
-                          </Link>
-                        </div>
-                      ))}
+                          </div>
+                        ))}
                     </>
                   </tbody>
                 </table>
