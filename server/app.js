@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,7 +11,7 @@ const port = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(express.json()); // Middleware for parsing JSON 
 app.use('/api', userRoutes);
 app.use('/api/users', userRoutes); // Prefix all user routes
 // Correct the path for your book routes if necessary
