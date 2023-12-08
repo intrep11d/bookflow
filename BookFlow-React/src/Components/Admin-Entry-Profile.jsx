@@ -251,15 +251,22 @@ const AdminEntryProfile = () => {
                 </div>
 
                 <div className="topContents ml-[-4rem] flex items-center justify-center text-white w-[40rem] text-[1.3rem]">
-                  <div className="flex">
-                    <a href="/BookFlow-Admin-Usertable" className="mr-[2.5rem]">
-                      Accounts
-                    </a>
-                    <a href="#" className="mr-[2.5rem]">
-                      Books
-                    </a>
-                  </div>
-                </div>
+              <div className="flex items-center">
+                <a
+                  href="/BookFlow-Admin-userTable"
+                  className="mr-[2.5rem] border-white w-[7rem]
+                h-[3rem] items-center justify-center flex bg-[#dac98d] bg-opacity-20 rounded-xl"
+                >
+                  Accounts
+                </a>
+                <a
+                  href="/BookFlow-Admin-bookTable"
+                  className="mr-[2.5rem] w-[7rem] items-center h-[3rem] flex justify-center hover:bg-[#dac98d] hover:bg-opacity-20 rounded-xl"
+                >
+                  Books
+                </a>
+              </div>
+            </div>
 
                 <div className="topRightContents flex w-auto items-center mr-[1.5rem]">
                   <div className="profileIconBorder flex w-[5.5rem] justify-center rounded-3xl h-[2.4rem] items-center bg-[#755D41]">
