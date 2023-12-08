@@ -90,7 +90,7 @@ function LogIn() {
           </div>
           <a
             className="forgotPass hover:underline hover:text-[#D5C5AE] flex mt-3 text-[#755D41]"
-            href="#"
+            href="/BookFlow-Forgotpass"
           >
             Forgot password?
           </a>

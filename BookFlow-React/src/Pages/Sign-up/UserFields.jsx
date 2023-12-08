@@ -87,7 +87,6 @@ function signUpUser() {
 
               placeholder="Home Address"
               type="text"
-              required
             />
             {errors.address && <div className="error">{errors.address}</div>}
 

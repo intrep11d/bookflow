@@ -16,6 +16,8 @@ import AdminBookProfile from "./Components/Admin-Book-Profile.jsx";
 import BookCopies from "./Components/Book-Copies.jsx";
 import StaffBookTable from "./Pages/Staff-instance/Staff-instance-bookTable.jsx";
 import StaffBookProfile from "./Pages/Staff-instance/Staff-isntance-bookProfile.jsx";
+import Userprofile from "./Pages/User-instance/Userprofile.jsx";
+import ForgotPassword from "./Pages/ForgotPass.jsx";
 import ProtectedRoute from "./util/ProtectedRoute.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -35,6 +37,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/BookFlow-Admin-bookTable" component={AdminBookTable} ></Route>
       <Route path="/BookFlow-Staff-bookTable" component={StaffBookTable}></Route>
       <Route path="/BookFlow-Staff-bookProfile:bookID" component={StaffBookProfile}></Route>
+      <Route path="/BookFlow-User-Profile-:userID" component={Userprofile}></Route>
+      <Route path="/BookFlow-Forgotpass" component={ForgotPassword}></Route>
+      <Route path="/BookCard" component={BookCard}></Route>
     </Router>
   </div>
 );
