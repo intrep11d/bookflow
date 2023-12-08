@@ -8,6 +8,7 @@ function LogIn() {
   });
   const [error, setError] = useState(''); // State to store login error
   const history = useHistory();
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleChange = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -22,7 +23,8 @@ function LogIn() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({credential: credentials.credential, // This is either email or username
-        password: credentials.password,}),
+        password: credentials.password,
+        rememberMe: rememberMe}),
       });
 
       const data = await response.json();
@@ -74,6 +76,8 @@ function LogIn() {
             <input
               className="checkBox-input border-[#AC9F8C] flex mt-3 rounded-lg mr-2"
               type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
             />
             <h1 className="flex mt-3 text-[#AC9F8C]">Remember me</h1>
           </div>

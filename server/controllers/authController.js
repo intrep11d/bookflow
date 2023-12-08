@@ -26,20 +26,21 @@ const authController = {
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-  
         // User is valid, create JWT payload
         const payload = {
           id: user.id,
           email: user.email,
           // You can add more user details here if needed
         };
-  
+        
+        const { rememberMe } = req.body; // Assuming this is sent from the frontend
+        const expiresIn = rememberMe ? '7d' : '1h'; // Set a longer duration if rememberMe is true
         // Sign the token
         jwt.sign(
           payload,
           process.env.JWT_SECRET, // Make sure to have your JWT_SECRET in your .env file
-          { expiresIn: '1h' },   // Token expires in 1 hour
-          (err, token) => {
+          { expiresIn: expiresIn },
+            (err, token) => {
             if (err) throw err;
             res.json({
               success: true,
