@@ -291,7 +291,6 @@ function StaffBookTable() {
     });
   };
 
-
   return (
     <div className="overflow-x-hidden ">
       <div className="userHomePage-div flex h-screen w-screen">
@@ -384,8 +383,10 @@ function StaffBookTable() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               ></SearchBar>
 
-              <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
-              onClick={handleAddAuthor}>
+              <div
+                className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
+                onClick={handleAddAuthor}
+              >
                 <svg
                   width="1rem"
                   height="1rem"
@@ -522,20 +523,20 @@ function StaffBookTable() {
 
                       {clickBorrow === true && (
                         <>
-                          <th className="absolute mr-[77%]">Borrow ID</th>
-                          <th className="absolute mr-[50%] justify-center">
+                          <th className="absolute mr-[80%]">Borrow ID</th>
+                          <th className="absolute mr-[55%] justify-center">
                             Book
                           </th>
-                          <th className="absolute mr-[16%] justify-center">
+                          <th className="absolute mr-[20%] justify-center">
                             Borrower
                           </th>
-                          <th className="absolute mr-[-17%] justify-center">
+                          <th className="absolute mr-[-10%] justify-center">
                             Date Borrowed
                           </th>
-                          <th className="absolute mr-[-48%] justify-center">
+                          <th className="absolute mr-[-38%] justify-center">
                             Due Date
                           </th>
-                          <th className="absolute mr-[-80%] justify-center">
+                          <th className="absolute mr-[-71%] justify-center">
                             Status
                           </th>
                         </>
