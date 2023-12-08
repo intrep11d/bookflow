@@ -8,12 +8,12 @@ import SearchBar from "../../Components/SearchBar";
 function UserAdminTable() {
   const [userCount, setUserCount] = useState(0);
   const [staffCount, setStaffCount] = useState(0);
-  const [userClick, setUserClick] = useState(false);
+  const [userClick, setUserClick] = useState(true);
   const [staffClick, setStaffClick] = useState(false);
   const [showResults, setShowResults] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
   const [showProfile, setShowProfile] = useState(false);
-  const [showUser, setShowUser] = useState(false);
+  const [showUser, setShowUser] = useState(true);
   const [showStaff, setShowStaff] = useState(false);
   const [add, setAddStaff] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,6 +22,12 @@ function UserAdminTable() {
     setShowUser(true);
     setShowStaff(false);
   };
+
+  const authorOptions = [
+    { value: "author1", label: "Author 1" },
+    { value: "author3", label: "Author 3" },
+    // Add more authors as needed
+  ];
 
   const handleAddStaff = () => {
     setAddStaff(true);
@@ -253,6 +259,7 @@ function UserAdminTable() {
             <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
               <SearchBar
                 onChange={(e) => setSearchQuery(e.target.value)}
+                options={authorOptions}
               ></SearchBar>
               <div className="exportDiv flex items-center w-[8rem]">
                 <button

@@ -4,6 +4,7 @@ import BookEntry from "../../Components/Book-Entry";
 import BookCopies from "../../Components/Book-Copies";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import SearchBar from "../../Components/SearchBar";
+import Select from "react-select";
 
 function UserAdminTable() {
   const [clickAll, setClickAll] = useState(false);
@@ -11,10 +12,47 @@ function UserAdminTable() {
   const [bookClick, setBookClick] = useState(false);
   const [clickedEntry, setClickedEntry] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [clickAdd, setClickAdd] = useState(false);
+  const [clickAddGenre, setClickAddGenre] = useState(false);
+  const [clickAddAuth, setClickAddAuth] = useState(false);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   //ALL
   const handleShowAll = () => {
     setShowAll(true);
+  };
+
+  const authorOptions = [];
+  const genreOption = [];
+
+  const handleAddGenre = () => {
+    setClickAddGenre(true);
+  };
+
+  
+  const handleAddBookClose = () => {
+    setHandleCloseBook(false);
+  };
+
+  const handleCloseAddGenre = () => {
+    setClickAddGenre(false);
+  };
+
+  const handleAddAuthor = () => {
+    setClickAddAuth(true);
+  };
+
+  const handleCloseAddAuthor = () => {
+    setClickAddAuth(false);
+  };
+
+  const handleAddBook = () => {
+    setClickAdd(true);
+  };
+
+  const handleCloseAdd = () => {
+    setClickAdd(false);
   };
 
   const handleEntryClose = () => {
@@ -28,6 +66,35 @@ function UserAdminTable() {
   const handleBookClick = () => {
     setBookClick(true);
   };
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(57, 46, 5, 0.2)",
+      borderColor: "#392E05",
+      width: "21rem", // Set width as needed
+      borderRadius: "0.8rem",
+    }),
+
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: "rgba(57, 46, 5, 0.2)",
+    }),
+  };
+
+  const handleAuthorSelect = (selectedOptions) => {
+    setSelectedAuthors(selectedOptions);
+  };
+
+  const handleGenreSelect = (selectedOptions) => {
+    setSelectedGenres(selectedOptions);
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
 
   const handleEntryClick = (entry) => {
     // Navigate to BookProfile component and pass entry data as state
@@ -159,44 +226,114 @@ function UserAdminTable() {
                 <img
                   src="#"
                   className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl"
+                  
                 />
-                <div className="profileArrow flex ">
-                  <svg
-                    width="2rem"
-                    height="2rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                <Link to={`/`}>
+                  <div className="profileArrow flex ">
+                    <svg
+                      width="2rem"
+                      height="2rem"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M7 10L12 15L17 10"
-                        stroke="#ffffff"
-                        stroke-width="1.5"
+                      <g
+                        id="SVGRepo_tracerCarrier"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                      />{" "}
-                    </g>
-                  </svg>
-                </div>
+                      />
+
+                      <g id="SVGRepo_iconCarrier">
+                        {" "}
+                        <path
+                          d="M7 10L12 15L17 10"
+                          stroke="#ffffff"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />{" "}
+                      </g>
+                    </svg>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
 
           <div className="middleContentDiv border-blue-700 p-[2rem] flex flex-col h-[85%] w-screen">
-            <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
-            <SearchBar></SearchBar>
+          <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
+              <SearchBar
+                onChange={(e) => setSearchQuery(e.target.value)}
+              ></SearchBar>
+                        <div
+              className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
+              onClick={handleAddAuthor}
+            >
+              <svg
+                width="1rem"
+                height="1rem"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="ml-[0.5rem] mr-[0.5rem]"
+              >
+                <path
+                  d="M4 12H20M12 4V20"
+                  stroke="#000000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <h1 className="ml-[0.5rem]">Add Author</h1>
             </div>
+            <div
+                className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"
+                onClick={handleAddGenre}
+              >
+                <svg
+                  width="1rem"
+                  height="1rem"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-[0.5rem] mr-[0.5rem]"
+                >
+                  <path
+                    d="M4 12H20M12 4V20"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <h1 className="ml-[0.5rem]">Add Genre</h1>
+              </div>
 
+              <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40">
+                <svg
+                  width="1rem"
+                  height="1rem"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-[0.5rem] mr-[0.5rem]"
+                >
+                  <path
+                    d="M4 12H20M12 4V20"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <h1 className="ml-[0.5rem]" onClick={handleAddBook}>
+                  Add Book
+                </h1>
+              </div>
+            </div>
             <div className="tableDiv bg-[#392E05] p-[2rem] bg-opacity-20 rounded-t-xl mt-[1.5rem] w-[100%] h-[100%] border-black">
               <div className="tableTab flex w-[100%] border-b items-center border-[#392E05] h-[2rem] border-opacity-40 justify-between">
                 <div className="flex w-[20rem] border-black items-center h-[100%]">
@@ -282,128 +419,296 @@ function UserAdminTable() {
           </div>
         </div>
       </div>
-      {/* {bookClick && clickedEntry && (
-        <div
+      {clickAdd === true && (
+        <form
+          onSubmit={handleSubmit}
           action="POST"
-          className="bookCopyDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
+          className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
-          <div className="copyList p-[1.5rem] bg-[#EEE8D3] rounded-lg w-[40%] h-[40%]">
-            <div className="topNav pb-[1rem] border-b-[#392E05] border flex items-center justify-between w-[100%]">
-              <h1 className="text-[1.2rem] text-[#392E05]">
-                {michaelJordanEntry.Title}
-              </h1>
-              <div className="flex items-center">
-                <div className="searchBar flex w-[15rem] ml-[5rem]">
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    className="border border-[#392E05] w-[90%] h-[2rem] placeholder:text-[#000000] placeholder:text-opacity-50 rounded-md pl-[2.5rem] bg-opacity-20 bg-[#392E05]"
-                    placeholder="Search"
+          <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[45rem] h-[38.5rem]">
+            <div className="topNav flex pb-[0.5rem] items-center justify-between border-[#392E05] w-[100%]">
+              <h1 className="text-[1.4rem] text-[#392E05]">Add Book</h1>
+              <svg
+                width="1.5rem"
+                height="1.5rem"
+                viewBox="0 0 24 24"
+                s
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="cursor-pointer"
+                onClick={handleCloseAdd}
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M10.0303 8.96965C9.73741 8.67676 9.26253 8.67676 8.96964 8.96965C8.67675 9.26255 8.67675 9.73742 8.96964 10.0303L10.9393 12L8.96966 13.9697C8.67677 14.2625 8.67677 14.7374 8.96966 15.0303C9.26255 15.3232 9.73743 15.3232 10.0303 15.0303L12 13.0607L13.9696 15.0303C14.2625 15.3232 14.7374 15.3232 15.0303 15.0303C15.3232 14.7374 15.3232 14.2625 15.0303 13.9696L13.0606 12L15.0303 10.0303C15.3232 9.73744 15.3232 9.26257 15.0303 8.96968C14.7374 8.67678 14.2625 8.67678 13.9696 8.96968L12 10.9393L10.0303 8.96965Z"
+                    fill="#392E05"
+                  />{" "}
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12Z"
+                    fill="#392E05"
+                  />{" "}
+                </g>
+              </svg>
+            </div>
+
+            <div className="border flex border-l-0 border-r-0 justify-between h-[100%] border-t-[#392E05] border-b-[#392E05] w-[100%]">
+              <div className="otherInput flex flex-col w-[50%] items-center mt-[0rem]">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  className="border outline-none mt-[1rem] placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                />
+
+                <div className="flex flex-col w-[100%] justify-between items-center">
+                  <Select
+                    placeholder="Select Author(s)"
+                    isMulti
+                    options={authorOptions}
+                    classNamePrefix="select"
+                    value={selectedAuthors}
+                    onChange={handleAuthorSelect}
+                    styles={customStyles}
+                    className="mt-[1rem]"
                   />
 
-                  <svg
-                    className="absolute mt-[0.4rem] ml-[0.6rem]"
-                    height="1.5rem"
-                    width="1.2rem"
-                    version="1.1"
-                    id="_x32_"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    viewBox="0 0 512 512"
-                    xml:space="preserve"
-                    fill="#392E05"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                  <Select
+                    placeholder="Select Genre(s)"
+                    isMulti
+                    options={genreOption}
+                    classNamePrefix="select"
+                    value={selectedGenres}
+                    onChange={handleGenreSelect}
+                    styles={customStyles}
+                    className="mt-[1rem]"
+                  />
+                </div>
 
-                    <g
-                      id="SVGRepo_tracerCarrier"
+                <div className="flex w-[100%] items-center h-[15%] border-black">
+                  <p className="w-[10rem] justify-center flex items-center">
+                    Publication Date:
+                  </p>
+                  <input
+                    type="date"
+                    placeholder="Publication"
+                    className="border outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[70%] pl-[1rem] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20"
+                  />
+                </div>
+                <input
+                  type="text"
+                  required
+                  placeholder="ISBN"
+                  className="border mt-[0rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                />
+                <input
+                  type="text"
+                  placeholder="Edition"
+                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                />
+                <input
+                  type="text"
+                  placeholder="Format"
+                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                />
+
+                <input
+                  type="text"
+                  placeholder="Number of Copies"
+                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                />
+              </div>
+
+              <div className="border-black w-[45%] h-[100%] pt-[1rem] flex items-center flex-col">
+                <div className="draghere flex flex-col items-center justify-center border bg-[#392E05] bg-opacity-20 rounded-xl border-[#392E05] w-[100%] h-[40%]">
+                  <svg
+                    width="5rem"
+                    height="5rem"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className=""
+                  >
+                    <path
+                      d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
+                      stroke="#000000"
+                      stroke-width="1.5"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
-
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <style type="text/css"></style>{" "}
-                      <g>
-                        {" "}
-                        <path
-                          class="st0"
-                          d="M312.069,53.445c-71.26-71.26-187.194-71.26-258.454,0c-71.261,71.26-71.261,187.206,0,258.466 c71.26,71.26,187.194,71.26,258.454,0S383.329,124.705,312.069,53.445z M286.694,286.536 c-57.351,57.34-150.353,57.34-207.704-0.011s-57.351-150.353,0-207.693c57.351-57.351,150.342-57.351,207.693,0 S344.045,229.174,286.694,286.536z"
-                        />{" "}
-                        <path
-                          class="st0"
-                          d="M101.911,112.531c-29.357,37.725-31.801,89.631-7.321,129.702c1.877,3.087,5.902,4.048,8.978,2.182 c3.065-1.888,4.037-5.903,2.16-8.978c-21.666-35.456-19.506-81.538,6.469-114.876c2.226-2.837,1.713-6.938-1.135-9.154 C108.227,109.193,104.125,109.695,101.911,112.531z"
-                        />{" "}
-                        <path
-                          class="st0"
-                          d="M498.544,447.722l-132.637-129.2c-7.255-7.07-18.84-6.982-26.008,0.174l-21.033,21.033 c-7.156,7.156-7.234,18.742-0.153,25.986l129.19,132.636c14.346,17.324,35.542,18.35,51.917,1.964 C516.216,483.951,515.857,462.068,498.544,447.722z"
-                        />{" "}
-                      </g>{" "}
-                    </g>
                   </svg>
+                  <p>Upload file</p>
+                  <div className="">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="items-center flex w-[100%] none"
+                    />
+                  </div>
                 </div>
-                <svg
-                  width="1.5rem"
-                  height="1.5rem"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="cursor-pointer"
-                  onClick={handleEntryClose}
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path
-                      d="M10.0303 8.96965C9.73741 8.67676 9.26253 8.67676 8.96964 8.96965C8.67675 9.26255 8.67675 9.73742 8.96964 10.0303L10.9393 12L8.96966 13.9697C8.67677 14.2625 8.67677 14.7374 8.96966 15.0303C9.26255 15.3232 9.73743 15.3232 10.0303 15.0303L12 13.0607L13.9696 15.0303C14.2625 15.3232 14.7374 15.3232 15.0303 15.0303C15.3232 14.7374 15.3232 14.2625 15.0303 13.9696L13.0606 12L15.0303 10.0303C15.3232 9.73744 15.3232 9.26257 15.0303 8.96968C14.7374 8.67678 14.2625 8.67678 13.9696 8.96968L12 10.9393L10.0303 8.96965Z"
-                      fill="#392E05"
-                    />{" "}
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12Z"
-                      fill="#392E05"
-                    />{" "}
-                  </g>
-                </svg>
+                <textarea
+                  placeholder="Synopsis..."
+                  className="pb-[6rem] border-[#392E05] outline-none synopsis placeholder-[#392E05] bg-[#392E05] bg-opacity-20 border w-[100%] h-[13rem] pl-[1rem] pt-[0.5rem] rounded-xl mt-[2rem] overflow-wrap-break-word resize-none"
+                />
               </div>
             </div>
 
-            <div className="w-[100%] h-[80%] flex flex-col p-[1rem] overflow-y-auto ">
-              {michaelJordanCopies.map((entry, index) => (
-                <div
-                  key={index}
-                  className="hover:bg-[#392E05] cursor-pointer hover:bg-opacity-40 items-center rounded-xl"
-                >
-                  <Link
-                    key={index} // Add a unique key for each entry
-                    to={{
-                      pathname: `/BookFlow-Admin-bookProfile-${entry.CopyID}`,
-                      state: { entryData: entry }, // Pass entry data as state
-                    }}
-                    className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"
-                  ></Link>
-                  <BookCopies
-                    key={index}
-                    CopyID={entry.CopyID}
-                    Author={entry.Author}
-                    ISBN={entry.ISBN}
-                    Status={entry.Status}
-                  />
-                </div>
-              ))}
+            <div className="buttonsDiv w-[100%] h-[10%] justify-end items-center flex">
+              <button
+                type="submit"
+                className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleAddBookClose}
+              >
+                <h1>Confirm</h1>
+              </button>
             </div>
           </div>
-        </div>
-      )} */}
+        </form>
+      )}
+
+      {clickAddGenre === true && (
+        <form
+          onSubmit={handleSubmit}
+          action="POST"
+          className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
+        >
+          <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[30rem] h-[15rem]">
+            <div className="border-b border-[#392E05] w-[100%] flex items-center justify-between">
+              <h1 className="text-[1.2rem] pb-[0.5rem]">Add Genre</h1>
+              <svg
+                width="1.5rem"
+                height="1.5rem"
+                viewBox="0 0 24 24"
+                s
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="cursor-pointer"
+                onClick={handleCloseAddGenre}
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M10.0303 8.96965C9.73741 8.67676 9.26253 8.67676 8.96964 8.96965C8.67675 9.26255 8.67675 9.73742 8.96964 10.0303L10.9393 12L8.96966 13.9697C8.67677 14.2625 8.67677 14.7374 8.96966 15.0303C9.26255 15.3232 9.73743 15.3232 10.0303 15.0303L12 13.0607L13.9696 15.0303C14.2625 15.3232 14.7374 15.3232 15.0303 15.0303C15.3232 14.7374 15.3232 14.2625 15.0303 13.9696L13.0606 12L15.0303 10.0303C15.3232 9.73744 15.3232 9.26257 15.0303 8.96968C14.7374 8.67678 14.2625 8.67678 13.9696 8.96968L12 10.9393L10.0303 8.96965Z"
+                    fill="#392E05"
+                  />{" "}
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12Z"
+                    fill="#392E05"
+                  />{" "}
+                </g>
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Genre"
+              className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+            />
+            <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
+              <button
+                type="submit"
+                className="w-[10rem] mr-[1rem] text-[#392E05] bg-[#392E05] bg-opacity-20 border-[#392E05] border h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleAddBookClose}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleAddBookClose}
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      {clickAddAuth === true && (
+        <form
+          onSubmit={handleSubmit}
+          action="POST"
+          className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
+        >
+          <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[30rem] h-[15rem]">
+            <div className="border-b border-[#392E05] w-[100%] flex items-center justify-between">
+              <h1 className="text-[1.2rem] pb-[0.5rem]">Add Author</h1>
+              <svg
+                width="1.5rem"
+                height="1.5rem"
+                viewBox="0 0 24 24"
+                s
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="cursor-pointer"
+                onClick={handleCloseAddAuthor}
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M10.0303 8.96965C9.73741 8.67676 9.26253 8.67676 8.96964 8.96965C8.67675 9.26255 8.67675 9.73742 8.96964 10.0303L10.9393 12L8.96966 13.9697C8.67677 14.2625 8.67677 14.7374 8.96966 15.0303C9.26255 15.3232 9.73743 15.3232 10.0303 15.0303L12 13.0607L13.9696 15.0303C14.2625 15.3232 14.7374 15.3232 15.0303 15.0303C15.3232 14.7374 15.3232 14.2625 15.0303 13.9696L13.0606 12L15.0303 10.0303C15.3232 9.73744 15.3232 9.26257 15.0303 8.96968C14.7374 8.67678 14.2625 8.67678 13.9696 8.96968L12 10.9393L10.0303 8.96965Z"
+                    fill="#392E05"
+                  />{" "}
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12Z"
+                    fill="#392E05"
+                  />{" "}
+                </g>
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Author"
+              className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+            />
+            <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
+              <button
+                type="submit"
+                className="w-[10rem] mr-[1rem] text-[#392E05] bg-[#392E05] bg-opacity-20 border-[#392E05] border h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleCloseAddAuthor}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
+                onClick={handleCloseAddAuthor}
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

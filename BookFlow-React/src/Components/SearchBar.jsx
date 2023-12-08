@@ -1,7 +1,7 @@
 import React from "react";
 
-function SearchBar({ onChange }, props) {
-    const {BorrowId, Book, Name, DateBorrow, DateDue, UserID, UserName, PhoneNumber, email, Status} = props;
+function SearchBar({onChange, options}) {
+  //PASS THE CONTENTS YOU WANT TO DISPLAY AS AN OPTION WHEN RENDERING
 
   return (
     <div className="searchExport flex relative  border-[#392E05] w-[100%]">
@@ -15,7 +15,7 @@ function SearchBar({ onChange }, props) {
         viewBox="0 0 512 512"
         xml:space="preserve"
         fill="#000000"
-        className="absolute ml-[9.8rem] mt-[0.7rem]"
+        className="absolute ml-[0.8rem] mt-[0.7rem]"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
@@ -46,19 +46,6 @@ function SearchBar({ onChange }, props) {
         </g>
       </svg>
       <div className="relative">
-        <select
-          className="border pl-[1rem] mr-[1.5rem] border-[#392E05] w-[7rem] bg-opacity-20 h-[2.3rem] rounded-md bg-[#392E05] text-[#000000] ml-2"
-          onChange={(e) => console.log(e.target.value)} // Handle selection change
-        >
-          <option value="">All</option>
-          <option value="option1">Borrow ID</option>
-          <option value="option2">Name</option>
-          <option value="option3">Date Borrowed</option>
-          <option value="option3">Overdue Date</option>
-          <option value="option3">Date Returned</option>
-          <option value="option3">Status</option>
-          {/* Add more options as needed */}
-        </select>
         <input
           type="text"
           className="outline-none border border-[#392E05] w-[20rem] h-[2.3rem] placeholder:text-[#000000] placeholder:text-opacity-50 rounded-md pl-[2.5rem] bg-opacity-20 bg-[#392E05]"

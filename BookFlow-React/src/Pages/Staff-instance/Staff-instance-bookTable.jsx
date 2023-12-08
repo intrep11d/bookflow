@@ -55,6 +55,8 @@ function StaffBookTable() {
     setClickBorrow(false);
   };
 
+  const searchOptions = ["Horor", "Romance", "Comedy"];
+
   const authorOptions = [
     { value: "author1", label: "Author 1" },
     { value: "author3", label: "Author 3" },
@@ -289,8 +291,6 @@ function StaffBookTable() {
     });
   };
 
-  console.log(clickAddGenre);
-
   return (
     <div className="overflow-x-hidden ">
       <div className="userHomePage-div flex h-screen w-screen">
@@ -346,32 +346,36 @@ function StaffBookTable() {
                   className="profileIcon flex w-[2.3rem] h-[2.3rem] mr-[0.5rem] rounded-3xl"
                 />
                 <div className="profileArrow flex ">
-                  <svg
-                    width="2rem"
-                    height="2rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                <Link to={`/`}>
+                  <div className="profileArrow flex ">
+                    <svg
+                      width="2rem"
+                      height="2rem"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M7 10L12 15L17 10"
-                        stroke="#ffffff"
-                        stroke-width="1.5"
+                      <g
+                        id="SVGRepo_tracerCarrier"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                      />{" "}
-                    </g>
-                  </svg>
+                      />
+
+                      <g id="SVGRepo_iconCarrier">
+                        {" "}
+                        <path
+                          d="M7 10L12 15L17 10"
+                          stroke="#ffffff"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />{" "}
+                      </g>
+                    </svg>
+                  </div>
+                </Link>
                 </div>
               </div>
             </div>
@@ -381,7 +385,6 @@ function StaffBookTable() {
             <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
               <SearchBar
                 onChange={(e) => setSearchQuery(e.target.value)}
-                BookID={borrowEntries.BorrowID}
               ></SearchBar>
 
               <div className="flex justify-center hover:cursor-pointer items-center rounded-lg border h-[2.5rem] w-[13rem] mr-[2rem] border-[#392E05] bg-[#392E05] bg-opacity-20 hover:bg-opacity-40"

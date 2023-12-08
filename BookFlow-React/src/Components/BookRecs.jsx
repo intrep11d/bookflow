@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 function BookRec(props) {
-  const { image, author, title, new: isNew } = props;
+  const { image, author, title} = props;
   const [hovered, setHovered] = useState(false);
 
   return (
     <div className="relative recCardContainer" style={{ height: "13rem" }}>
       <div
-        className="recCards flex w-[100%] items-center h-[100%] mt-[0rem] relative"
+        className="recCards flex w-[100%] items-center h-[100%] relative"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -26,11 +26,11 @@ function BookRec(props) {
           <h1 className="text-[#828282] text-[0.695rem] mt-[0.5rem]">
             {author}
           </h1>
-          {isNew && (
+          {/* {isNew && (
             <span className="flex top-[5.6rem] right-[12.5rem] mt-2 mr-[0rem] rounded-xl bg-[#076527] text-white w-[3rem] h-[1.2rem] items-center justify-center text-sm">
               <h1 className="font-bold">New</h1>
             </span>
-          )}
+          )} */}
         </div>
       </div>
     </div>
