@@ -18,6 +18,8 @@ import StaffBookTable from "./Pages/Staff-instance/Staff-instance-bookTable.jsx"
 import StaffBookProfile from "./Pages/Staff-instance/Staff-isntance-bookProfile.jsx";
 import Userprofile from "./Pages/User-instance/Userprofile.jsx";
 import ForgotPassword from "./Pages/ForgotPass.jsx";
+import ProtectedRoute from "./util/ProtectedRoute.jsx";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <div>
     <Router>
@@ -28,7 +30,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       {/* <Route path="/BookFlow-userHome" component={UserHome}></Route> */}
       <Route path="/BookFlow-userCategory" component={UserCategory}></Route>
       <Route path="/BookFlow-bookCard" component={BookCard}></Route>
-      <Route path="/BookFlow-Admin-userTable" component={UserAdminTable}></Route>
+      <ProtectedRoute path="/BookFlow-Admin-userTable" component={UserAdminTable} />
+      {/* <Route path="/BookFlow-Admin-userTable" component={UserAdminTable}></Route> */}
       <Route path="/BookFlow-Admin-entryProfile-:userID" component={AdminEntryProfile}></Route>
       <Route path="/BookFlow-Admin-bookProfile:bookID" component={AdminBookProfile}></Route>
       <Route path="/BookFlow-Admin-bookTable" component={AdminBookTable} ></Route>

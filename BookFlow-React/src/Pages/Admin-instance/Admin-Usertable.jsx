@@ -17,10 +17,24 @@ function UserAdminTable() {
   const [showStaff, setShowStaff] = useState(false);
   const [add, setAddStaff] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [newStaff, setNewStaff] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    address: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNewStaff({ ...newStaff, [name]: value });
+  };
 
   const handleShowUser = () => {
     setShowUser(true);
     setShowStaff(false);
+    
   };
 
   const authorOptions = [
@@ -29,8 +43,39 @@ function UserAdminTable() {
     // Add more authors as needed
   ];
 
-  const handleAddStaff = () => {
+  const handleAddStaff = async (event) => {
+    event.preventDefault();
     setAddStaff(true);
+    try {
+      const response = await fetch('/api/staff/create-staff', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newStaff)
+      });
+
+      if (response.ok) {
+        // Handle success - maybe clear the form or give user feedback
+        console.log('Staff added successfully');
+        setNewStaff({
+          firstName: '',
+          lastName: '',
+          username: '',
+          phoneNumber: '',
+          address: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        });
+        // Close the form or redirect as needed
+      } else {
+        // Handle errors
+        console.error('Failed to add staff');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleCloseStaff = () => {
@@ -46,6 +91,8 @@ function UserAdminTable() {
     showProfile === true ? setShowProfile(false) : setShowProfile(true);
     setSelectedEntry(entry);
   };
+
+  
 
   const userEntries = [
     {
@@ -436,10 +483,11 @@ function UserAdminTable() {
       </div>
       {add === true && (
         <form
-          action="POST"
+          method="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
+          onSubmit={handleAddStaff}
         >
-          <div className="inputForm border p-[1.5rem] bg-white rounded-lg w-[27%] h-[55%]">
+          <div className="inputForm border p-[1.5rem] bg-white rounded-lg w-[27%] h-[38rem]">
             <div className="topNav flex pb-[0.5rem] items-center justify-between border-[#392E05] w-[100%]">
               <h1 className="text-[1.4rem] text-[#392E05]">Add Staff</h1>
               <svg
@@ -477,14 +525,21 @@ function UserAdminTable() {
 
             <div className="border border-l-0 border-r-0 h-[77%] border-t-[#392E05] border-b-[#392E05] w-[100%]">
               <div className="nameInput flex w-[100%] justify-between mt-[1.5rem]">
+               
                 <input
                   type="text"
+                  name="firstName"
+                  value={newStaff.firstName}
+                  onChange={handleChange}
                   required
                   placeholder="First Name"
                   className="border outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[49%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
                 <input
                   type="text"
+                  name="lastName"
+                  value={newStaff.lastName}
+                  onChange={handleChange}
                   required
                   placeholder="Last Name"
                   className="border outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[49%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
@@ -492,8 +547,20 @@ function UserAdminTable() {
               </div>
 
               <div className="otherInput flex flex-col">
+              <input
+                  type="username"
+                  name="username"
+                  value={newStaff.username}
+                  onChange={handleChange}
+                  required
+                  placeholder="Username"
+                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                />
                 <input
                   type="text"
+                  name="phoneNumber"
+                  value={newStaff.phoneNumber}
+                  onChange={handleChange}
                   required
                   placeholder="Phone Number"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
@@ -501,23 +568,35 @@ function UserAdminTable() {
 
                 <input
                   type="text"
+                  name="address"
+                  value={newStaff.address}
+                  onChange={handleChange}
                   required
                   placeholder="Home Address"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
                 <input
-                  type="text"
+                  type="email"
+                  name="email"
+                  value={newStaff.email}
+                  onChange={handleChange}
                   required
                   placeholder="Email Address"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
                 <input
                   type="password"
+                  name="password"
+                  value={newStaff.password}
+                  onChange={handleChange}
                   placeholder="Password"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
                 <input
                   type="password"
+                  name="confirmPassword"
+                  value={newStaff.confirmPassword}
+                  onChange={handleChange}
                   placeholder="Confirm Password"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
@@ -527,10 +606,11 @@ function UserAdminTable() {
             <div className="buttonsDiv w-[100%] h-[10%] justify-center items-center flex">
               <button
                 className="w-[13rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleAddStaff}
+                onClick={handleAddStaff} type="submit"
               >
                 <h1>Confirm</h1>
               </button>
+              
             </div>
           </div>
         </form>

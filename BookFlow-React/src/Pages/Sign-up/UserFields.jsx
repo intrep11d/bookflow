@@ -1,17 +1,49 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function signUpUser() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     address: '',
     phoneNumber: ''
   });
+  const [errors, setErrors] = useState({}); // Initialize errors state
+  const history = useHistory();
+
+  const validateInput = (name, value) => {
+    if (!value) {
+      return 'This field is required';
+    }
+    return '';
+  };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target; // Get name and value from the event target
+    setFormData({ ...formData, [name]: value });
+    const error = validateInput(name, value);
+    setErrors({ ...errors, [name]: error });
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newErrors = Object.keys(formData).reduce((acc, key) => {
+      const error = validateInput(key, formData[key]);
+      if (error) {
+        acc[key] = error;
+      }
+      return acc;
+    }, {});
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    localStorage.setItem('basicInfo', JSON.stringify(formData)); // Store in local storage
+    history.push('/BookFlow-Password'); // Navigate to the password page
+    
+  };
+  
   return (
     <div className="Signup-main-div flex h-screen w-screen justify-evenly items-center flex-col bg-black">
       <div className="navBar-div flex w-[100%] justify-between">
@@ -24,7 +56,7 @@ function signUpUser() {
       </div>
 
       <div className="Signup-wrapper-div flex h-screen w-screen justify-evenly items-center">
-        <form method="POST" action="" className="inputFields-div flex flex-col">
+        <form method="POST" onSubmit={handleSubmit} className="inputFields-div flex flex-col">
           <div className="name-div flex mb-[1.5rem]">
 
             <input name="firstName" value={formData.firstName} onChange={handleChange}
@@ -32,19 +64,19 @@ function signUpUser() {
               placeholder="First Name"
               type="text" 
             />
+            {errors.firstName && <div className="error">{errors.firstName}</div>}
             <input name="lastName" value={formData.lastName} onChange={handleChange}
               className="userLastName flex w-[10.5rem] mr-[0.5rem] p-[0.5rem] placeholder:text-[#D5C5AE] text-[#D5C5AE] rounded-xl border-[0.2rem] outline-none bg-transparent border-[#D5C5AE]"
-
               placeholder="Last name"
               type="text"
             />
+             {errors.lastName && <div className="error">{errors.lastName}</div>}
           </div>
 
           <div className="others-div flex flex-col">
 
             <input name="username" value={formData.username} onChange={handleChange}
               className="userName flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
-
               placeholder="Username"
               type="text"
               required
@@ -56,19 +88,20 @@ function signUpUser() {
               placeholder="Home Address"
               type="text"
             />
+            {errors.address && <div className="error">{errors.address}</div>}
 
             <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}
               className="userPhoneNum flex w-[21.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[1.5rem]"
-
               placeholder="Phone Number"
               type="text"
               required
             />
-
-            <button className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
-              <a className="w-[100%]" href="/BookFlow-Password">
+            {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>} 
+            
+            <button type="submit" className="flex border mt-[3rem] bg-[#755D41] border-[#755D41] transition-[0.1s] hover:text-black hover:bg-[#B8A48E] text-[#D5C5AE] justify-center rounded-lg  p-[0.5rem] w-[21.5rem]">
+              {/* <a className="w-[100%]" href="/BookFlow-Password"> */}
                 Next
-              </a>
+              {/* </a> */}
             </button>
 
             <div className="flex mt-[13%] justify-center">
