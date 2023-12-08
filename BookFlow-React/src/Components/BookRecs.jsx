@@ -5,6 +5,15 @@ function BookRec(props) {
   const { image, author, title, genre } = props;
   const [hovered, setHovered] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(null);
+  const [color, setColor] = useState("none");
+
+  const handleColor = () => {
+    setColor("#7B2D2D")
+  }
+
+  const removeColor = () => {
+    setColor("none");
+  }
 
   const genreOptions = [
     { label: "Science Fiction", value: "Science Fiction" },
@@ -18,7 +27,7 @@ function BookRec(props) {
   };
 
   return (
-    <div className="recCardContainer h-[13rem] w-[22.3rem] ">
+    <div className="recCardContainer h-[13rem] w-[20rem] ">
       <div
         className="recCards flex w-[95%] mr-[0rem] rounded-xl items-center h-[12rem] mt-[1rem] relative p-[2rem] hover:bg-[#D8CCBE]"
         onMouseEnter={() => setHovered(true)}
@@ -32,18 +41,19 @@ function BookRec(props) {
           }`}
         />
 
-        <div className="flex font-semibold flex-col ml-[1.1rem] h-[10rem] w-[9rem]">
-          <h1 className="text-[#3D3D3D] text-[1rem] mt-[1rem] font-bold">
+        <div className="flex font-semibold flex-col ml-[1.1rem] h-[10rem] w-[10rem]">
+          <h1 className="text-black text-[1rem] mt-[1rem] font-bold w-[10rem]">
             {title}
           </h1>
-          <h1 className="text-[#828282] text-[0.695rem] mt-[0.5rem]">
+
+          <h1 className="text-[#828282] text-[0.695rem] mt-[0.5rem] flex">
             {author}
           </h1>
-          <div className="flex mt-2">
+          <div className="flex mt-2 flex-wrap relative">
             {genre.map((genre, index) => (
               <span
                 key={index}
-                className="bg-[#392E05] bg-opacity-20 text-black rounded-full px-2 py-1 mr-2 text-sm"
+                className="bg-[#392E05] bg-opacity-20 text-black rounded-full mt-[0.4rem] px-2 py-1 mr-2 text-[0.695rem]"
               >
                 {genre}
               </span>

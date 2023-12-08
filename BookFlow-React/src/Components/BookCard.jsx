@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import atomicImage from './48laws.jpg'
 
 function bookCard(props) {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   return (
     <div className="userHomePage-div flex h-screen w-screen">
-      {/* <div className="sideNav bg-[url('./assets/newbg.jpg')] text-white flex flex-col items-center h-screen w-[4%]">
+      <div className="sideNav bg-[url('./assets/newbg.jpg')] text-white flex flex-col items-center h-screen w-[4%]">
         <div className="profileIcon flex">
           <svg
             className="flex mt-[.3rem]"
@@ -186,7 +187,7 @@ function bookCard(props) {
             </g>
           </svg>
         </div>
-      </div> */}
+      </div>
 
       <div className="mainContent flex h-[100%] w-[100%] flex-col">
         <div className="topNav flex w-[100%] h-[8%] border-purple-600 shadow-[-1rem_0.2rem_1rem_-1px_rgba(0,0,0,0.3)] ">
@@ -254,7 +255,7 @@ function bookCard(props) {
               </g>
             </svg>
             <img
-              src={atomicImage}
+              src="#"
               alt=""
               className="w-[15rem] h-[22rem] shadow-[-1rem_1rem_1rem_-1px_rgba(0,0,0,0.3)] z-20"
             />

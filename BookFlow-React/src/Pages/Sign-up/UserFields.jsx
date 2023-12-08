@@ -55,7 +55,6 @@ function signUpUser() {
 
               placeholder="Home Address"
               type="text"
-              required
             />
 
             <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}
