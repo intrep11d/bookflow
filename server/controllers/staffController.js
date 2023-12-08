@@ -6,8 +6,9 @@ const staffController = {
     getAllStaff: async (req, res) => {
         try {
             const staffMembers = await User.findAll({
-                include: [{ model: UserProfile }],
-                where: { role: 'Staff' }
+                include: [{ model: UserProfile, as : 'profile' }],
+                where: { role: 'Staff' },
+
             });
             res.json(staffMembers);
         } catch (error) {
@@ -38,7 +39,40 @@ const staffController = {
         } catch (error) {
             res.status(500).send(error.message);
         }
+    },
+    staffAccountDisplay: async (req, res) => {
+        try {
+            const staffMembers = await User.findAll({
+                attributes: ['id', 'username', 'email'], // Specify the fields you want to return
+                include: [{
+                    model: UserProfile,
+                    as: 'profile',
+                    attributes: ['firstName', 'lastName', 'phoneNumber', 'address'] // Specify the UserProfile fields
+                }],
+                where: { role: 'Staff' },
+            });
+
+            // Optional: Transform the data if needed before sending the response
+            const transformedStaffMembers = staffMembers.map(member => {
+                return {
+                    id: member.id,
+                    username: member.username,
+                    email: member.email,
+                    profile: {
+                        firstName: member.profile.firstName,
+                        lastName: member.profile.lastName,
+                        phoneNumber: member.profile.phoneNumber,
+                        address: member.profile.address
+                    }
+                };
+            });
+
+            res.json(transformedStaffMembers);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
     }
 };
+
 
 module.exports = staffController;

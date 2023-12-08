@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   Book.associate = function(models) {
     Book.belongsToMany(models.Author, { through: 'BookAuthors', foreignKey: 'bookId', as: 'authors' });
     Book.belongsTo(models.Genre, { foreignKey: 'genreId', as: 'genre' });
-    Book.belongsTo(models.Publisher, { foreignKey: 'publisherId', as: 'publisher' });
     Book.hasMany(models.BorrowingRecord, { foreignKey: 'bookId', as: 'borrowings' });
   };
 

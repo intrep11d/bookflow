@@ -3,8 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATEONLY,
-    nationality: DataTypes.STRING
   });
 
   Author.associate = function(models) {

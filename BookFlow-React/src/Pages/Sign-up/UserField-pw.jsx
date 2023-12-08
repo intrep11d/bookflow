@@ -107,7 +107,7 @@ function passwordField() {
   };
   // console.log(basicInfo);
   return (
-    <div className="Signup-main-div flex h-screen w-screen flex-col bg-black">
+    <div className="Signup-main-div flex h-screen w-screen flex-col bg-black overflow-y-auto">
       <div
         className="bgPic absolute h-screen w-screen bg-[url('./assets/newbg.jpg')] bg-cover bg-center opacity-10"
         style={{ pointerEvents: "none" }}
@@ -120,8 +120,8 @@ function passwordField() {
         </div>
       </div>
 
-      <div className="userEmail flex flex-col items-center pt-[12%] max-[912px]:pt-[50%] max-[548]:pt-[10%]">
-        <form onSubmit={handleCredentialsSubmit} className="userEmail flex flex-col items-center pt-[12%]">
+      <form className="userEmail flex flex-col items-center pt-[12%]" onSubmit="{handleCredentialsSubmit}">
+        {/* <form onSubmit={handleCredentialsSubmit} className="userEmail flex flex-col items-center pt-[12%]"> */}
         <input
           name="email"
           className="flex w-[20.5rem] mr-[1rem] p-[0.5rem]  placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
@@ -131,7 +131,7 @@ function passwordField() {
           placeholder="Email"
           required
         />
-        {errors.email && <div className="error-message">{errors.email}</div>}
+        {/* {errors.email && <div className="error-message">{errors.email}</div>} */}
          <input
           name="password"
           className="userPass flex w-[20.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
@@ -141,7 +141,7 @@ function passwordField() {
           placeholder="Password"
           required
         />
-        {errors.password && <div className="error-message">{errors.password}</div>}
+        {/* {errors.password && <div className="error-message">{errors.password}</div>} */}
         <input
           name="confirmPassword"
           className="userConfirm flex w-[20.5rem] mr-[1rem] p-[0.5rem] placeholder:text-[#D5C5AE] outline-none bg-transparent text-[#D5C5AE] border-[0.2rem] border-[#D5C5AE] rounded-xl mb-[2rem]"
@@ -151,7 +151,7 @@ function passwordField() {
           placeholder="Confirm password"
           required
         />
-        {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
+        {/* {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>} */}
 
         <div className="flex w-[30%] justify-center">
           <input type="checkbox" name="" id="" onClick={handleCheck} required />
@@ -170,8 +170,8 @@ function passwordField() {
         >
           Verify Email Address
         </button>
-        </form>
-      </div>
+        {/* </form> */}
+      </form>
 
       <div className="flex mt-[13%] justify-center">
         <h1 className="flex text-[#D5C5AE]">Already have an account?</h1>
