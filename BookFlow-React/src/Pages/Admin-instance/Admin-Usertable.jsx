@@ -362,7 +362,7 @@ function UserAdminTable() {
               </div>
             </div>
           </div>
-        {console.log(staffAccounts)}
+        {/* {console.log(staffAccounts)} */}
           <div className="middleContentDiv border-blue-700 p-[2rem] flex flex-col h-[85%] w-screen">
             <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
               <SearchBar
@@ -435,7 +435,7 @@ function UserAdminTable() {
                   >
                     <h1 className="text-[1rem] font-bold">Staff</h1>
                     <h1 className="ml-[0.5rem] w-[1.5rem] bg-[#392E05] bg-opacity-20 rounded-lg">
-                      {staffEntries.length}
+                      {filteredEntriesStaff.length}
                     </h1>
                   </button>
                 </div>

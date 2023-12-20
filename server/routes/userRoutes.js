@@ -6,5 +6,6 @@ const { login } = require('../controllers/authController');
 router.post('/signup', userController.signup);
 router.get('/verify-email/:token', userController.verifyEmail);
 router.post('/login', login);
+router.get('/essential', userController.patronAccountDisplay);
 
 module.exports = router;

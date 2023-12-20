@@ -19,7 +19,7 @@ function sendVerificationEmail(email, token, host) {
     to: email,
     subject: 'Email Verification',
     text: `Please verify your email by clicking the following link: 
-           http://${host}/api/verify-email/${token}`
+           http://${host}/api/users/verify-email/${token}`
   };
 
   transporter.sendMail(mailOptions, function(error, info) {
@@ -96,8 +96,54 @@ const userController = {
       console.error('Email verification error:', error);
       res.status(500).send('Error verifying email.');
     }
-  }
+  },
+
+  getEssentialUserData: async (req, res) => {
+    try {
+      const users = await User.findAll({
+        attributes: ['firstName', 'lastName','username', 'phoneNumber', 'email'] // Specify the fields you want to retrieve
+      });
+      res.status(200).json(users);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ message: 'Error fetching user data' });
+    }
+  },
+
   
+  
+  patronAccountDisplay: async (req, res) => {
+  try {
+    const patronMembers = await User.findAll({
+      attributes: ['id', 'username', 'email'], // Specify the fields you want to return
+      include: [{
+        model: UserProfile,
+        as: 'profile',
+        attributes: ['firstName', 'lastName', 'phoneNumber', 'address'] // Specify the UserProfile fields
+      }],
+      where: { role: 'Patron' },
+    });
+
+    // Optional: Transform the data if needed before sending the response
+    const transformedPatronMembers = patronMembers.map(member => {
+      return {
+        id: member.id,
+        username: member.username,
+        email: member.email,
+        profile: {
+          firstName: member.profile.firstName,
+          lastName: member.profile.lastName,
+          phoneNumber: member.profile.phoneNumber,
+          address: member.profile.address
+        }
+      };
+    });
+
+    res.json(transformedPatronMembers);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}  
 };
 
 
