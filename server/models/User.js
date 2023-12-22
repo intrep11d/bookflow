@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     passwordHash: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
     role: { type: DataTypes.ENUM('Patron', 'Staff', 'Admin'), allowNull: false },
+    status: { type: DataTypes.ENUM, values: ['Verified', 'Unverified', 'Blocked'],
+      defaultValue: 'Unverified',
+      allowNull: false
+    },
     emailVerificationToken: { type: DataTypes.STRING, },
     isEmailVerified: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   });

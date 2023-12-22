@@ -115,7 +115,7 @@ const userController = {
   patronAccountDisplay: async (req, res) => {
   try {
     const patronMembers = await User.findAll({
-      attributes: ['id', 'username', 'email'], // Specify the fields you want to return
+      attributes: ['id', 'username', 'email', 'status'], // Specify the fields you want to return
       include: [{
         model: UserProfile,
         as: 'profile',
@@ -130,6 +130,7 @@ const userController = {
         id: member.id,
         username: member.username,
         email: member.email,
+        status: member.status,
         profile: {
           firstName: member.profile.firstName,
           lastName: member.profile.lastName,
