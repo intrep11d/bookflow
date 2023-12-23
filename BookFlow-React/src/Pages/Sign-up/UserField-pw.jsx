@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
+
+
 function passwordField() {
   const [credentials, setCredentials] = useState({
     email: '',
@@ -11,7 +13,8 @@ function passwordField() {
   const [visible, setVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false); // State to track checkbox status
   const basicInfo = JSON.parse(localStorage.getItem('basicInfo')); // Retrieve basic info
-  const firstName = basicInfo ? basicInfo.firstName : '';
+  const firstName = basicInfo?.firstName;
+  const email = credentials?.email;
 
   // Validation function
   const validateCredentials = () => {
@@ -38,9 +41,6 @@ function passwordField() {
 
   const handleCredentialsChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: null });
-    }
   };
 
   const handleCredentialsSubmit = async (event) => {
@@ -120,7 +120,7 @@ function passwordField() {
         </div>
       </div>
 
-      <form className="userEmail flex flex-col items-center pt-[12%]" onSubmit="{handleCredentialsSubmit}">
+      <form className="userEmail flex flex-col items-center pt-[12%]" onSubmit={handleCredentialsSubmit}>
         {/* <form onSubmit={handleCredentialsSubmit} className="userEmail flex flex-col items-center pt-[12%]"> */}
         <input
           name="email"
@@ -156,10 +156,8 @@ function passwordField() {
         <div className="flex w-[30%] justify-center">
           <input type="checkbox" name="" id="" onClick={handleCheck} required />
           <h1 className="flex text-[#D5C5AE] pl-[1rem]">
-            I agree with
-            <h1 className="text-[#755D41] pl-[0.5rem] pr-[0.5rem]">privacy</h1>
-            <h1>and</h1>
-            <h1 className="text-[#755D41] pl-[0.5rem]">policy</h1>
+            I have read and agreed to the
+            <h1 className="text-[#755D41] pl-[0.5rem] pr-[0.5rem]">Privacy Policy</h1>
           </h1>
         </div>
 

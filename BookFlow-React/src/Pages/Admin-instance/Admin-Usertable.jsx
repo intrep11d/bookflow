@@ -18,6 +18,7 @@ function UserAdminTable() {
   const [add, setAddStaff] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [staffAccounts, setStaffAccounts] = useState([]);
+  const [patronAccounts, setPatronAccounts] = useState([]);
   const [newStaff, setNewStaff] = useState({
     firstName: '',
     lastName: '',
@@ -28,10 +29,9 @@ function UserAdminTable() {
     confirmPassword: ''
   });
 
-  useEffect(() => {
-    fetchStaffAccounts();
-  }, []);
-
+ 
+  
+  
   const fetchStaffAccounts = async () => {
     try {
       const response = await fetch('/api/staff/get-staff');
@@ -45,13 +45,31 @@ function UserAdminTable() {
       console.error('There was a problem with the fetch operation:', error);
     }
   };
-  {console.log(staffAccounts);}
+  
+  // useEffect(() => {
+  //   fetchStaffAccounts().then(() => {
+  //     if (staffAccounts.length > 0) {
+  //       console.log('Sample entry:', staffAccounts[0]);
+  //     }
+  //   });
+  // }, []);
+
   useEffect(() => {
-    fetchStaffAccounts().then(() => {
-      if (staffAccounts.length > 0) {
-        console.log('Sample entry:', staffAccounts[0]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/users/essential');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setPatronAccounts(data);
+        console.log(data);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
       }
-    });
+    };
+  
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -63,7 +81,6 @@ function UserAdminTable() {
         }
         const data = await response.json();
         setStaffAccounts(data);
-        console.log('Fetched data:', data); // Log the fetched data
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
       }
@@ -244,8 +261,9 @@ function UserAdminTable() {
 
   // }));
   // console.log(staffData);
-  const filteredEntries = userEntries.filter((entry) =>
-    entry.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredEntriesUsers = patronAccounts.filter((entry) =>      //Added -users
+  entry.profile.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  entry.profile.lastName.toLowerCase().includes(searchQuery.toLowerCase())
   );
   
 
@@ -362,7 +380,7 @@ function UserAdminTable() {
               </div>
             </div>
           </div>
-        {console.log(staffAccounts)}
+        {/* {console.log(staffAccounts)} */}
           <div className="middleContentDiv border-blue-700 p-[2rem] flex flex-col h-[85%] w-screen">
             <div className="searchExport flex justify-between border-[#392E05] w-[100%]">
               <SearchBar
@@ -435,12 +453,12 @@ function UserAdminTable() {
                   >
                     <h1 className="text-[1rem] font-bold">Staff</h1>
                     <h1 className="ml-[0.5rem] w-[1.5rem] bg-[#392E05] bg-opacity-20 rounded-lg">
-                      {staffEntries.length}
+                      {filteredEntriesStaff.length}
                     </h1>
                   </button>
                 </div>
                 {userClick === true && (
-                  <h1>{`Showing ${filteredEntries.length} out of ${userEntries.length} results`}</h1>
+                  <h1>{`Showing ${filteredEntriesUsers.length} out of ${patronAccounts.length} results`}</h1>
                 )}
 
                 {staffClick === true && (
@@ -495,7 +513,7 @@ function UserAdminTable() {
                     {/* Rendering AdminEntry components dynamically using map */}
                     {showUser === true && (
                       <>
-                        {filteredEntries.map((entry, index) => (
+                        {filteredEntriesUsers.map((entry, index) => (
                           <Link
                             key={index} // Add a unique key for each entry
                             to={{
@@ -506,13 +524,14 @@ function UserAdminTable() {
                           >
                             <AdminEntry
                               key={index} // Add a unique key for each entry
-                              UserID={entry.UserID}
-                              // Name={`${entry.profile.firstName} ${entry.profile.lastName}`}
-                              Username={entry.Username}
-                              PhoneNumber={entry.PhoneNumber}
-                              Email={entry.Email}
-                              Status={entry.Status}
-                              Type={entry.Type}
+                              id={entry.id}
+                              username={entry.username}
+                              firstName={entry.profile.firstName}
+                              lastName={entry.profile.lastName}
+                              phoneNumber={entry.profile.phoneNumber}
+                              email={entry.email}
+                              status={entry.status}
+                              Type="Patron" // Assuming all entries are patrons, set Type to "Patron"
                             />
                           </Link>
                         ))}
@@ -660,7 +679,7 @@ function UserAdminTable() {
                   onChange={handleChange}
                   placeholder="Confirm Password"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />x``
+                />
               </div>
             </div>
 
