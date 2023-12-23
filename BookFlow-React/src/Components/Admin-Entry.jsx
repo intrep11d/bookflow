@@ -1,9 +1,15 @@
+import React, { useState } from 'react';
+
 function AdminEntry(props) {
   // const { UserID, Name, Username, PhoneNumber, Email, Status, Type } = props;
   const { id, firstName, lastName, username, phoneNumber, email, status, Type, UserID, Status, Profile} = props;
-  const handleBlock = async () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleBlock = async (event) => {
+    event.stopPropagation();
+    setIsLoading(true);
     try {
-      const response = await fetch(`/api/users/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/users/update/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -19,6 +25,7 @@ function AdminEntry(props) {
     } catch (error) {
       console.error('Error blocking user:', error);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -36,7 +43,7 @@ function AdminEntry(props) {
               Verified
             </button>
 
-            <button onClick={handleBlock} className={`text-white justify-center rounded-xl w-[7rem] ${status === "Blocked" ? 'bg-red-950' : 'bg-gray-300'}`}>
+            <button onClick={(event) => handleBlock(event)} className={`text-white justify-center rounded-xl w-[7rem] ${status === "Blocked" ? 'bg-red-950' : 'bg-gray-300'}`}>
               Blocked
             </button>
 
