@@ -39,17 +39,9 @@ function AdminEntry(props) {
           <td className="justify-center absolute mr-[-16%]">{phoneNumber}</td>
           <td className="justify-center absolute mr-[-50%]">{email}</td>
           <td className="justify-center absolute mr-[-75%]">
-            <button className={`text-white justify-center rounded-xl w-[7rem] ${status === "Verified" ? 'bg-green-800' : 'bg-gray-300'}`}>
-              Verified
-            </button>
-
-            <button onClick={(event) => handleBlock(event)} className={`text-white justify-center rounded-xl w-[7rem] ${status === "Blocked" ? 'bg-red-950' : 'bg-gray-300'}`}>
-              Blocked
-            </button>
-
-            <button className={`text-white justify-center rounded-xl w-[7rem] ${status === "Unverified" ? 'bg-yellow-700' : 'bg-gray-300'}`}>
-              Unverified
-            </button>
+          <button className={`text-white justify-center rounded-xl w-[7rem] ${status === "Verified" ? 'bg-green-800' : status === "Blocked" ? 'bg-red-950' : 'bg-yellow-700'}`}>
+            {status}
+          </button>
           </td>
         </>
         </tr>
