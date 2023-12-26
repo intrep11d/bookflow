@@ -88,6 +88,7 @@ const userController = {
   
       // Update user's status to "verified"
       user.isEmailVerified = true;
+      user.status = 'Verified';
       user.emailVerificationToken = null; // Clear the token
       await user.save();
   
@@ -163,6 +164,20 @@ const userController = {
       res.status(500).send({ message: 'Error updating user', error });
     }
   },
+
+  // In your userController.js
+  getUserById: async (req, res) => {
+  try {
+    const user = await UserProfile.findByPk(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+},
+
 };
 
 

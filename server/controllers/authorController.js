@@ -1,4 +1,4 @@
-const Author = require('../models');
+const { Author } = require('../models/');
 
 const authorController = {
   // Add an author

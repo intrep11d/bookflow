@@ -5,7 +5,7 @@ function AdminEntry(props) {
   const { id, firstName, lastName, username, phoneNumber, email, status, Type, UserID, Status, Profile} = props;
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleBlock = async (event) => {
+  const handleBlock = async (event) => { // Linked with the Block button and updateUser in userController.js
     event.stopPropagation();
     setIsLoading(true);
     try {

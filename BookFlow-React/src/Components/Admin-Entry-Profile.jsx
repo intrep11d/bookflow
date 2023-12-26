@@ -214,7 +214,7 @@ const AdminEntryProfile = () => {
   // Use entryData to display the details in your component
   return (
     <div>
-      {entryData.Type === "User" && (
+      {entryData.Type === "Patron" && (
         <div className="overflow-x-hidden">
           <div className="userHomePage-div flex h-screen w-screen">
             <div className="mainContent flex h-[140%] w-[100%] flex-col">

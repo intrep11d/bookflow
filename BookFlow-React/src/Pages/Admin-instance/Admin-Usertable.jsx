@@ -160,7 +160,7 @@ function UserAdminTable() {
  
   const userEntries = [
     {
-      UserID: 1,
+      UserID: 53,
       Name: "Pia Lorraine Tantay",
       Username: "yapyapiee",
       PhoneNumber: "0928643478",
@@ -436,7 +436,7 @@ function UserAdminTable() {
                   >
                     <h1 className="text-[1rem] font-bold">User</h1>
                     <h1 className="ml-[0.5rem] w-[1.5rem] h-[1.5rem] text-[1rem] bg-[#392E05] bg-opacity-20 rounded-lg">
-                      {userEntries.length}
+                      {patronAccounts.length}
                     </h1>
                   </button>
 
@@ -513,11 +513,13 @@ function UserAdminTable() {
                     {/* Rendering AdminEntry components dynamically using map */}
                     {showUser === true && (
                       <>
+                      
                         {filteredEntriesUsers.map((entry, index) => (
+                          (console.log(entry)),
                           <Link
                             key={index} // Add a unique key for each entry
                             to={{
-                              pathname: `/BookFlow-Admin-entryProfile-user${entry.UserID}`,
+                              pathname: `/BookFlow-Admin-entryProfile-user${entry.id}`,
                               state: { entryData: entry }, // Pass entry data as state
                             }}
                             className="block hover:bg-[#392E05] hover:bg-opacity-20 rounded"

@@ -19,12 +19,28 @@ function UserAdminTable() {
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [clickBorrow, setClickBorrow] = useState(false);
+  const [authorFormData, setauthorFormData] = useState({
+    firstName: '',
+    lastName: ''
+  });
+  const [genreFormData, setgenreFormData] = useState({
+    genre: ''
+  });
 
+  const handleAuthorChange = (event) => {
+    setauthorFormData({...authorFormData, [event.target.name]: event.target.value});
+  };
+
+  const handleGenreChange = (event) => {
+    setgenreFormData({...genreFormData, [event.target.name]: event.target.value});
+  };
+
+  
   //ALL
   const handleShowAll = () => {
     setShowAll(false);
     setClickBorrow(false);
-  };
+  };  
 
   const handleAddGenre = () => {
     setClickAddGenre(true);
@@ -136,13 +152,11 @@ function UserAdminTable() {
 
   const handleSubmitAuthor = async (event) => {
   event.preventDefault();
-  const payload = {
-    author: authorName
-  };
+  const payload = authorFormData;
 
   // Send the data to your backend
   try {
-    const response = await fetch('/api/authors', {
+    const response = await fetch('/api/author/add-author', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -155,7 +169,7 @@ function UserAdminTable() {
     }
     const data = await response.json();
     console.log('Author added successfully:', data);
-    setAuthorName(''); // Reset the form field
+    setauthorFormData(''); // Reset the form field
   } catch (error) {
     console.error('Error adding author:', error);
   }
@@ -719,7 +733,7 @@ const handleSubmitBook = async (event) => {
 
       {clickAddGenre === true && (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmitGenre}
           action="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
@@ -786,7 +800,7 @@ const handleSubmitBook = async (event) => {
 
       {clickAddAuth === true && (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmitAuthor}
           method="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
@@ -828,12 +842,18 @@ const handleSubmitBook = async (event) => {
             </div>
             <input
               type="text"
-              name="author"
-              value={authorName}
-              onChange={handAuthorNameChange}
-              placeholder="Author"
+              name="firstName"
+              value={authorFormData.firstName}
+              onChange={handleAuthorChange}
+              placeholder="First Name"
               className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
             />
+            <input type="text" 
+              name="lastName" 
+              placeholder="Last Name" 
+              value={authorFormData.lastName}
+              onChange={handleAuthorChange}
+              className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]" />
             <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
               <button
                 type="submit"
@@ -845,7 +865,7 @@ const handleSubmitBook = async (event) => {
               <button
                 type="submit"
                 className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleCloseAddAuthor} on
+                onClick={handleCloseAddAuthor && handleSubmitAuthor} on
               >
                 Add
               </button>

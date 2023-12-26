@@ -21,7 +21,7 @@ app.use('/api/author', authorRoutes);
 
 app.use('/api/staff', staffRoutes);
 // Correct the path for your book routes if necessary
-app.use('/books', bookRoutes);
+app.use('/api/books', bookRoutes);
 
 
 // Now use the sequelize instance from the 'db' object
