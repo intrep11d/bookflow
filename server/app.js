@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes'); // Routes for user actions
 const adminRoutes = require('./routes/adminRoutes'); // Routes for admin actions
 const staffRoutes = require('./routes/staffRoutes'); // Routes for staff actions
 const authorRoutes = require('./routes/authorRoutes'); // Routes for author actions
+const genreRoutes = require('./routes/genreRoutes'); // Routes for genre actions
 const app = express();
 const port = 3000;
 
@@ -16,12 +17,11 @@ app.use(bodyParser.json());
 app.use(express.json()); // Middleware for parsing JSON 
 app.use('/api/users', userRoutes); // Prefix all user routes
 app.use('/api', adminRoutes);
-// app.use('/api', userRoutes);
 app.use('/api/author', authorRoutes);
-
 app.use('/api/staff', staffRoutes);
 // Correct the path for your book routes if necessary
 app.use('/api/books', bookRoutes);
+app.use('/api/genre', genreRoutes);
 
 
 // Now use the sequelize instance from the 'db' object

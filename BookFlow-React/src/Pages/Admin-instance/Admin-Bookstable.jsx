@@ -24,7 +24,7 @@ function UserAdminTable() {
     lastName: ''
   });
   const [genreFormData, setgenreFormData] = useState({
-    genre: ''
+    name: ''
   });
 
   const handleAuthorChange = (event) => {
@@ -178,6 +178,24 @@ function UserAdminTable() {
 const handleSubmitGenre = async (event) => {
   event.preventDefault();
   // Logic to submit genre data
+  try {
+    const response = await fetch('/api/genre/add-genre', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(genreFormData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    console.log('Genre added successfully:', data);
+    setgenreFormData(''); // Reset the form field
+  } catch (error) {
+    console.error('Error adding genre:', error);
+  }
 };
 
 const handleSubmitBook = async (event) => {
@@ -734,7 +752,7 @@ const handleSubmitBook = async (event) => {
       {clickAddGenre === true && (
         <form
           onSubmit={handleSubmitGenre}
-          action="POST"
+          method="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
           <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[30rem] h-[15rem]">
@@ -775,7 +793,10 @@ const handleSubmitBook = async (event) => {
             </div>
             <input
               type="text"
+              name="name"
               placeholder="Genre"
+              value={genreFormData.genre}
+              onChange={handleGenreChange}
               className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
             />
             <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
@@ -789,7 +810,7 @@ const handleSubmitBook = async (event) => {
               <button
                 type="submit"
                 className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleAddBookClose}
+                onClick={handleAddBookClose && handleSubmitGenre}
               >
                 Add
               </button>
