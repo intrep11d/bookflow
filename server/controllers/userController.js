@@ -5,6 +5,7 @@ const sequelize = require('../models').sequelize; // Import Sequelize instance
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+//Protect endpoints from unauthorized users
 function sendVerificationEmail(email, token, host) {
   const transporter = nodemailer.createTransport({
     service: "gmail",

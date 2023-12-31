@@ -6,6 +6,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import SearchBar from "../../Components/SearchBar";
 import Select from "react-select";
 import BorrowBook from "../../Components/Borrow-Book";
+import SuccessModal from "../../Components/SuccessModal";
 
 function UserAdminTable() {
   const [clickAll, setClickAll] = useState(false);
@@ -19,6 +20,7 @@ function UserAdminTable() {
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [clickBorrow, setClickBorrow] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [authorFormData, setauthorFormData] = useState({
     firstName: '',
     lastName: ''
@@ -170,6 +172,8 @@ function UserAdminTable() {
     const data = await response.json();
     console.log('Author added successfully:', data);
     setauthorFormData(''); // Reset the form field
+    setShowSuccessModal(true);
+    handleCloseAddAuthor();
   } catch (error) {
     console.error('Error adding author:', error);
   }
@@ -192,7 +196,10 @@ const handleSubmitGenre = async (event) => {
     }
     const data = await response.json();
     console.log('Genre added successfully:', data);
+    setShowSuccessModal(true);
+
     setgenreFormData(''); // Reset the form field
+    handleCloseAddGenre();
   } catch (error) {
     console.error('Error adding genre:', error);
   }
@@ -593,7 +600,7 @@ const handleSubmitBook = async (event) => {
       </div>
       {clickAdd === true && (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmitBook}
           action="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
@@ -732,7 +739,7 @@ const handleSubmitBook = async (event) => {
                 <textarea
                   placeholder="Synopsis..."
                   className="pb-[6rem] border-[#392E05] outline-none synopsis placeholder-[#392E05] bg-[#392E05] bg-opacity-20 border w-[100%] h-[13rem] pl-[1rem] pt-[0.5rem] rounded-xl mt-[2rem] overflow-wrap-break-word resize-none"
-                />
+                ></textarea>
               </div>
             </div>
 
@@ -801,16 +808,14 @@ const handleSubmitBook = async (event) => {
             />
             <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
               <button
-                type="submit"
                 className="w-[10rem] mr-[1rem] text-[#392E05] bg-[#392E05] bg-opacity-20 border-[#392E05] border h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleAddBookClose}
+                onClick={handleCloseAddGenre}
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 className="w-[10rem] text-white bg-[#392E05] h-[2rem] mt-[2rem] rounded-xl"
-                onClick={handleAddBookClose && handleSubmitGenre}
               >
                 Add
               </button>
@@ -818,6 +823,13 @@ const handleSubmitBook = async (event) => {
           </div>
         </form>
       )}
+
+        <SuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          message="Genre added successfully"
+        />
+      
 
       {clickAddAuth === true && (
         <form
@@ -877,7 +889,6 @@ const handleSubmitBook = async (event) => {
               className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]" />
             <div className="buttons flex w-[100%] justify-center items-center border border-t-[#392E05] mt-[1rem] pt-[0.5rem]">
               <button
-                type="submit"
                 className="w-[10rem] mr-[1rem] text-[#392E05] bg-[#392E05] bg-opacity-20 border-[#392E05] border h-[2rem] mt-[2rem] rounded-xl"
                 onClick={handleCloseAddAuthor}
               >
@@ -894,7 +905,12 @@ const handleSubmitBook = async (event) => {
           </div>
         </form>
       )}
-    </div>
+      <SuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          message="Author added successfully"
+        />
+    </div> 
   );
 }
 
