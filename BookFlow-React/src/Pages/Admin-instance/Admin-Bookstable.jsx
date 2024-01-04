@@ -1,5 +1,5 @@
 import "./Admin-Usertable.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BookEntry from "../../Components/Book-Entry";
 import BookCopies from "../../Components/Book-Copies";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -7,6 +7,7 @@ import SearchBar from "../../Components/SearchBar";
 import Select from "react-select";
 import BorrowBook from "../../Components/Borrow-Book";
 import SuccessModal from "../../Components/SuccessModal";
+
 
 function UserAdminTable() {
   const [clickAll, setClickAll] = useState(false);
@@ -21,10 +22,69 @@ function UserAdminTable() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [clickBorrow, setClickBorrow] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [authorOptions, setAuthorOptions] = useState([]);
+  const [genreOptions, setGenreOptions] = useState([]);
+  const [formatOptions, setFormatOptions] = useState([]);
   const [authorFormData, setauthorFormData] = useState({
     firstName: '',
     lastName: ''
   });
+  
+  const [bookData, setBookData] = useState({
+    title: '',
+    authors: [],
+    genres: [],
+    publicationDate: '',
+    isbn: '',
+    edition: '',
+    format: '',
+    numberOfCopies: '',
+  });
+
+  const [bookImage, setBookImage] = useState(null);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBookData({ ...bookData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setBookImage(e.target.files[0]);
+  };
+
+  const handleSubmitBook = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', bookData.title);
+    formData.append('authors', JSON.stringify(bookData.authors)); // Assuming authors is an array
+    formData.append('genres', JSON.stringify(bookData.genres)); // Assuming genres is an array
+    formData.append('publicationDate', bookData.publicationDate);
+    formData.append('ISBN', bookData.ISBN);
+    formData.append('edition', bookData.edition);
+    formData.append('format', bookData.format);
+    formData.append('numberOfCopies', bookData.numberOfCopies);
+    if (bookImage) {
+      formData.append('bookImage', bookImage);
+    }
+
+    try {
+      const response = await fetch('/api/books/add', {
+        method: 'POST',
+        body: formData, // No headers included for multipart/form-data, browser sets it
+      });
+
+      if (response.ok) {
+        // Handle success
+        console.log('Book added successfully');
+      } else {
+        // Handle errors
+        console.error('Failed to add book');
+      }
+    } catch (error) {
+      console.error('Error submitting form', error);
+    }
+  };
+
   const [genreFormData, setgenreFormData] = useState({
     name: ''
   });
@@ -35,6 +95,10 @@ function UserAdminTable() {
 
   const handleGenreChange = (event) => {
     setgenreFormData({...genreFormData, [event.target.name]: event.target.value});
+  };
+
+  const handleFormatChange = (event) => {
+    setFormatOptions(event.target.value);
   };
 
   
@@ -152,6 +216,10 @@ function UserAdminTable() {
     setSelectedGenres(selectedOptions);
   };
 
+  // const handleFormatSelect = (selectedOptions) => {
+  //   setSelectedFormat(selectedOptions);
+  // };
+
   const handleSubmitAuthor = async (event) => {
   event.preventDefault();
   const payload = authorFormData;
@@ -205,10 +273,7 @@ const handleSubmitGenre = async (event) => {
   }
 };
 
-const handleSubmitBook = async (event) => {
-  event.preventDefault();
-  // Logic to submit book data
-};
+
 
 
   const handleEntryClick = (entry) => {
@@ -219,8 +284,22 @@ const handleSubmitBook = async (event) => {
     });
   };
 
-  const authorOptions = [];
-  const genreOption = [];
+  useEffect(() => {
+    // Fetch authors
+    fetch('/api/author/get-all-authors')
+      .then(response => response.json())
+      .then(data => {
+        const options = data.map(author => ({ value: author.id, label: author.name }));
+        setAuthorOptions(options);
+      });
+
+  fetch('/api/genre/get-all-genres')
+      .then(response => response.json())
+      .then(data => {
+        const options = data.map(genre => ({ value: genre.id, label: genre.name }));
+        setGenreOptions(options);
+      });
+  }, []);
 
   const allEntries = [
     {
@@ -598,10 +677,11 @@ const handleSubmitBook = async (event) => {
           </div>
         </div>
       </div>
+
       {clickAdd === true && (
         <form
           onSubmit={handleSubmitBook}
-          action="POST"
+          method="POST"
           className="AddStaffDiv justify-center items-center flex absolute inset-0 z-50 bg-black bg-opacity-60 w-screen h-screen"
         >
           <div className="inputForm flex flex-col border p-[1.5rem] bg-[#F3EEE9] rounded-lg w-[45rem] h-[38.5rem]">
@@ -646,6 +726,8 @@ const handleSubmitBook = async (event) => {
                 <input
                   type="text"
                   name="title"
+                  value={bookData.title}
+                  onChange={handleInputChange}
                   placeholder="Title"
                   className="border outline-none mt-[1rem] placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
@@ -653,6 +735,7 @@ const handleSubmitBook = async (event) => {
                 <div className="flex flex-col w-[100%] justify-between items-center">
                   <Select
                     placeholder="Select Author(s)"
+                    name="authors"
                     isMulti
                     options={authorOptions}
                     classNamePrefix="select"
@@ -664,8 +747,9 @@ const handleSubmitBook = async (event) => {
 
                   <Select
                     placeholder="Select Genre(s)"
+                    name="genres"
                     isMulti
-                    options={genreOption}
+                    options={genreOptions}
                     classNamePrefix="select"
                     value={selectedGenres}
                     onChange={handleGenreSelect}
@@ -680,29 +764,50 @@ const handleSubmitBook = async (event) => {
                   </p>
                   <input
                     type="date"
+                    name="publicationDate"
                     placeholder="Publication"
+                    value={bookData.publicationDate}
+                    onChange={handleInputChange}
                     className="border outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[70%] pl-[1rem] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20"
                   />
                 </div>
                 <input
                   type="text"
+                  name="isbn"
+                  value={bookData.isbn}
+                  onChange={handleInputChange}
                   required
                   placeholder="ISBN"
                   className="border mt-[0rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
                 <input
                   type="text"
+                  name="edition"
                   placeholder="Edition"
+                  value={bookData.edition} 
+                  onChange={handleInputChange}
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
-                <input
-                  type="text"
-                  placeholder="Format"
-                  className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
-                />
+                <select
+                  name="format"
+                  value={bookData.format}
+                  onChange={handleInputChange}
+                  className="border mt-[1rem] outline-none text-[#392E05] h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
+                >
+                  <option value="">Select format</option>
+                  <option value="hardcover">Hardcover</option>
+                  <option value="paperback">Paperback</option>
+                  <option value="ebook">eBook</option>
+                  <option value="audiobook">Audiobook</option>
+                </select>
+                  
+                
 
                 <input
-                  type="text"
+                  type="number"
+                  name="numberOfCopies"
+                  value={bookData.numberOfCopies}
+                  onChange={handleInputChange}
                   placeholder="Number of Copies"
                   className="border mt-[1rem] outline-none placeholder:text-[#392E05] placeholder:opacity-60 h-[2.4rem] w-[100%] border-[#392E05] rounded-xl bg-[#392E05] bg-opacity-20 pl-[1rem]"
                 />
@@ -821,6 +926,7 @@ const handleSubmitBook = async (event) => {
               </button>
             </div>
           </div>
+          
         </form>
       )}
 
@@ -828,7 +934,7 @@ const handleSubmitBook = async (event) => {
           isOpen={showSuccessModal}
           onClose={() => setShowSuccessModal(false)}
           message="Genre added successfully"
-        />
+        />    
       
 
       {clickAddAuth === true && (
@@ -904,13 +1010,15 @@ const handleSubmitBook = async (event) => {
             </div>
           </div>
         </form>
-      )}
-      <SuccessModal
+      )
+      }
+       <SuccessModal
           isOpen={showSuccessModal}
           onClose={() => setShowSuccessModal(false)}
           message="Author added successfully"
         />
     </div> 
+    
   );
 }
 

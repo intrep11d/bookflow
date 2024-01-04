@@ -18,6 +18,21 @@ const genreController = {
           res.status(500).json({ message: 'Error adding genre', error });
         }
       },
+
+    getAllGenres: async (req, res) => {
+        try {
+          // Retrieve all genres from the database
+          const genres = await Genre.findAll();
+    
+          // Respond with the list of genres
+          res.status(200).json(genres);
+        } catch (error) {
+          // Send an error response if something goes wrong
+          res.status(500).json({ message: 'Error getting genres', error });
+        }
+      },
+    
+    
     
 };
 

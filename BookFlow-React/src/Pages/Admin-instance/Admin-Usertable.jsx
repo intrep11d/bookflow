@@ -28,6 +28,7 @@ function UserAdminTable() {
     password: '',
     confirmPassword: ''
   });
+  
 
  
   
@@ -57,13 +58,18 @@ function UserAdminTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/users/essential');
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/users/essential', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
         setPatronAccounts(data);
-        console.log(data);
+        console.log(response);
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
       }
@@ -261,6 +267,7 @@ function UserAdminTable() {
 
   // }));
   // console.log(staffData);
+  
   const filteredEntriesUsers = patronAccounts.filter((entry) =>      //Added -users
   entry.profile.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
   entry.profile.lastName.toLowerCase().includes(searchQuery.toLowerCase())

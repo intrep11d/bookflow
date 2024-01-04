@@ -21,8 +21,28 @@ const authorController = {
     }
   },
 
-  // Additional controller methods for other operations like getting, updating, deleting authors can be added here
-};
+  // Get all authors
+  getAllAuthors: async (req, res) => {
+    try {
+      // Retrieve all authors from the database
+      const authors = await Author.findAll({
+        attributes: ['id', 'firstName', 'lastName'] // Specify the fields you want to return
+      });
+  
+      // Map over the authors to combine firstName and lastName into a single name field
+      const authorsWithName = authors.map(author => ({
+        id: author.id,
+        name: `${author.firstName} ${author.lastName}`
+      }));
+  
+      // Respond with the list of authors
+      res.status(200).json(authorsWithName);
+    } catch (error) {
+      // Send an error response if something goes wrong
+      res.status(500).json({ message: 'Error getting authors', error });
+    }
+  }
+}
 
 module.exports = authorController;
 
